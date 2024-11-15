@@ -1,0 +1,19 @@
+.wrapper{
+    display: flex;
+    gap: 10px;
+}
+
+.wrapper>*{
+    display: flex;
+    gap: 10px;
+}
+
+.accessButton{
+    background-color: bisque;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.accessButton:hover{
+    background-color: rgb(241, 192, 131);
+}
