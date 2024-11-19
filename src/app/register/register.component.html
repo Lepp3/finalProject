@@ -1,12 +1,26 @@
-<div class="registerWrapper">
-    <h2>Register</h2>
-    <form action="#">
-        <label for="email">E-Mail</label>
-        <input type="text" id="email" placeholder="Registration e-mail">
-        <label for="userName">Username</label>
-        <input type="text" id="userName" placeholder="How will people see you">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Your password">
-        <input type="submit" value="Register">
-    </form>
+<div class="container">
+    <div class="wrapper">
+        <div class="heading">
+            <h2>Register</h2>
+        </div>
+      <form action="#" class="regForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" required/>
+        </div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required/>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required/>
+        </div>
+        <input type="submit" value="Register" />
+      </form>
+      <div class="registered">
+        <p>Already a member?</p>
+        <a routerLink="/login">Sign in</a>
+      </div>
+    </div>
 </div>
