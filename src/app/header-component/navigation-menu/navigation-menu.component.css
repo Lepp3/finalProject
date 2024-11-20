@@ -1,6 +1,7 @@
 
 .navWrapper{
     flex: 0 0 60%;
+    margin-left: 200px;
 }
 
 .navMenu{

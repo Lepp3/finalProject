@@ -15,3 +15,7 @@ a{
 ul{
     list-style: none;
 }
+
+html{
+    font-family: 'Roboto',sans-serif;
+}

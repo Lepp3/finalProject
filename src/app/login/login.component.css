@@ -3,7 +3,8 @@
     font-size: 16px;
     line-height: 1.5;
     padding: 2px;
-    width: 80%;
+    max-width: 40%;
+    min-height: 350px;
     margin: 40px auto;
     border: 1px solid black;
     border-radius: 10px;
@@ -15,11 +16,12 @@
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
+    min-height: 350px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     background: rgb(236,236,231);
-background: linear-gradient(90deg, rgba(236,236,231,0.30664652567975825) 5%, rgba(158,130,77,1) 54%, rgba(80,59,27,0.8096676737160121) 89%);
+    background: linear-gradient(90deg, rgba(236, 236, 231, 0.575) 5%, rgba(158,130,77,1) 54%, rgba(80,59,27,0.8096676737160121) 89%);
 }
 
 .heading{

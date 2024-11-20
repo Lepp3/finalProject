@@ -5,15 +5,17 @@
 
 .wrapper>*{
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .accessButton{
     background-color: bisque;
     padding: 5px 10px;
     border-radius: 5px;
+    transition: 0.5s ease;
 }
 
 .accessButton:hover{
     background-color: rgb(241, 192, 131);
+    transform: scale(1.1);
 }

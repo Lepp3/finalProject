@@ -1,0 +1,48 @@
+.heroSection{
+    background-image: url("../../assets/images/delightin-dee-_WI3DGseB3g-unsplash.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+
+.headings{
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(48, 49, 51);
+}
+
+.left{
+    font-size: 1.6rem;
+    text-align: center;
+    color: rgb(48, 49, 51);
+    align-self: flex-start;
+}
+
+.loginRegister{
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 150px;
+    color: rgb(42, 90, 53);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    font-weight: 600;
+    align-self: flex-end;
+}
+
+.join-us a{
+    background-color: rgb(219, 149, 19);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+    }
+
+.join-us a:hover{
+    background-color: rgb(219, 149, 19);
+    color: white;
+}
