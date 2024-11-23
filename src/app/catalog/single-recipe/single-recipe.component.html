@@ -1,7 +1,9 @@
 <div class="single-recipe">
     <h2>{{ recipe?.title }}</h2>
     <p>Author: {{ recipe?.author }}</p>
+    <div class="imgHolder">
     <img [src]="recipe?.imageSrc" alt="{{ recipe?.title }}" />
+    </div>
     <p>{{ recipe?.shortInfo }}</p>
     
     <h3>Details</h3>

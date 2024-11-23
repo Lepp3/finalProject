@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../user.service';
+import { HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+
 
 
 
@@ -7,16 +11,22 @@ import { RouterLink } from '@angular/router';
   selector: 'app-register',
   standalone: true,
   imports: [RouterLink],
-  providers: [],
+  providers: [UserService,HttpClient],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit{
-  constructor(){}
+export class RegisterComponent{
 
-  ngOnInit(): void {
-    
+  constructor(private test:UserService){
+
   }
+
+  testRegister():void{
+    this.test.createUser()
+  }
+  // ngOnInit(): void {
+    
+  // }
 
   
 }

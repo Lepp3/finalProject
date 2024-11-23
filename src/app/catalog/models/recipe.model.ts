@@ -1,3 +1,5 @@
+import { EmailAuthProvider } from "firebase/auth/web-extension"
+
 export interface Details{
     fullRecipe:string,
     ingredients:string[]
