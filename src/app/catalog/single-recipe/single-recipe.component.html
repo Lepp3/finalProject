@@ -1,0 +1,23 @@
+<div class="single-recipe">
+    <h2>{{ recipe?.title }}</h2>
+    <p>Author: {{ recipe?.author }}</p>
+    <img [src]="recipe?.imageSrc" alt="{{ recipe?.title }}" />
+    <p>{{ recipe?.shortInfo }}</p>
+    
+    <h3>Details</h3>
+    <p>{{ recipe?.details?.fullRecipe }}</p>
+  
+    <h3>Ingredients</h3>
+    <ul>
+      @for(ingredient of recipe?.details?.ingredients; track $index){
+        <li>{{ingredient}}</li>
+      }
+    </ul>
+  
+    <h3>Comments</h3>
+    <ul>
+        @for (comment of getComments(); track $index) {
+          <li>{{comment.authorUsername}} : {{comment.content}}</li>
+        }
+    </ul>
+  </div>

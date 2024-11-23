@@ -1,1 +1,7 @@
-<h2>CATALOG VIEW</h2>
+<div class="catalog">
+    <h1>Recipe Catalog</h1>
+    
+    @for(recipe of recipes; track $index){
+      <app-single-recipe [singleRecipe]="recipe" />
+    }
+  </div>

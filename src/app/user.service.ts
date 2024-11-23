@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { getAuth,createUserWithEmailAndPassword,signOut,signInWithEmailAndPassword } from 'firebase/auth';
 
 
 
@@ -17,24 +15,22 @@ export class FirebaseService {
     messagingSenderId: "58177858800",
     appId: "1:58177858800:web:10916640a4cdedb84f2635"
   }
-  private app = initializeApp(this.config);
   
-  private auth = getAuth(this.app);
   isLogged:boolean = false;
   constructor() { 
    
   }
 
-  createUser(email:string, password:string){
-    return createUserWithEmailAndPassword(this.auth, email,password);
+  createUser(email:string, password:string, rePass:string){
+    //TODO IMPLEMENT USER CREATION WITH REST API AFTER VALIDATIONS
   }
 
   signInUser(email:string, password:string){
-    return signInWithEmailAndPassword(this.auth,email,password);
+    //TODO IMPLEMENT USER SIGN IN WITH REST API AFTER VALIDATIONS
   }
 
   signOutUser(){
-    return signOut(this.auth);
+    //TODO IMPLEMENT USER SIGNOUT
   }
 
 }
