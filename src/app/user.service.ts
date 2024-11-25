@@ -30,7 +30,7 @@ interface signedUser{
 export class UserService {
 
   
-  isLogged:boolean = false;
+  public isLogged:boolean = false;
   private apiKey:string = ""
   constructor(private http:HttpClient) { 
    
@@ -44,6 +44,7 @@ export class UserService {
       'Content-Type': 'application/json'
   };
     this.http.put(environment.apiUrl+"users/"+userName+".json",{
+      username: userName,
       _id: localId,
       bio:bio,
       profileImgSrc:profilePicture
@@ -69,6 +70,7 @@ export class UserService {
       this.isLogged = true;
       localStorage.setItem('firebaseIdToken',data.idToken);
       localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
+      localStorage.setItem('firebaseLocalToken',data.localId);
       this.createUserInfoInDatabase(data.localId);
     })
 
@@ -95,6 +97,7 @@ export class UserService {
     this.isLogged = true;
     localStorage.setItem('firebaseIdToken',data.idToken);
     localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
+    localStorage.setItem('firebaseLocalToken',data.localId);
   })
 
   }
