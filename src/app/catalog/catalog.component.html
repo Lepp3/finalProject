@@ -1,7 +1,13 @@
 <div class="catalog">
     <h1>Recipe Catalog</h1>
-    
-    @for(recipe of recipes; track $index){
-      <app-single-recipe [singleRecipe]="recipe" />
+    @if(recipes.length == 0){
+      <h2>No recipes yet</h2>
+    }@else {
+      <ul class="recipeList">
+      @for(recipe of recipes; track $index){
+        <li class="singleRecipe"><app-single-recipe [singleRecipe]="recipe" /></li>
+      }
+    </ul>
     }
-  </div>
+    
+  

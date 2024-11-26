@@ -30,7 +30,7 @@ interface signedUser{
 export class UserService {
 
   
-  public isLogged:boolean = false;
+  public isLogged:boolean = true;
   private apiKey:string = ""
   constructor(private http:HttpClient) { 
    
@@ -81,7 +81,7 @@ export class UserService {
   
 
   signInUser(email:string, password:string){
-    //TODO IMPLEMENT VALIDATIONS
+    // TODO IMPLEMENT VALIDATIONS
     const requestBody = {
       email:email,
       password:password,
@@ -99,7 +99,7 @@ export class UserService {
     localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
     localStorage.setItem('firebaseLocalToken',data.localId);
   })
-
+    
   }
 
   signOutUser():void{

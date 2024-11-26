@@ -1,4 +1,4 @@
-import { EmailAuthProvider } from "firebase/auth/web-extension"
+
 
 export interface Details{
     fullRecipe:string,
@@ -14,6 +14,7 @@ export interface SingleComment{
     authorId: string,
     content: string,
     timestamp: string,
+    commentId:string
 }
 export interface FullComments{
     [commentId:string]: SingleComment
@@ -22,10 +23,12 @@ export interface FullComments{
 
 export interface SingleRecipe{
     title:string,
-    author:string,
+    authorId:string,
+    authorUsername:string,
     shortInfo:string,
     imageSrc:string,
     details: Details,
     comments: FullComments,
-    likes: Likes
+    likes: Likes,
+    recipeId: string
 }

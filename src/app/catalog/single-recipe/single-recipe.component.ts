@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { SingleRecipe,SingleComment } from '../models/recipe.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-single-recipe',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './single-recipe.component.html',
   styleUrl: './single-recipe.component.css'
 })
@@ -16,6 +17,13 @@ getComments(): SingleComment[] {
     return [];
   }
   return Object.values(this.recipe.comments);
+}
+
+getLikes(){
+  if(!this.recipe?.likes){
+    return[];
+  }
+  return Object.values(this.recipe.likes)
 }
 
 

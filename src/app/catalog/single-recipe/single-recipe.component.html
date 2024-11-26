@@ -1,4 +1,4 @@
-<div class="single-recipe">
+<div class="single-recipe" [routerLink]="['/recipes','details', recipe?.recipeId]">
     <h2>{{ recipe?.title }}</h2>
     <p>Author: {{ recipe?.author }}</p>
     <div class="imgHolder">
@@ -16,10 +16,6 @@
       }
     </ul>
   
-    <h3>Comments</h3>
-    <ul>
-        @for (comment of getComments(); track $index) {
-          <li>{{comment.authorUsername}} : {{comment.content}}</li>
-        }
-    </ul>
+    <h3>Comments ({{getComments().length}})</h3>
+    <h3>Likes ({{getLikes().length}})</h3>
   </div>

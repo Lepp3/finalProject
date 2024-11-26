@@ -1,0 +1,10 @@
+.recipeList{
+    display: flex;
+    gap: 25px;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+.singleRecipe{
+    cursor:pointer;
+}

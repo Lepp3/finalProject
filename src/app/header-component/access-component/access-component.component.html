@@ -1,11 +1,16 @@
 <div class="wrapper">
-    <div class="noAuth">
-        <a class="accessButton" routerLink="/login">Login</a>
-        <a class="accessButton" routerLink="/register">Register</a>
-    </div>
-    <div class="Auth">
-        <a class="accessButton" href="#">USER PROFILE</a>
-        <a class="accessButton" href="#">Logout</a>
-    </div>
+    @if(this.logged){
+        <div class="Auth">
+            <a class="accessButton" href="#">USER PROFILE</a>
+            <a class="accessButton" href="#">Logout</a>
+        </div>
+        
+    }
+    @else{
+        <div class="noAuth">
+            <a class="accessButton" routerLink="/login">Login</a>
+            <a class="accessButton" routerLink="/register">Register</a>
+        </div>
+    } 
 </div>
 
