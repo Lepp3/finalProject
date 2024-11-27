@@ -1,22 +1,16 @@
 <div class="wrapper">
-    <h2>{{currentRecipe.title}}</h2>
-    <p>A recipe posted by {{currentRecipe.authorUsername}}<p>
-    <img src={{currentRecipe.imageSrc}} alt="Picture of a dish">
+    <h2>{{currentRecipe?.title}}</h2>
+    <p>A recipe posted by {{currentRecipe?.authorUsername}}<p>
+    <img src={{currentRecipe?.imageSrc}} alt="Picture of a dish">
     <h3>Full recipe:</h3>
-    <article>{{currentRecipe.details.fullRecipe}}</article>
+    <article>{{currentRecipe?.details?.fullRecipe}}</article>
     <h3>Ingredients:</h3>
     <ul class="ingredientList">
-        @for(ingredient of currentRecipe.details.ingredients; track $index){
+        @for(ingredient of currentRecipe?.details?.ingredients; track $index){
             <li>{{ingredient}}</li>
         }
     </ul>
     <section class="commentSection">
-        @if(getComments().length !== 0){
-            @for(comment of getComments(); track $index){
-                <div class="singleComment">
-                    
-                </div>
-            }
-        }
+        <app-comments [recipeId]="recipeId"/>
     </section>
 </div>

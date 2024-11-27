@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SingleComment } from '../../../models/recipe.model';
 
 @Component({
   selector: 'app-single-comment',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './single-comment.component.css'
 })
 export class SingleCommentComponent {
-
+ @Input('singleComment') comment:SingleComment | null=null;
 }

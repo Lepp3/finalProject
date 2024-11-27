@@ -1,1 +1,9 @@
-<p>comments works!</p>
+<div class="wrapper">
+    <section clas="commentSection">
+        @if(comments){
+            @for(comment of comments; track $index){
+                <app-single-comment [singleComment]="comment"/>
+            }
+        }
+    </section>
+</div>

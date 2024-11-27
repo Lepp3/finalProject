@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../endpoints';
+import { SingleComment } from '../../models/recipe.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CommentService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  getAllComments(){
-    //TODO GET ALL COMMENTS FOR SINGLE RECIPE 
+  getAllComments(recipeId:string){
+    return this.http.get<SingleComment[]>(environment.apiUrl+'recipes/'+recipeId+'/comments.json');
+  }
+
+  deleteComment(commentId:string){
+    //todo IMPLEMENT
   }
 }
