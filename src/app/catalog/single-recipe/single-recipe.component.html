@@ -1,6 +1,6 @@
 <div class="single-recipe" [routerLink]="['/recipes','details', recipe?.recipeId]">
     <h2>{{ recipe?.title }}</h2>
-    <p>Author: {{ recipe?.author }}</p>
+    <p>Author: {{ recipe?.authorUsername }}</p>
     <div class="imgHolder">
     <img [src]="recipe?.imageSrc" alt="{{ recipe?.title }}" />
     </div>
@@ -18,4 +18,5 @@
   
     <h3>Comments ({{getComments().length}})</h3>
     <h3>Likes ({{getLikes().length}})</h3>
+    <h3>Posted on: {{formatTimestamp(recipe?.timestamp)}}</h3>
   </div>

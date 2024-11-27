@@ -30,5 +30,6 @@ export interface SingleRecipe{
     details: Details,
     comments: FullComments,
     likes: Likes,
-    recipeId: string
+    recipeId: string,
+    timestamp: string
 }

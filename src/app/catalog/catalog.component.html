@@ -1,10 +1,21 @@
 <div class="catalog">
     <h1>Recipe Catalog</h1>
+    <div class="searchField">
+      <input type="text" placeholder="search for.." #filter />
+      <button (click)="filterByInput(filter,filter.value)">Search</button>
+    </div>
+    <div class="filterBy">
+      <p>Filter by</p>
+      <div>Newest</div>
+      <div>Oldest</div>
+      <div>Most liked</div>
+      <div>Most commented</div>
+    </div>
     @if(recipes.length == 0){
       <h2>No recipes yet</h2>
     }@else {
       <ul class="recipeList">
-      @for(recipe of recipes; track $index){
+      @for(recipe of filteredRecipes; track $index){
         <li class="singleRecipe"><app-single-recipe [singleRecipe]="recipe" /></li>
       }
     </ul>
