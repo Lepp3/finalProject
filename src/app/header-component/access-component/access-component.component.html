@@ -1,14 +1,14 @@
 <div class="wrapper">
-    @if(this.logged){
+    @if(this.isLoggedIn | async){
         <div class="Auth">
             <a class="accessButton" href="#">USER PROFILE</a>
-            <a class="accessButton" href="#">Logout</a>
+            <a class="accessButton" (click)="logout()">Logout</a>
         </div>
         
     }
     @else{
         <div class="noAuth">
-            <a class="accessButton" routerLink="/login">Login</a>
+            <a class="accessButton" (click)="login()">Login</a>
             <a class="accessButton" routerLink="/register">Register</a>
         </div>
     } 

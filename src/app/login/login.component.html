@@ -3,14 +3,26 @@
         <div class="heading">
             <h2>Log in</h2>
         </div>
-      <form action="#" class="regForm">
+      <form #loginForm="ngForm" class="regForm" (ngSubmit)="login()">
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="text" id="email" name="email" required/>
+          <label for="email">Email</label>
+          <input 
+          type="text" 
+          id="email" 
+          name="email" 
+          required 
+          ngModel 
+          #emailInput="ngModel"/>
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required/>
+          <label for="password">Password</label>
+          <input 
+          type="password" 
+          id="password"
+          name="password" 
+          required 
+          ngModel 
+          #passwordInput="ngModel"/>
         </div>
         <button>Login</button>
       </form>

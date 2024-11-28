@@ -23,7 +23,7 @@ export class RegisterComponent{
   }
 
   testRegister():void{
-    this.test.createUser()
+    
   }
   // ngOnInit(): void {
     
