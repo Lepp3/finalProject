@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { AccessComponentComponent } from './access-component/access-component.component';
+import { AccessComponent } from './access-component/access-component.component';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
-import { LogoComponentComponent } from './logo-component/logo-component.component';
+import { LogoComponent } from './logo-component/logo-component.component';
 
 @Component({
   selector: 'app-header-component',
   standalone: true,
-  imports: [AccessComponentComponent,
+  imports: [AccessComponent,
     NavigationMenuComponent,
-    LogoComponentComponent
+    LogoComponent
   ],
   templateUrl: './header-component.component.html',
   styleUrl: './header-component.component.css'
 })
-export class HeaderComponentComponent {
+export class HeaderComponent {
 
 }

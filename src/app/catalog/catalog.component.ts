@@ -49,7 +49,7 @@ ngOnInit(): void {
   this.recService.getAllRecipes().subscribe(data=>{
     this.recipes = Object.values(data);
     this.filteredRecipes = Object.values(data);
-    console.log(Object.values(data));
+    
    })
 }
 

@@ -12,8 +12,14 @@
           name="email" 
           required 
           ngModel 
-          #emailInput="ngModel"/>
+          #emailInput="ngModel"
+          appEmailValidation/>
         </div>
+        @if(emailInput.touched){
+          @if(emailInput.errors?.['required']){
+            <p>Email is required</p>
+          }
+        }
         <div class="form-group">
           <label for="password">Password</label>
           <input 
@@ -24,6 +30,11 @@
           ngModel 
           #passwordInput="ngModel"/>
         </div>
+        @if(passwordInput.touched){
+          @if(passwordInput.errors?.['required']){
+            <p>Password is required</p>
+          }
+        }
         <button>Login</button>
       </form>
       <div class="registered">

@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { HttpClient } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { EmailValidationDirective } from '../directives/email-validation.directive';
 
 
 
@@ -11,8 +12,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,FormsModule],
-  providers: [UserService,HttpClient],
+  imports: [RouterLink,FormsModule,EmailValidationDirective],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -22,7 +22,7 @@ export class RegisterComponent{
 
   }
 
-  testRegister():void{
+  Register():void{
     
   }
   // ngOnInit(): void {

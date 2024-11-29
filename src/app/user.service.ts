@@ -102,6 +102,7 @@ export class UserService {
   }
 
   createUser(email:string,password:string):void{
+    //TODO IMPLEMENT CATCH ERROR
     const requestBody = {email: email,
       password: password,
       returnSecureToken: true};
@@ -126,7 +127,7 @@ export class UserService {
   
 
   signInUser(email:string,password:string):void{
-    // TODO IMPLEMENT VALIDATIONS
+    // TODO IMPLEMENT CATCH ERROR
     const requestBody = {
       email:email,
       password:password,

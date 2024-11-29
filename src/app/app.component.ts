@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponentComponent } from './header-component/header-component.component';
+import { HeaderComponent } from './header-component/header-component.component';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { HeaderComponentComponent } from './header-component/header-component.co
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponentComponent,
+    HeaderComponent,
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
