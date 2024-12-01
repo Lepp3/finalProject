@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './endpoints';
+import { environment } from './utils/endpoints';
 import { SingleRecipe } from './catalog/models/recipe.model';
 
 @Injectable()

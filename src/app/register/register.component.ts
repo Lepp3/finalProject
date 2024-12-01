@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
-import { HttpClient } from '@angular/common/http';
-import { provideHttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EmailValidationDirective } from '../directives/email-validation.directive';
+import { DOMAINS } from '../utils/constants';
+import { PasswordMatchValidatorDirective } from '../directives/passwordMatch.validator.directive';
 
 
 
@@ -12,22 +12,30 @@ import { EmailValidationDirective } from '../directives/email-validation.directi
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,FormsModule,EmailValidationDirective],
+  imports: [RouterLink,FormsModule,EmailValidationDirective,PasswordMatchValidatorDirective],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent{
 
-  constructor(private test:UserService){
+  domains = DOMAINS;
+  @ViewChild('registerForm') form: NgForm | undefined;
+  @ViewChild('profilePicInput') profilePicInput?: ElementRef<HTMLInputElement>
+  constructor(private regService:UserService){
 
   }
 
-  Register():void{
-    
+  register():void{
+    const form = this.form!;
+    const email = form.value.email;
+    const username = form.value.username;
+    const password = form.value.password;
+    const bio = form.value.bio;
+    console.log(email,password,username,bio);
+    this.regService.createUser(email,password,username,bio);
+    form?.reset();
+
   }
-  // ngOnInit(): void {
-    
-  // }
 
   
 }

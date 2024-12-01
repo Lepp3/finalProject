@@ -3,22 +3,122 @@
         <div class="heading">
             <h2>Register</h2>
         </div>
-      <form action="#" class="regForm">
+      <form  #registerForm="ngForm" class="regForm"  appPasswordMatchValidation (ngSubmit)="register()">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" id="email" name="email" required/>
+          <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          ngModel
+          #emailInput="ngModel"
+          required
+          [appEmailValidation]="domains"/>
         </div>
+        @if(emailInput.touched){
+          <div>
+          @if(emailInput.errors?.['required']){
+            <p>Email is required</p>
+          }
+          @if(emailInput.errors?.['appEmailValidation']){
+            <p>Invalid format used</p>
+          }
+        </div>
+        }
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required/>
+          <input type="text" 
+          id="username" 
+          name="username" 
+          ngModel
+          minlength="4"
+          maxlength="12"
+          #usernameInput="ngModel"
+          required/>
         </div>
-        <div class="form-group">
+        @if(usernameInput?.touched){
+          <div>
+            @if(usernameInput?.errors?.['required']){
+              <p>Username required</p>
+            }
+            @if(usernameInput?.errors?.['appEmailValidation']){
+              <p>Invalid email format used</p>
+            }
+            @if(usernameInput?.errors?.['minlength']){
+              <p>Username should be atleast 4 characters long</p>
+            }
+          </div>
+        }
+        <div class="form-group" >
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required/>
+          <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          ngModel
+          #passwordInput="ngModel"
+          minlength="5"
+          maxlength="12"
+          required/>
+
+          <label for="rePassword">Repeat Password</label>
+          <input 
+          type="password" 
+          id="reRassword" 
+          name="rePassword" 
+          ngModel
+          #rePasswordInput="ngModel"
+          minlength="5"
+          maxlength="12"
+          required/>
+          
         </div>
-        <input type="submit" value="Register" />
+        @if(passwordInput.touched){
+          <div>
+            @if(passwordInput.errors?.['required']){
+              <p>Password is required</p>
+            }
+            @if(passwordInput.errors?.['minlength']){
+              <p>Minimum password length is 6 symbols</p>
+            }
+          </div>
+        }
+        @if(rePasswordInput.touched){
+          <div>
+            @if(rePasswordInput.errors?.['required']){
+              <p>Confirm password field is required</p>
+            }
+            @if(registerForm.errors?.['appPasswordMatchValidation']){
+              <p>Passwords do not match</p>
+            }
+          </div>
+        }
+        <div class="form-group">
+          <label for="bio">Your bio</label>
+          <input 
+          type="text" 
+          id="bio" 
+          name="bio" 
+          ngModel
+          #bioInput="ngModel"
+          minlength="5"
+          maxlength="160"
+          placeholder="A few words about yourself"
+          required/>
+        </div>
+        @if(bioInput.touched){
+          <div>
+            @if(bioInput.errors?.['required']){
+              <p>Bio input is required</p>
+            }
+            @if(bioInput.errors?.['minlength']){
+              <p>Minimum 5 characters</p>
+            }
+          </div>
+        }
+        <button [disabled]="form?.invalid">Register</button>
       </form>
-      <!-- <button (click)="testRegister()">Test</button> -->
+      
       <div class="registered">
         <p>Already a member?</p>
         <a routerLink="/login">Sign in</a>

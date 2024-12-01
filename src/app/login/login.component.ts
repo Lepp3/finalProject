@@ -20,11 +20,10 @@ export class LoginComponent {
 
   login(){
     const form = this.form!;
-    if(form?.invalid){
-      console.log('invalid form');
-      return
-    }
-    console.log(form.value.email); 
+    const email = form.value.email;
+    const password = form.value.password;
+    console.log(email,password)
+    this.logged.signInUser(email,password)
     form?.reset()
     }
 }

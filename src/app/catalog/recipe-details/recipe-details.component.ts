@@ -63,4 +63,9 @@ export class RecipeDetailsComponent {
       console.log(recipe);
     })
   }
+
+  isOwner():boolean{
+    // todo implement a function that hides or shows edit/delete button on authorId and userId check
+    return true
+  }
 }

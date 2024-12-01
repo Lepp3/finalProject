@@ -1,5 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { emailValidator } from '../utils/email.validation';
 
 
 @Directive({
@@ -14,14 +15,14 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   ]
 })
 export class EmailValidationDirective implements Validator {
-  pattern:RegExp = /^[a-zA-Z0-9_.-]+@(gmail\.com|abv\.bg)$/
+  
   constructor() { }
 
-  @Input() emailValidator: string | undefined;
+  @Input() appEmailValidation: string[] = []
 
   validate(control: AbstractControl): ValidationErrors | null {
-    console.log('Control Value:',control.value);
-    // TODO: IMPLEMENT IF CONDITIONS FOR EMAIL MATCHING
-    return null
+    
+    const validatorFn = emailValidator(this.appEmailValidation);
+    return validatorFn(control);
   }
 }

@@ -1,28 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from './endpoints';
+import { environment } from './utils/endpoints';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, throwError} from 'rxjs';
 
 
 
-interface CreatedUser{
-    kind: string,
-    idToken: string,
-    email: string,
-    refreshToken: string,
-    expiresIn: string,
-    localId: string
+// interface CreatedUser{
+//     kind: string,
+//     idToken: string,
+//     email: string,
+//     refreshToken: string,
+//     expiresIn: string,
+//     localId: string
 
-}
+// }
 
 interface SignedUser{
     kind: string,
     localId: string,
     email: string,
-    displayName: string,
+    displayName?: string,
     idToken: string,
-    registered: boolean,
+    registered?: boolean,
     refreshToken: string,
     expiresIn: string
 }
@@ -52,9 +52,9 @@ export class UserService {
   private userSubject = new BehaviorSubject<{kind: string;
     localId: string;
     email: string;
-    displayName: string;
+    displayName?: string;
     idToken: string;
-    registered: boolean;
+    registered?: boolean;
     refreshToken: string;
     expiresIn: string} | null>(null);
 
@@ -62,20 +62,13 @@ export class UserService {
       return this.isLogged.asObservable();
     }
 
-    get user$(): Observable<{kind: string;
-      localId: string;
-      email: string;
-      displayName: string;
-      idToken: string;
-      registered: boolean;
-      refreshToken: string;
-      expiresIn: string} | null>{
+    get user$(): Observable<SignedUser | null>{
         return this.userSubject.asObservable()
     }
 
 
 
-  private apiKey:string = ""
+  private apiKey:string = "AIzaSyAhOJFnSrVAI6h4zjYOZGklqmVuRSO-Y50"
 
   private refreshToken: RefreshTokenData | null = null;
 
@@ -84,9 +77,9 @@ export class UserService {
   }
 
 
-  createUserInfoInDatabase(localId:string){
-    const userName = "Top guze";
-    const bio = "I'm looking to enjoy my stay";
+  createUserInfoInDatabase(localId:string,username:string,bio:string){
+    const userName = username;
+    const userBio = bio;
     const profilePicture = "coolsrc";
     const headers = {
       'Content-Type': 'application/json'
@@ -94,14 +87,14 @@ export class UserService {
     this.http.put(environment.apiUrl+"users/"+userName+".json",{
       username: userName,
       _id: localId,
-      bio:bio,
+      bio:userBio,
       profileImgSrc:profilePicture
     },{
       headers:headers
     }).subscribe();
   }
 
-  createUser(email:string,password:string):void{
+  createUser(email:string,password:string,username:string,bio:string):void{
     //TODO IMPLEMENT CATCH ERROR
     const requestBody = {email: email,
       password: password,
@@ -111,16 +104,17 @@ export class UserService {
         'Content-Type': 'application/json'
     };
 
-    this.http.post<CreatedUser>(environment.signUpUrl+this.apiKey,requestBody,{
+    this.http.post<SignedUser>(environment.signUpUrl+this.apiKey,requestBody,{
       headers: headers
-    }).subscribe((data:CreatedUser)=>{
+    }).subscribe((data:SignedUser)=>{
       this.isLogged.next(true);
-      this.refreshToken!.token = data.refreshToken;
-      this.refreshToken!.expiresIn = data.expiresIn;
-      localStorage.setItem('firebaseIdToken',data.idToken);
-      // localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
-      localStorage.setItem('firebaseLocalToken',data.localId);
-      this.createUserInfoInDatabase(data.localId);
+      this.userSubject.next({...data,
+        displayName: data.displayName || '',
+        registered:  data.registered || true
+      });
+      // this.refreshToken!.token = data.refreshToken;
+      // this.refreshToken!.expiresIn = data.expiresIn;
+      this.createUserInfoInDatabase(data.localId,username,bio);
     })
   }
 
@@ -141,17 +135,17 @@ export class UserService {
     headers: headers
   }).subscribe((data:SignedUser)=>{
     this.isLogged.next(true);
-    localStorage.setItem('firebaseIdToken',data.idToken);
-    this.refreshToken!.token = data.refreshToken;
-    this.refreshToken!.expiresIn = data.expiresIn;
+    this.userSubject.next({...data,
+      displayName: data.displayName || '',
+      registered:  data.registered || true
+    });
+    // this.refreshToken!.token = data.refreshToken;
+    // this.refreshToken!.expiresIn = data.expiresIn;
     // localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
-    localStorage.setItem('firebaseLocalToken',data.localId);
+    // localStorage.setItem('firebaseLocalToken',data.localId);
   }) 
   }
 
-  testSign():void{
-    this.isLogged.next(true);
-  }
 
   signOutUser():void{
     // localStorage.removeItem('firebaseIdToken');

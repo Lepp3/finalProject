@@ -62,7 +62,7 @@ background: linear-gradient(90deg, rgba(236,236,231,0.30664652567975825) 5%, rgb
     outline: none;
     }
 
-input[type="submit"]{
+.regForm button{
     padding: 5px 10px;
     border-radius: 3px;
     background-color: rgb(236, 161, 21);
@@ -71,7 +71,7 @@ input[type="submit"]{
     border: 2px solid rgb(102, 102, 102)
 }
 
-input[type="submit"]:hover{
+.regForm button:hover{
     background-color: rgb(187, 127, 15);
 }
 
