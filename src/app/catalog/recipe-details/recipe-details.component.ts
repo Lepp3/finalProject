@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecipeService } from '../../recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { SingleComment, SingleRecipe } from '../models/recipe.model';
 import { CommentsComponent } from './comments/comments.component';
+import { FormsModule, NgForm } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Component({
   selector: 'app-recipe-details',
   standalone: true,
-  imports: [CommentsComponent],
+  imports: [CommentsComponent,FormsModule],
   providers:[RecipeService],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css'
@@ -16,6 +19,7 @@ export class RecipeDetailsComponent {
 
   recipeId!:string;
   currentRecipe:SingleRecipe | null = null;
+  @ViewChild('commentForm') form: NgForm | undefined;
 
   // currentRecipe:SingleRecipe = {
   //     title:'Chicken Parm',
@@ -68,4 +72,15 @@ export class RecipeDetailsComponent {
     // todo implement a function that hides or shows edit/delete button on authorId and userId check
     return true
   }
+
+  postComment(){
+    //TODO GET AUTHOR USERNAME AND ID AND FINISH SINGLE COMMENT INTERFACE TO SEND PARAMETERS INTO USER SERVICE
+    const form = this.form!;
+    const commentContent = form.value.commentContent;
+    const timestamp = String(Date.now());
+    const id = String(uuidv4());
+
+  }
+
+
 }

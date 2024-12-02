@@ -17,6 +17,7 @@ export interface SingleComment{
     commentId:string
 }
 export interface FullComments{
+    //todo change to singlecomment array
     [commentId:string]: SingleComment
 }
 
@@ -28,8 +29,8 @@ export interface SingleRecipe{
     shortInfo:string,
     imageSrc:string,
     details: Details,
-    comments: FullComments,
-    likes: Likes,
+    comments?: FullComments,
+    likes?: Likes,
     recipeId: string,
     timestamp: string
 }

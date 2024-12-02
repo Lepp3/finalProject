@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { SingleRecipe } from './models/recipe.model';
 import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
 import { RecipeService } from '../recipe.service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [SingleRecipeComponent],
+  imports: [SingleRecipeComponent,RouterLink],
   providers:[RecipeService],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.css'
