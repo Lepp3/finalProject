@@ -2,7 +2,8 @@
     <section clas="commentSection">
         @if(comments){
             @for(comment of comments; track $index){
-                <app-single-comment [singleComment]="comment"/>
+                <app-single-comment [singleComment]="comment"
+                (deleteComment)="onDeleteComment($event)"/>
             }
         }
     </section>

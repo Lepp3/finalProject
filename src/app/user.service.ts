@@ -6,15 +6,7 @@ import { map, catchError, throwError} from 'rxjs';
 
 
 
-// interface CreatedUser{
-//     kind: string,
-//     idToken: string,
-//     email: string,
-//     refreshToken: string,
-//     expiresIn: string,
-//     localId: string
 
-// }
 
 interface SignedUser{
     kind: string,
@@ -27,10 +19,10 @@ interface SignedUser{
     expiresIn: string
 }
 
-interface RefreshTokenData{
-  token:string,
-  expiresIn: string,
-}
+// interface RefreshTokenData{
+//   token:string,
+//   expiresIn: string,
+// }
 
 interface RefreshTokenResponse{
   "expires_in": string,
@@ -48,34 +40,71 @@ interface RefreshTokenResponse{
 export class UserService {
 
   
-  private isLogged = new BehaviorSubject<boolean>(true);
-  private userSubject = new BehaviorSubject<{kind: string;
-    localId: string;
-    email: string;
-    displayName?: string;
-    idToken: string;
-    registered?: boolean;
-    refreshToken: string;
-    expiresIn: string} | null>(null);
-
-    get isLogged$(): Observable<boolean>{
-      return this.isLogged.asObservable();
-    }
-
-    get user$(): Observable<SignedUser | null>{
-        return this.userSubject.asObservable()
-    }
-
-
+  private isLogged = new BehaviorSubject<boolean>(false);
+  private userSubject = new BehaviorSubject< SignedUser| null>(null);
 
   private apiKey:string = "AIzaSyAhOJFnSrVAI6h4zjYOZGklqmVuRSO-Y50"
 
-  private refreshToken: RefreshTokenData | null = null;
+  // private refreshToken: RefreshTokenData | null = null;
 
   constructor(private http:HttpClient) { 
    
   }
 
+  get isLogged$(): Observable<boolean>{
+    return this.isLogged.asObservable();
+  }
+
+  get user$(): Observable<SignedUser | null>{
+    return this.userSubject.asObservable()
+}
+
+
+private setUserState(user:SignedUser):void{
+  this.isLogged.next(true);
+  this.userSubject.next({...user,
+    displayName: user.displayName || '',
+    registered: user.registered || true
+  });
+  this.storeToken(user.idToken,user.refreshToken,user.expiresIn);
+  console.log('setuser works');
+}
+
+private storeToken(idToken:string,refreshToken:string,expiresIn:string):void{
+  const expirationTime = Date.now() + Number(expiresIn) * 1000;
+  localStorage.setItem('idToken',idToken);
+  localStorage.setItem('refreshToken',refreshToken);
+  localStorage.setItem('tokenExpiration',String(expirationTime));
+}
+
+private getToken(): string | null {
+  const expirationTime = Number(localStorage.getItem('tokenExpiration') || 0);
+  if(Date.now() > expirationTime){
+    return null
+  }
+  return localStorage.getItem('idToken');
+}
+
+
+createUser(email:string,password:string,username:string,bio:string):void{
+  const requestBody = {email: email,
+    password: password,
+    returnSecureToken: true};
+
+    const headers = {
+      'Content-Type': 'application/json'
+  };
+
+  this.http.post<SignedUser>(environment.signUpUrl+this.apiKey,requestBody,{
+    headers: headers
+  }).subscribe((data:SignedUser)=>{
+    this.setUserState(data);
+    this.createUserInfoInDatabase(data.localId,username,bio);
+  }),catchError((error)=>{
+        console.error('User creation failed',error);
+        return throwError(()=>new Error('User creation failed'));
+      })
+}
 
   createUserInfoInDatabase(localId:string,username:string,bio:string){
     const userName = username;
@@ -94,34 +123,11 @@ export class UserService {
     }).subscribe();
   }
 
-  createUser(email:string,password:string,username:string,bio:string):void{
-    //TODO IMPLEMENT CATCH ERROR
-    const requestBody = {email: email,
-      password: password,
-      returnSecureToken: true};
-
-      const headers = {
-        'Content-Type': 'application/json'
-    };
-
-    this.http.post<SignedUser>(environment.signUpUrl+this.apiKey,requestBody,{
-      headers: headers
-    }).subscribe((data:SignedUser)=>{
-      this.isLogged.next(true);
-      this.userSubject.next({...data,
-        displayName: data.displayName || '',
-        registered:  data.registered || true
-      });
-      // this.refreshToken!.token = data.refreshToken;
-      // this.refreshToken!.expiresIn = data.expiresIn;
-      this.createUserInfoInDatabase(data.localId,username,bio);
-    })
-  }
+  
 
   
 
   signInUser(email:string,password:string):void{
-    // TODO IMPLEMENT CATCH ERROR
     const requestBody = {
       email:email,
       password:password,
@@ -134,39 +140,29 @@ export class UserService {
   this.http.post<SignedUser>(environment.signInUrl+this.apiKey,requestBody,{
     headers: headers
   }).subscribe((data:SignedUser)=>{
-    this.isLogged.next(true);
-    this.userSubject.next({...data,
-      displayName: data.displayName || '',
-      registered:  data.registered || true
-    });
-    // this.refreshToken!.token = data.refreshToken;
-    // this.refreshToken!.expiresIn = data.expiresIn;
-    // localStorage.setItem('firegbaseRefreshToken',data.refreshToken);
-    // localStorage.setItem('firebaseLocalToken',data.localId);
-  }) 
+    this.setUserState(data);
+    }),catchError((error)=>{
+      console.error('User sign in failed',error);
+      return throwError(()=>new Error('User sign in failed'));
+    })
+    console.log('signin works');
+  
   }
 
 
   signOutUser():void{
-    // localStorage.removeItem('firebaseIdToken');
-    // localStorage.removeItem('firebaseRefreshToken');
     this.isLogged.next(false);
+    this.userSubject.next(null);
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('tokenExpiration');
+    console.log('signout works');
   }
 
-  isRefreshTokenExpired():boolean{
-    if(!this.refreshToken){
-      return true
-    }
-
-    const now = Date.now();
-
-    const expirationTime = now + (Number(this.refreshToken.expiresIn)*1000)
-    return expirationTime < now
-  }
-
-  refreshAuthToken():Observable<RefreshTokenResponse>{
-    if(!this.refreshToken){
-      return throwError(()=>new Error('no refresh token available'));
+  refreshAuthToken():Observable<void>{
+    const refreshToken = localStorage.getItem('refreshToken');
+    if(!refreshToken){
+      return throwError(()=>new Error('No refresh token available'));
     }
 
     const headers = new HttpHeaders({
@@ -175,21 +171,25 @@ export class UserService {
 
     const requestBody = {
       'grant_type': 'refresh_token',
-      'refresh_token': `${this.refreshToken}`
+      'refresh_token': `${refreshToken}`
     }
 
     return this.http.post<RefreshTokenResponse>(environment.refreshTokenUrl+this.apiKey,requestBody,{headers:headers}).pipe(
-      map((response:RefreshTokenResponse)=>
+      map((response)=>
         {
-      this.refreshToken!.token = response['refresh_token'];
-      this.refreshToken!.expiresIn = response['expires_in'];
-      return response
+          this.storeToken(response.id_token,response.refresh_token,response.expires_in);
     }),
     catchError((error)=>{
-      console.error('error',error);
+      console.error('Token refresh failed',error);
+      this.signOutUser();
       return throwError(()=> new Error('Token refresh failed'));
     })
   )
+  }
+
+  isRefreshTokenExpired():boolean{
+    const expirationTime = Number(localStorage.getItem('tokenExpiration') || 0);
+    return Date.now() > expirationTime;
   }
 
 }

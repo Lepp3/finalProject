@@ -47,7 +47,9 @@ export class RecipeCreatorComponent {
       imageSrc: image,
       recipeId: id
     }
-    this.publisher.createRecipe(recipe,id);
-    this.router.navigate(['/recipes']);
+    this.publisher.createRecipe(recipe,id).subscribe(()=>{
+      this.router.navigate(['/recipes']);
+    })
+    
   }
 }

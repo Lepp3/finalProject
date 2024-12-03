@@ -1,5 +1,7 @@
 <div class="wrapper">
     <h2>{{currentRecipe?.title}}</h2>
+    <button (click)="onDeleteRecipe(recipeId)">Delete Recipe</button>
+    <div [routerLink]="['/recipes','details', recipeId,'edit']" >Edit Recipe</div>
     <p>A recipe posted by {{currentRecipe?.authorUsername}}<p>
     <img src={{currentRecipe?.imageSrc}} alt="Picture of a dish">
     <h3>Full recipe:</h3>
@@ -11,7 +13,8 @@
         }
     </ul>
     <section class="commentSection">
-        <app-comments [recipeId]="recipeId"/>
+        <app-comments [comments]="allComments"
+        (deleteComment)="onDeleteComment($event)"/>
     </section>
     <div class="formwrapper">
         <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">

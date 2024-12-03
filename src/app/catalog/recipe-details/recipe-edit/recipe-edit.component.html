@@ -1,0 +1,65 @@
+@if(currentRecipe){
+    <div class="wrapper">
+        <form #editForm="ngForm" class="editForm" (ngSubmit)="onEditSubmit()">
+            <div class="form-group">
+                <label for="title">Recipe Name<p>(max: 30 characters)</p></label>
+                <input
+                type="text"
+                name="title"
+                id="title"
+                [(ngModel)]="currentRecipe.title"
+                #titleInput="ngModel"
+                required
+                
+                />
+            </div>
+            <div class="form-group">
+                <label for="shortInfo">Short info about the recipe <p>(max:130 characters)</p></label>
+                <input
+                type="text"
+                name="shortInfo"
+                id="shortInfo"
+                [(ngModel)]="currentRecipe.shortInfo"
+                #shortInfoInput="ngModel"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <label for="ingredients">Ingredients</label>
+                <input
+                type="text"
+                name="ingredients"
+                id="ingredients"
+                [(ngModel)]="currentRecipe.details.ingredients"
+                #ingredientsInput="ngModel"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <label for="fullRecipe">Full Recipe</label>
+                <input
+                type="text"
+                name="fullRecipe"
+                id="fullRecipe"
+                [(ngModel)]="currentRecipe.details.fullRecipe"
+                #fullRecipeInput="ngModel"
+                required
+                />
+            </div>
+            <div clas="form-group">
+                <label for="image">Picture of the dish</label>
+                <input
+                type="text"
+                id="image"
+                name="image"
+                required
+                [(ngModel)]="currentRecipe.imageSrc"
+                #imageInput="ngModel"
+                />
+            </div>
+        </form>
+    </div>
+}@else {
+    <p>Loading...</p>
+}
+

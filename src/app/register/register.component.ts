@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EmailValidationDirective } from '../directives/email-validation.directive';
@@ -21,7 +21,7 @@ export class RegisterComponent{
   domains = DOMAINS;
   @ViewChild('registerForm') form: NgForm | undefined;
   @ViewChild('profilePicInput') profilePicInput?: ElementRef<HTMLInputElement>
-  constructor(private regService:UserService){
+  constructor(private regService:UserService,private router:Router){
 
   }
 
@@ -31,10 +31,9 @@ export class RegisterComponent{
     const username = form.value.username;
     const password = form.value.password;
     const bio = form.value.bio;
-    console.log(email,password,username,bio);
     this.regService.createUser(email,password,username,bio);
     form?.reset();
-
+    
   }
 
   

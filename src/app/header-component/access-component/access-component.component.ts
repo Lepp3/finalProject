@@ -20,7 +20,7 @@ export class AccessComponent implements OnInit{
 
   ngOnInit(): void {
     this.isLoggedIn = this.logCheck.isLogged$;
-    // console.log(this.isLoggedIn);
+    
   }
 
 
@@ -30,11 +30,7 @@ export class AccessComponent implements OnInit{
     this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
   }
 
-  // login():void{
-  //   this.logCheck.testSign();
-  //   this.router.navigate(['/home']);
-  //   this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
-  // }
+  
 
 
   

@@ -39,7 +39,7 @@ export class RecipeService {
     }
     return this.http.patch(environment.apiUrl + '/recipes.json' ,requestBody,{
       headers: this.headers
-    }).subscribe()
+    })
   }
 
   editRecipe(){
@@ -47,11 +47,18 @@ export class RecipeService {
   }
 
   deleteRecipe(recipeId:string){
-    return this.http.delete(environment.apiUrl+'/recipes/'+recipeId+'.json').subscribe()
+    console.log('delete recipe service works')
+    return this.http.delete(environment.apiUrl+'/recipes/'+recipeId+'.json')
   }
 
-  createComment(comment:SingleComment,commentId:string){
+  createComment(comment:SingleComment,commentId:string,recipeId:string){
+    const requestBody = {
+      [commentId]:comment
+    }
 
+    return this.http.patch(environment.apiUrl + '/recipes/' + recipeId + '/comments/.json',requestBody,{
+      headers:this.headers
+    }).subscribe()
   }
 
   editComment(){

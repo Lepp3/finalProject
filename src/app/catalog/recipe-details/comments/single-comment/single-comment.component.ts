@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SingleComment } from '../../../models/recipe.model';
 
 @Component({
@@ -10,4 +10,11 @@ import { SingleComment } from '../../../models/recipe.model';
 })
 export class SingleCommentComponent {
  @Input('singleComment') comment:SingleComment | null=null;
+ @Output() deleteComment = new EventEmitter<string>();
+
+ onDelete():void{
+  if(this.comment){
+    this.deleteComment.emit(this.comment.commentId);
+  }
+ }
 }

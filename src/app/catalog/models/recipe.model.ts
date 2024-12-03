@@ -14,7 +14,12 @@ export interface SingleComment{
     authorId: string,
     content: string,
     timestamp: string,
-    commentId:string
+    commentId:string,
+    // commentLikes?:commentLikes
+}
+
+export interface commentLikes{
+    [likeId:string]: boolean;
 }
 export interface FullComments{
     //todo change to singlecomment array
