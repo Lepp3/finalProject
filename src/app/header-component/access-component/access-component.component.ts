@@ -25,7 +25,7 @@ export class AccessComponent implements OnInit{
 
 
   logout():void{
-    this.logCheck.signOutUser();
+    this.logCheck.signOutUser()
     this.router.navigate(['/home']);
     this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
   }

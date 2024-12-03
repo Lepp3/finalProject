@@ -85,6 +85,28 @@ private getToken(): string | null {
   return localStorage.getItem('idToken');
 }
 
+public initializeUserState(): void {
+  const idToken = this.getToken();
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  if (idToken && refreshToken) {
+    // Optionally refresh token if close to expiration
+    this.setUserState({
+      kind: '',
+      localId: '',
+      email: '',
+      idToken: idToken,
+      refreshToken: refreshToken,
+      expiresIn: ''
+    });
+  } else {
+    // Ensure user is considered logged out if tokens are missing
+    this.isLogged.next(false);
+    this.userSubject.next(null);
+  }
+}
+
+
 
 createUser(email:string,password:string,username:string,bio:string):void{
   const requestBody = {email: email,
@@ -140,10 +162,12 @@ createUser(email:string,password:string,username:string,bio:string):void{
   this.http.post<SignedUser>(environment.signInUrl+this.apiKey,requestBody,{
     headers: headers
   }).subscribe((data:SignedUser)=>{
+    console.log('sign in works',data)
     this.setUserState(data);
+    
     }),catchError((error)=>{
       console.error('User sign in failed',error);
-      return throwError(()=>new Error('User sign in failed'));
+      return throwError(()=>new Error('sign in failed'));
     })
     console.log('signin works');
   
