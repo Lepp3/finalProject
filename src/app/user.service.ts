@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {  Injectable } from '@angular/core';
 import { environment } from './utils/endpoints';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, throwError} from 'rxjs';
@@ -36,7 +36,9 @@ export class UserService {
 
   // private refreshToken: RefreshTokenData | null = null;
 
-  constructor(private http:HttpClient) { 
+  constructor(private http:HttpClient,
+    
+  ) { 
    
   }
 
@@ -55,6 +57,7 @@ private setUserState(user:SignedUser):void{
     displayName: user.displayName || '',
     registered: user.registered || true
   });
+  console.log('user id',user.localId)
   this.storeToken(user.idToken,user.refreshToken,user.expiresIn,user.localId);
   
 }
@@ -79,9 +82,24 @@ private getToken(): string | null {
 
 public initializeUserState(): void {
   const idToken = this.getToken();
+  const localId = this.getUserId();
   const refreshToken = localStorage.getItem('refreshToken');
+  const expirationTime = localStorage.getItem('tokenExpiration');
 
-  if (idToken && refreshToken) {
+  if (idToken && refreshToken && localId && expirationTime) {
+    // this.getUserInfo(localId).subscribe((userInfo:UserInfo)=>{
+    //   const username = userInfo.username;
+    //   const emailaddress = userInfo.email;
+    //   this.setUserState({
+    //     kind:'',
+    //     localId:localId,
+    //     email:emailaddress,
+    //     idToken:idToken,
+    //     refreshToken: refreshToken,
+    //     expiresIn: expirationTime,
+    //     displayName:username
+    //   })
+    // })
     // Optionally refresh token if close to expiration
     this.setUserState({
       kind: '',
@@ -113,14 +131,14 @@ createUser(email:string,password:string,username:string,bio:string):void{
     headers: headers
   }).subscribe((data:SignedUser)=>{
     this.setUserState(data);
-    this.createUserInfoInDatabase(data.localId,username,bio);
+    this.createUserInfoInDatabase(data.localId,username,bio,email);
   }),catchError((error)=>{
         console.error('User creation failed',error);
         return throwError(()=>new Error('User creation failed'));
       })
 }
 
-  createUserInfoInDatabase(localId:string,username:string,bio:string){
+  createUserInfoInDatabase(localId:string,username:string,bio:string,email:string){
     const userName = username;
     const userBio = bio;
     const profilePicture = "coolsrc";
@@ -131,7 +149,8 @@ createUser(email:string,password:string,username:string,bio:string):void{
       username: userName,
       _id: localId,
       bio:userBio,
-      profileImgSrc:profilePicture
+      profileImgSrc:profilePicture,
+      email:email
     },{
       headers:headers
     }).subscribe();
@@ -156,6 +175,7 @@ createUser(email:string,password:string,username:string,bio:string):void{
   }).subscribe((data:SignedUser)=>{
     
     this.setUserState(data);
+  
     
     }),catchError((error)=>{
       console.error('User sign in failed',error);

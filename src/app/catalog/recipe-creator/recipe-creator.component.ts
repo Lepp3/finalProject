@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { RecipeService } from '../../recipe.service';
 
 import { UserService } from '../../user.service';
-import { UserInfo } from '../../user-profile/models/userModel';
+import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
+import { filter, switchMap } from 'rxjs';
 
 
 @Component({
@@ -17,16 +18,25 @@ import { UserInfo } from '../../user-profile/models/userModel';
   templateUrl: './recipe-creator.component.html',
   styleUrl: './recipe-creator.component.css'
 })
-export class RecipeCreatorComponent {
+export class RecipeCreatorComponent implements OnInit{
   @ViewChild('creationForm') form: NgForm | undefined;
   
-  user: UserInfo | null = null;
+  currentUser!: SignedUser | null;
 
   constructor(private publisher:RecipeService, private router:Router, private userService:UserService){
     
   }
   
-  
+  ngOnInit(): void {
+    this.userService.user$.subscribe((user)=>{
+      this.currentUser = user;
+      if(this.currentUser){
+        console.log('current user:',this.currentUser)
+      }else{
+        console.log('No user logged in')
+      }
+    })
+  }
 
   createRecipe():void{
     const form = this.form!;

@@ -33,7 +33,7 @@ export const routes: Routes = [
     {
         path: 'create',
         component: RecipeCreatorComponent,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
 
 

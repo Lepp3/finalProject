@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import {  ChangeDetectorRef, Component, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
 import { Observable } from 'rxjs';
@@ -8,18 +8,25 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-access-component',
   standalone: true,
   imports: [RouterLink,AsyncPipe],
+  
   templateUrl: './access-component.component.html',
   styleUrl: './access-component.component.css'
 })
 export class AccessComponent implements OnInit{
   isLoggedIn!:Observable<boolean>
   
-  constructor(private logCheck:UserService,private router:Router){
+  
+  constructor(private logCheck:UserService,private router:Router,private cdr:ChangeDetectorRef){
     
   }
 
   ngOnInit(): void {
+    // this.isLoggedIn = this.logCheck.isLogged$;
     this.isLoggedIn = this.logCheck.isLogged$;
+    
+    this.logCheck.isLogged$.subscribe((val) => {
+      console.log('logged in state',val)});
+      this.cdr.detectChanges();
     
   }
 

@@ -103,7 +103,7 @@
             ngModel
             #imageInput="ngModel"
             />
-            @if(titleInput.touched){
+            @if(imageInput.touched){
                 <div>
                     @if(titleInput.errors?.['required']){
                         <p>Image is required</p>

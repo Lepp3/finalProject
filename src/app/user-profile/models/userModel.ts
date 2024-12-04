@@ -14,5 +14,6 @@ export interface UserInfo{
     _id:string,
     bio:string,
     profileImgSrc:string,
-    username:string
+    username:string,
+    email:string
 }

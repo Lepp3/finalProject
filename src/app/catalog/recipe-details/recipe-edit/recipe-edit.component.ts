@@ -15,7 +15,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class RecipeEditComponent implements OnInit {
 
   recipeId!: string;
-  currentRecipe: SingleRecipe | null = null;
+  currentRecipe!: SingleRecipe;
   @ViewChild('editForm') form!:NgForm
 
   constructor(
@@ -24,6 +24,8 @@ export class RecipeEditComponent implements OnInit {
   ){
 
   }
+
+
   ngOnInit(): void {
     this.activeRout.paramMap.subscribe((params)=>{
       this.recipeId = params.get('id') ?? '';
@@ -42,6 +44,23 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onEditSubmit():void{
+    const savedTitle = this.currentRecipe?.title;
+    const savedInfo = this.currentRecipe?.shortInfo;
+    const savedFullRec = this.currentRecipe?.details?.fullRecipe;
+    const savedIngredients = this.currentRecipe?.details?.ingredients;
+    const savedImage = this.currentRecipe?.imageSrc;
+    const savedTime = this.currentRecipe?.timestamp;
+
+    const originalRecord:SingleRecipe = this.currentRecipe;
+    const updatedValue:SingleRecipe = this.form.value;
+    const changedFields: Partial<typeof originalRecord> = {};
+
+    if(originalRecord.shortInfo !== updatedValue.shortInfo){
+      changedFields.shortInfo == updatedValue.shortInfo
+    }
+
+    const form = this.form;
+
 
   }
 }
