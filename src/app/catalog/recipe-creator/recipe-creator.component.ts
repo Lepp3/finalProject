@@ -1,9 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Details, SingleRecipe } from '../models/recipe.model';
 import { v4 as uuidv4 } from 'uuid';
 import { RecipeService } from '../../recipe.service';
+
+import { UserService } from '../../user.service';
+import { UserInfo } from '../../user-profile/models/userModel';
+
 
 @Component({
   selector: 'app-recipe-creator',
@@ -14,19 +18,21 @@ import { RecipeService } from '../../recipe.service';
   styleUrl: './recipe-creator.component.css'
 })
 export class RecipeCreatorComponent {
-
   @ViewChild('creationForm') form: NgForm | undefined;
+  
+  user: UserInfo | null = null;
 
-  constructor(private publisher:RecipeService, private router:Router){
-
+  constructor(private publisher:RecipeService, private router:Router, private userService:UserService){
+    
   }
+  
+  
 
   createRecipe():void{
-    //TODO GET USER ID
     const form = this.form!;
     const id = String(uuidv4());
-    const authorUsername = 'ivan';
-    const authorId = 'ivanId';
+    const authorUsername = 'ivan'
+    const authorId = 'ivanid'
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
     const ingredients = form.value.ingredients.split(' ');

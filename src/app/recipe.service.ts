@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './utils/endpoints';
 import { SingleComment, SingleRecipe } from './catalog/models/recipe.model';
+import { map } from 'rxjs';
 
 @Injectable()
 export class RecipeService {
@@ -28,7 +29,7 @@ export class RecipeService {
     const requestBody = {
       userId:true
     }
-    return this.http.patch(environment.apiUrl+'/recipes/' + recipeId + '/likes.json',requestBody,{
+    return this.http.patch(environment.apiUrl+'recipes/' + recipeId + '/likes.json',requestBody,{
       headers: this.headers
     })
   }
@@ -37,7 +38,7 @@ export class RecipeService {
     const requestBody = {
       [recipeId]:recipe
     }
-    return this.http.patch(environment.apiUrl + '/recipes.json' ,requestBody,{
+    return this.http.patch(environment.apiUrl + 'recipes.json' ,requestBody,{
       headers: this.headers
     })
   }
@@ -48,7 +49,7 @@ export class RecipeService {
 
   deleteRecipe(recipeId:string){
     console.log('delete recipe service works')
-    return this.http.delete(environment.apiUrl+'/recipes/'+recipeId+'.json')
+    return this.http.delete(environment.apiUrl+'recipes/'+recipeId+'.json')
   }
 
   createComment(comment:SingleComment,commentId:string,recipeId:string){
@@ -56,7 +57,7 @@ export class RecipeService {
       [commentId]:comment
     }
 
-    return this.http.patch(environment.apiUrl + '/recipes/' + recipeId + '/comments/.json',requestBody,{
+    return this.http.patch(environment.apiUrl + 'recipes/' + recipeId + '/comments/.json',requestBody,{
       headers:this.headers
     }).subscribe()
   }
@@ -66,6 +67,12 @@ export class RecipeService {
   }
 
   deleteComment(recipeId:string,commentId:string){
-    return this.http.delete(environment.apiUrl+'/recipes/'+recipeId+'/comments/'+commentId+'.json').subscribe()
+    return this.http.delete(environment.apiUrl+'recipes/'+recipeId+'/comments/'+commentId+'.json').subscribe()
+  }
+
+  isRecipeAuthor(recipeId:string,userId:string){
+    return this.http.get<SingleRecipe>(environment.apiUrl+'recipes/'+recipeId+'.json').pipe(
+      map(recipe=>recipe.authorId == userId)
+    )
   }
 }

@@ -22,7 +22,9 @@ export class LoginComponent {
     const form = this.form!;
     const email = form.value.email;
     const password = form.value.password;
-    this.logged.signInUser(email,password)
+    this.logged.signInUser(email,password);
+    
+    this.router.navigate(['/home']);
     form?.reset()
     
     }

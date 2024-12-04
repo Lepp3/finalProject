@@ -3,26 +3,15 @@ import { Injectable } from '@angular/core';
 import { environment } from './utils/endpoints';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, throwError} from 'rxjs';
+import { SignedUser,UserInfo } from './user-profile/models/userModel';
 
 
 
 
 
-interface SignedUser{
-    kind: string,
-    localId: string,
-    email: string,
-    displayName?: string,
-    idToken: string,
-    registered?: boolean,
-    refreshToken: string,
-    expiresIn: string
-}
 
-// interface RefreshTokenData{
-//   token:string,
-//   expiresIn: string,
-// }
+
+
 
 interface RefreshTokenResponse{
   "expires_in": string,
@@ -66,15 +55,18 @@ private setUserState(user:SignedUser):void{
     displayName: user.displayName || '',
     registered: user.registered || true
   });
-  this.storeToken(user.idToken,user.refreshToken,user.expiresIn);
-  console.log('setuser works');
+  this.storeToken(user.idToken,user.refreshToken,user.expiresIn,user.localId);
+  
 }
 
-private storeToken(idToken:string,refreshToken:string,expiresIn:string):void{
+private storeToken(idToken:string,refreshToken:string,expiresIn:string,localId?:string):void{
   const expirationTime = Date.now() + Number(expiresIn) * 1000;
   localStorage.setItem('idToken',idToken);
   localStorage.setItem('refreshToken',refreshToken);
   localStorage.setItem('tokenExpiration',String(expirationTime));
+  if(localId){
+    localStorage.setItem('userId',localId);
+  }
 }
 
 private getToken(): string | null {
@@ -135,7 +127,7 @@ createUser(email:string,password:string,username:string,bio:string):void{
     const headers = {
       'Content-Type': 'application/json'
   };
-    this.http.put(environment.apiUrl+"users/"+userName+".json",{
+    this.http.put(environment.apiUrl+"users/"+localId+".json",{
       username: userName,
       _id: localId,
       bio:userBio,
@@ -162,14 +154,14 @@ createUser(email:string,password:string,username:string,bio:string):void{
   this.http.post<SignedUser>(environment.signInUrl+this.apiKey,requestBody,{
     headers: headers
   }).subscribe((data:SignedUser)=>{
-    console.log('sign in works',data)
+    
     this.setUserState(data);
     
     }),catchError((error)=>{
       console.error('User sign in failed',error);
       return throwError(()=>new Error('sign in failed'));
     })
-    console.log('signin works');
+    
   
   }
 
@@ -212,8 +204,17 @@ createUser(email:string,password:string,username:string,bio:string):void{
   }
 
   isRefreshTokenExpired():boolean{
-    const expirationTime = Number(localStorage.getItem('tokenExpiration') || 0);
-    return Date.now() > expirationTime;
+    let expirationTime = Number(localStorage.getItem('tokenExpiration') || 0);
+    //handle 1 minute expiration
+    return Date.now() > expirationTime+60;
+  }
+
+  getUserInfo(localId:string): Observable<UserInfo>{
+    return this.http.get<UserInfo>(environment.apiUrl+'users/'+localId+'.json')
+  }
+
+  getUserId(): string | null{
+    return localStorage.getItem('userId');
   }
 
 }

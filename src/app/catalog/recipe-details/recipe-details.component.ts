@@ -6,6 +6,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { Subscription } from 'rxjs';
+import { AuthorGuard } from '../../users.guard';
 
 
 @Component({

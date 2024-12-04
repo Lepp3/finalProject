@@ -32,6 +32,7 @@ export class RegisterComponent{
     const password = form.value.password;
     const bio = form.value.bio;
     this.regService.createUser(email,password,username,bio);
+    this.router.navigate(['/home']);
     form?.reset();
     
   }
