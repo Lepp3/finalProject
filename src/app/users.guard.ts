@@ -8,33 +8,45 @@ import { of } from "rxjs";
 export const AuthGuard: CanActivateFn = (route,state) => {
     const userService = inject(UserService);
     const router = inject(Router);
-    return userService.isLogged$.pipe(
-        take(1),
-        map(isLogged=>{
-            if(isLogged){
-                return true
-            }else{
-                router.navigate(['/login']);
-                return false
-            }
-        })
-    )  
+
+    if(userService.isLogged){
+        return true
+    }
+    router.navigate(['/home']);
+    return false
+
+    // return userService.isLogged$.pipe(
+    //     take(1),
+    //     map(isLogged=>{
+    //         if(isLogged){
+    //             return true
+    //         }else{
+    //             router.navigate(['/login']);
+    //             return false
+    //         }
+    //     })
+    // )  
 }
 
 export const GuestGuard: CanActivateFn = (route,state) => {
     const userService = inject(UserService);
     const router = inject(Router);
-    return userService.isLogged$.pipe(
-        take(1),
-        map(isLogged=>{
-            if(!isLogged){
-                return true
-            }else{
-                router.navigate(['/home']);
-                return false
-            }
-        })
-    )  
+    if(userService.isLogged){
+    router.navigate(['/recipes']);
+        return false
+    }
+    return true
+    // return userService.isLogged$.pipe(
+    //     take(1),
+    //     map(isLogged=>{
+    //         if(!isLogged){
+    //             return true
+    //         }else{
+    //             router.navigate(['/home']);
+    //             return false
+    //         }
+    //     })
+    // )  
 }
 
 

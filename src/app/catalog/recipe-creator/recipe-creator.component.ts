@@ -7,7 +7,7 @@ import { RecipeService } from '../../recipe.service';
 
 import { UserService } from '../../user.service';
 import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
-import { filter, switchMap } from 'rxjs';
+import { filter, Subscription, switchMap, tap } from 'rxjs';
 
 
 @Component({
@@ -22,27 +22,26 @@ export class RecipeCreatorComponent implements OnInit{
   @ViewChild('creationForm') form: NgForm | undefined;
   
   currentUser!: SignedUser | null;
+  
 
   constructor(private publisher:RecipeService, private router:Router, private userService:UserService){
     
   }
   
   ngOnInit(): void {
-    this.userService.user$.subscribe((user)=>{
-      this.currentUser = user;
-      if(this.currentUser){
-        console.log('current user:',this.currentUser)
-      }else{
-        console.log('No user logged in')
-      }
-    })
+    this.currentUser = this.userService.user;
+    
+    console.log(this.currentUser);
+    
   }
+
+  
 
   createRecipe():void{
     const form = this.form!;
     const id = String(uuidv4());
-    const authorUsername = 'ivan'
-    const authorId = 'ivanid'
+    const authorUsername = "ivan";
+    const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
     const ingredients = form.value.ingredients.split(' ');

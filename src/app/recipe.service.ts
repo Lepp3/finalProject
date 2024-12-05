@@ -43,8 +43,13 @@ export class RecipeService {
     })
   }
 
-  editRecipe(){
-    //TODO IMPLEMENT EDIT OF SPECIFIC CHILDREN USING PATCH (all properties not mentioned are not deleted)
+  editRecipe(recipe:SingleRecipe,recipeId:string){
+    const requestBody = {
+      [recipeId]:recipe
+    }
+    return this.http.patch(environment.apiUrl + 'recipes.json' ,requestBody,{
+      headers: this.headers
+    })
   }
 
   deleteRecipe(recipeId:string){

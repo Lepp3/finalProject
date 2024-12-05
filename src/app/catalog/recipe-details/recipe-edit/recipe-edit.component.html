@@ -14,16 +14,7 @@
                 required
                 />
             </div>
-            @if(titleInput.touched){
-                <div>
-                    @if(titleInput.errors?.['required']){
-                        <p>Name is required</p>
-                    }
-                    @if(titleInput.errors?.['minlength']){
-                        <p>Minimum length is 4 characters</p>
-                    }
-                </div>
-            }
+            
             <div class="form-group">
                 <label for="shortInfo">Short info about the recipe <p>(max:130 characters)</p></label>
                 <input
@@ -37,38 +28,20 @@
                 required
                 />
             </div>
-            @if(shortInfoInput.touched){
-                <div>
-                    @if(shortInfoInput.errors?.['required']){
-                        <p>Short info is required</p>
-                    }
-                    @if(shortInfoInput.errors?.['minlength']){
-                        <p>Minimum length is 10 characters</p>
-                    }
-                </div>
-            }
+           
             <div class="form-group">
                 <label for="ingredients">Ingredients (space in between each)</label>
                 <input
                 type="text"
                 name="ingredients"
                 id="ingredients"
-                [(ngModel)]="currentRecipe.details.ingredients"
+                [(ngModel)]="ingredients"
                 #ingredientsInput="ngModel"
                 minlength="10"
                 required
                 />
             </div>
-            @if(ingredientsInput.touched){
-                <div>
-                    @if(ingredientsInput.errors?.['required']){
-                        <p>Ingredients are required</p>
-                    }
-                    @if(ingredientsInput.errors?.['minlength']){
-                        <p>Minimum length is 10 characters</p>
-                    }
-                </div>
-            }
+            
             <div class="form-group">
                 <label for="fullRecipe">Full Recipe</label>
                 <input
@@ -81,16 +54,7 @@
                 required
                 />
             </div>
-            @if(fullRecipeInput.touched){
-                <div>
-                    @if(fullRecipeInput.errors?.['required']){
-                        <p>Full recipe is required</p>
-                    }
-                    @if(fullRecipeInput.errors?.['minlength']){
-                        <p>Minimum length is 10 characters</p>
-                    }
-                </div>
-            }
+            
             <div clas="form-group">
                 <label for="image">Picture of the dish</label>
                 <input
@@ -102,14 +66,8 @@
                 #imageInput="ngModel"
                 />
             </div>
-            @if(imageInput.touched){
-                <div>
-                    @if(titleInput.errors?.['required']){
-                        <p>Image is required</p>
-                    }
-                </div>
-            }
-            <button [disabled]="form.invalid">Save Changes</button>
+            
+            <button>Save Changes</button>
         </form>
     </div>
 }@else {

@@ -1,5 +1,5 @@
 <div class="wrapper">
-    @if(this.isLoggedIn | async){
+    @if(this.isLoggedIn){
         <div class="Auth">
             <a class="accessButton" href="#">USER PROFILE</a>
             <a class="accessButton" (click)="logout()">Logout</a>

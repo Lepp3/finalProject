@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { SignedUser } from '../../user-profile/models/userModel';
 
 @Component({
   selector: 'app-access-component',
@@ -13,7 +14,8 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './access-component.component.css'
 })
 export class AccessComponent implements OnInit{
-  isLoggedIn!:Observable<boolean>
+  isLoggedIn!:boolean
+  
   
   
   constructor(private logCheck:UserService,private router:Router,private cdr:ChangeDetectorRef){
@@ -21,12 +23,9 @@ export class AccessComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.isLoggedIn = this.logCheck.isLogged$;
-    this.isLoggedIn = this.logCheck.isLogged$;
-    
-    this.logCheck.isLogged$.subscribe((val) => {
-      console.log('logged in state',val)});
-      this.cdr.detectChanges();
+    this.isLoggedIn = this.logCheck.isLogged;
+    console.log(this.isLoggedIn);
+  
     
   }
 
@@ -34,7 +33,8 @@ export class AccessComponent implements OnInit{
   logout():void{
     this.logCheck.signOutUser()
     this.router.navigate(['/home']);
-    this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
+    console.log(this.logCheck.isLogged);
+    // this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
   }
 
   
