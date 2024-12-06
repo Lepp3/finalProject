@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './utils/endpoints';
 import { SingleComment, SingleRecipe } from './catalog/models/recipe.model';
-import { map } from 'rxjs';
 
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeService {
 
   headers = {
@@ -15,12 +16,12 @@ export class RecipeService {
 
 
   getAllRecipes(){
-    return this.http.get<SingleRecipe[]>(environment.apiUrl + 'recipes.json');
+    return this.http.get<SingleRecipe[]>('/api/recipes.json');
   }
 
 
   getSingleRecipe(recipeId:string){
-    return this.http.get<SingleRecipe>(environment.apiUrl+`recipes/${recipeId}.json`)
+    return this.http.get<SingleRecipe>(`/api/recipes/${recipeId}.json`)
   }
 
   likeRecipe(recipeId:string,userId:string){
@@ -29,7 +30,7 @@ export class RecipeService {
     const requestBody = {
       userId:true
     }
-    return this.http.patch(environment.apiUrl+'recipes/' + recipeId + '/likes.json',requestBody,{
+    return this.http.patch(`/api/recipes/${recipeId}/likes.json`,requestBody,{
       headers: this.headers
     })
   }
@@ -38,23 +39,23 @@ export class RecipeService {
     const requestBody = {
       [recipeId]:recipe
     }
-    return this.http.patch(environment.apiUrl + 'recipes.json' ,requestBody,{
+    return this.http.patch('/api/recipes.json' ,requestBody,{
       headers: this.headers
     })
   }
 
-  editRecipe(recipe:SingleRecipe,recipeId:string){
+  updateRecipe(recipe:SingleRecipe,recipeId:string){
     const requestBody = {
       [recipeId]:recipe
     }
-    return this.http.patch(environment.apiUrl + 'recipes.json' ,requestBody,{
+    return this.http.patch('/api/recipes.json' ,requestBody,{
       headers: this.headers
     })
   }
 
   deleteRecipe(recipeId:string){
     console.log('delete recipe service works')
-    return this.http.delete(environment.apiUrl+'recipes/'+recipeId+'.json')
+    return this.http.delete(`/api/recipes/'${recipeId}.json`)
   }
 
   createComment(comment:SingleComment,commentId:string,recipeId:string){
@@ -62,7 +63,7 @@ export class RecipeService {
       [commentId]:comment
     }
 
-    return this.http.patch(environment.apiUrl + 'recipes/' + recipeId + '/comments/.json',requestBody,{
+    return this.http.patch(`/api/recipes/${recipeId}/comments/.json'`,requestBody,{
       headers:this.headers
     }).subscribe()
   }
@@ -72,12 +73,14 @@ export class RecipeService {
   }
 
   deleteComment(recipeId:string,commentId:string){
-    return this.http.delete(environment.apiUrl+'recipes/'+recipeId+'/comments/'+commentId+'.json').subscribe()
+    return this.http.delete(`/api/recipes/${recipeId}/comments/${commentId}.json`).subscribe()
   }
 
-  isRecipeAuthor(recipeId:string,userId:string){
-    return this.http.get<SingleRecipe>(environment.apiUrl+'recipes/'+recipeId+'.json').pipe(
-      map(recipe=>recipe.authorId == userId)
-    )
+  isRecipeAuthor(recipeId:string,userId?:string){
+    if(!userId){
+      return false;
+    }
+    return recipeId === userId
+    
   }
 }

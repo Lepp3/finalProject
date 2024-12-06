@@ -1,9 +1,9 @@
 import {  ChangeDetectorRef, Component, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
-import { Observable } from 'rxjs';
+
 import { AsyncPipe } from '@angular/common';
-import { SignedUser } from '../../user-profile/models/userModel';
+
 
 @Component({
   selector: 'app-access-component',
@@ -25,6 +25,7 @@ export class AccessComponent implements OnInit{
   ngOnInit(): void {
     this.isLoggedIn = this.logCheck.isLogged;
     console.log(this.isLoggedIn);
+    this.cdr.detectChanges();
   
     
   }

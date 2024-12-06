@@ -1,19 +1,20 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component,  OnInit,  ViewChild } from '@angular/core';
 import { RecipeService } from '../../recipe.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleComment, SingleRecipe } from '../models/recipe.model';
 import { CommentsComponent } from './comments/comments.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
-import { Subscription } from 'rxjs';
-import { AuthorGuard } from '../../users.guard';
+import { SignedUser } from '../../user-profile/models/userModel';
+import { UserService } from '../../user.service';
+import { tap } from 'rxjs';
+
 
 
 @Component({
   selector: 'app-recipe-details',
   standalone: true,
   imports: [CommentsComponent,FormsModule,RouterLink],
-  providers:[RecipeService],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css'
 })
@@ -21,9 +22,13 @@ export class RecipeDetailsComponent implements OnInit{
 
   recipeId!:string;
 
-  currentRecipe:SingleRecipe | null = null;
+  currentRecipe!:SingleRecipe | null 
 
   allComments:SingleComment[] = [];
+
+  currentUserInfo:  SignedUser | null = null;
+
+  isOwner: boolean | null = null;
 
   @ViewChild('commentForm') form: NgForm | undefined;
 
@@ -38,16 +43,19 @@ export class RecipeDetailsComponent implements OnInit{
     if(this.recipeId){
       this.loadRecipeData();
     }
-
+    
+    
   }
   
 
   constructor(
     private recService:RecipeService,
     private activatedRoute:ActivatedRoute, 
-    private router: Router
+    private router: Router,
+    private userService:UserService
   ){
-    // this.recipeId = this.activatedRoute.snapshot.params['id'];
+    this.currentUserInfo = this.userService.user;
+    
   }
 
   getComments(): SingleComment[] {
@@ -63,17 +71,16 @@ export class RecipeDetailsComponent implements OnInit{
 
 
   loadRecipeData(){
-    this.recService.getSingleRecipe(this.recipeId).subscribe((recipe)=>{
-      this.currentRecipe = recipe;
-      this.allComments = this.getComments();
-      // console.log(recipe);
-    })
+    this.recService.getSingleRecipe(this.recipeId).pipe(
+      tap(recipe=>{
+        this.currentRecipe = recipe;
+        this.allComments = this.getComments();
+        this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUserInfo?.localId);
+      })
+    ).subscribe()
   }
 
-  isOwner():boolean{
-    // todo implement a function that hides or shows edit/delete button on authorId and userId check
-    return true
-  }
+  
 
  
   postComment():void{

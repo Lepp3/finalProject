@@ -1,9 +1,12 @@
 import { CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { UserService } from "./user.service";
-import { take, map, switchMap} from 'rxjs/operators'
+import { map,  catchError} from 'rxjs/operators'
 import { RecipeService } from "./recipe.service";
 import { of } from "rxjs";
+import { SingleRecipe } from "./catalog/models/recipe.model";
+import { SignedUser } from "./user-profile/models/userModel";
+
 
 export const AuthGuard: CanActivateFn = (route,state) => {
     const userService = inject(UserService);
@@ -12,20 +15,9 @@ export const AuthGuard: CanActivateFn = (route,state) => {
     if(userService.isLogged){
         return true
     }
-    router.navigate(['/home']);
+    router.navigate(['/login']);
     return false
 
-    // return userService.isLogged$.pipe(
-    //     take(1),
-    //     map(isLogged=>{
-    //         if(isLogged){
-    //             return true
-    //         }else{
-    //             router.navigate(['/login']);
-    //             return false
-    //         }
-    //     })
-    // )  
 }
 
 export const GuestGuard: CanActivateFn = (route,state) => {
@@ -36,17 +28,6 @@ export const GuestGuard: CanActivateFn = (route,state) => {
         return false
     }
     return true
-    // return userService.isLogged$.pipe(
-    //     take(1),
-    //     map(isLogged=>{
-    //         if(!isLogged){
-    //             return true
-    //         }else{
-    //             router.navigate(['/home']);
-    //             return false
-    //         }
-    //     })
-    // )  
 }
 
 
@@ -55,30 +36,38 @@ export const AuthorGuard: CanActivateFn = (route,state) =>{
     const recipeService = inject(RecipeService);
     const router = inject(Router);
 
-    const recipeId = route.paramMap.get('id');
+    const recipeId = route.params['id'];
+    console.log(recipeId);
+    //no recipe id
     if(!recipeId){
         router.navigate(['/recipes']);
+        return of(false)
+    }
+
+    const user: SignedUser | null = userService.user;
+    // no user if auth guard has failed
+    if(!user){
+        router.navigate(['/login']);
         return false
     }
 
-    return userService.user$.pipe(
-        take(1),
-        switchMap(user =>{
-            if(!user){
-                router.navigate(['/login']);
-                return of(false);
+    return recipeService.getSingleRecipe(recipeId).pipe(
+        map((recipe:SingleRecipe)=>{
+            console.log(recipe);
+            // not author
+            if(recipe.authorId !== user.localId){
+                console.log(recipe.authorId);
+                router.navigate(['/recipes']);
+                return false;
+            }else{
+                // author
+                return true
             }
-            return recipeService.isRecipeAuthor(recipeId,user.localId).pipe(
-                map(isAuthor=>{
-                    if(isAuthor){
-                        return true
-                    }else{
-                        router.navigate(['/recipes']);
-                        return false
-                    }
-                })
-            )
-        }
+        }),catchError(()=>{
+            router.navigate(['/recipes']);
+            return of(false);
+        })
     )
-    )
+
+
 }

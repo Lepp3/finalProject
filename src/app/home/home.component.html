@@ -6,10 +6,17 @@
         <h3>The best place to share or find amazing recipes</h3>
     </div>
     <div class="loginRegister">
-        
         <p>Want to start sharing your craft?</p>
-        <div class="join-us">
-            <a routerLink="/register">Join us</a>
-        </div>
+        @if(currentUser){
+            <div class="join-us">
+                <a routerLink="/create">Post a recipe</a>
+            </div>
+        }@else{
+            <div class="join-us">
+                <a routerLink="/register">Join us</a>
+            </div>
+            
+        }
+        
     </div>
 </section>

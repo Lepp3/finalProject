@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from './utils/endpoints';
-import { BehaviorSubject, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { map, catchError, throwError } from 'rxjs';
 import { SignedUser, UserInfo } from './user-profile/models/userModel';
+import { Router } from '@angular/router';
 
 
 
@@ -33,9 +34,9 @@ export class UserService implements OnDestroy {
   userInfo: UserInfo | null = null;
   userInfoSubscription: Subscription | null = null;
   //api key
-  private apiKey: string = "AIzaSyAhOJFnSrVAI6h4zjYOZGklqmVuRSO-Y50"
+  
 
-  constructor(private http: HttpClient,) {
+  constructor(private http: HttpClient, private router: Router) {
     this.userSubscription = this.user$.subscribe((user) => {
       this.user = user;
       this.userInfoSubscription = this.userInfo$.subscribe((userinfo) => {
@@ -119,7 +120,7 @@ export class UserService implements OnDestroy {
       // Ensure user is considered logged out if tokens are missing
       this.userSubject.next(null);
     }
-
+    // set state of user info
     if (username && userImage && userBio) {
       this.setUserInfoState({
         _id: '',
@@ -134,7 +135,7 @@ export class UserService implements OnDestroy {
 
 
   //create account in authentication base
-  createUser(email: string, password: string, username: string, bio: string): void {
+  createUser(email: string, password: string, username: string, bio: string) {
     const requestBody = {
       email: email,
       password: password,
@@ -145,15 +146,22 @@ export class UserService implements OnDestroy {
       'Content-Type': 'application/json'
     };
 
-    this.http.post<SignedUser>(environment.signUpUrl + this.apiKey, requestBody, {
+    return this.http.post<SignedUser>(environment.signUpUrl, requestBody, {
       headers: headers
-    }).subscribe((data: SignedUser) => {
-      this.setUserState(data);
-      this.createUserInfoInDatabase(data.localId, username, bio, email);
-    }), catchError((error) => {
-      console.error('User creation failed', error);
-      return throwError(() => new Error('User creation failed'));
-    })
+    }).pipe(
+      tap((data: SignedUser) => {
+        this.setUserState(data)
+      }), switchMap(data => this.createUserInfoInDatabase(data.localId, username, bio, email).pipe(
+        tap((userInfo) => {
+          this.setUserInfoState(userInfo)
+          debugger
+        })
+      )
+      ), catchError((error) => {
+        console.error(error);
+        return throwError(() => new Error('registration failed'))
+      })
+    )
   }
   //create account info in data base
   createUserInfoInDatabase(localId: string, username: string, bio: string, email: string) {
@@ -163,7 +171,7 @@ export class UserService implements OnDestroy {
     const headers = {
       'Content-Type': 'application/json'
     };
-    this.http.put(environment.apiUrl + "users/" + localId + ".json", {
+    return this.http.put<UserInfo>(`/api/users/${localId}.json`, {
       username: userName,
       _id: localId,
       bio: userBio,
@@ -171,8 +179,10 @@ export class UserService implements OnDestroy {
       email: email
     }, {
       headers: headers
-    }).subscribe();
+    })
   }
+
+
 
 
 
@@ -188,13 +198,13 @@ export class UserService implements OnDestroy {
       'Content-Type': 'application/json'
     };
 
-    return this.http.post<SignedUser>(environment.signInUrl + this.apiKey, requestBody, {
+    return this.http.post<SignedUser>(environment.signInUrl, requestBody, {
       headers: headers
     }).pipe(
       tap((data: SignedUser) => {
         this.setUserState(data)
-      }),switchMap(data=>this.getUserInfo(data.localId).pipe(
-        tap(userInfo=>{
+      }),switchMap(data => this.getUserInfo(data.localId).pipe(
+        tap(userInfo => {
           this.setUserInfoState(userInfo)
         })
       ))
@@ -220,7 +230,7 @@ export class UserService implements OnDestroy {
     localStorage.removeItem('email');
   }
   //refresh authentication token
-  refreshAuthToken(): Observable<void> {
+  refreshAuthToken(): Observable<boolean> {
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) {
       return throwError(() => new Error('No refresh token available'));
@@ -235,9 +245,10 @@ export class UserService implements OnDestroy {
       'refresh_token': `${refreshToken}`
     }
 
-    return this.http.post<RefreshTokenResponse>(environment.refreshTokenUrl + this.apiKey, requestBody, { headers: headers }).pipe(
+    return this.http.post<RefreshTokenResponse>(environment.refreshTokenUrl, requestBody, { headers: headers }).pipe(
       map((response) => {
         this.storeToken(response.id_token, response.refresh_token, response.expires_in);
+        return true
       }),
       catchError((error) => {
         console.error('Token refresh failed', error);
@@ -251,18 +262,19 @@ export class UserService implements OnDestroy {
   isRefreshTokenExpired(): boolean {
     let expirationTime = Number(localStorage.getItem('tokenExpiration') || 0);
     //handle 1 minute expiration
-    return Date.now() > expirationTime + 60;
+    return Date.now() > expirationTime - 60 * 100;
   }
 
   //fetch user info from data base
-  getUserInfo(localId: string) {
-    return this.http.get<UserInfo>(environment.apiUrl + 'users/' + localId + '.json')
+  getUserInfo(localId: string): Observable<UserInfo> {
+    return this.http.get<UserInfo>(`/api/users/${localId}.json`)
   }
 
+  // get user id
   getUserId(): string | null {
     return localStorage.getItem('userId');
   }
-
+  //clean up
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
     this.userInfoSubscription?.unsubscribe();

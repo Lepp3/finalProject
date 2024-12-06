@@ -1,7 +1,9 @@
 <div class="wrapper">
     <h2>{{currentRecipe?.title}}</h2>
-    <button (click)="onDeleteRecipe(recipeId)">Delete Recipe</button>
-    <div [routerLink]="['/recipes','details', recipeId,'edit']" >Edit Recipe</div>
+    @if(isOwner){
+        <button (click)="onDeleteRecipe(recipeId)">Delete Recipe</button>
+        <div [routerLink]="['/recipes','details', recipeId,'edit']" >Edit Recipe</div>
+    }
     <p>A recipe posted by {{currentRecipe?.authorUsername}}<p>
     <img src={{currentRecipe?.imageSrc}} alt="Picture of a dish">
     <h3>Full recipe:</h3>

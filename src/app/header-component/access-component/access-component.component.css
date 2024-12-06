@@ -1,9 +1,9 @@
-.wrapper{
+.accessWrapper{
     display: flex;
     gap: 10px;
 }
 
-.wrapper>*{
+.accessWrapper>*{
     display: flex;
     gap: 15px;
 }

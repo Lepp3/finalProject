@@ -36,7 +36,7 @@ export class RecipeEditComponent implements OnInit {
     this.currentUser = this.userService.user;
     this.activeRout.paramMap.subscribe((params)=>{
       this.recipeId = params.get('id') ?? '';
-      console.log(this.recipeId);
+      
     })
     if(this.recipeId){
       this.loadRecipeData();
@@ -48,7 +48,7 @@ export class RecipeEditComponent implements OnInit {
     this.recService.getSingleRecipe(this.recipeId).subscribe((recipe)=>{
       this.currentRecipe = recipe;
       this.ingredients = recipe.details.ingredients.join(' ');
-      console.log(this.ingredients);
+      
     })
   }
 
@@ -80,7 +80,7 @@ export class RecipeEditComponent implements OnInit {
 
     console.log(recipe);
     
-    this.recService.editRecipe(recipe,id).subscribe({
+    this.recService.updateRecipe(recipe,id).subscribe({
       next:()=>{
         this.router.navigate([`/recipes/details/${this.recipeId}`]);
       }

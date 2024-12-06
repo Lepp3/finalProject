@@ -12,7 +12,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-catalog',
   standalone: true,
   imports: [SingleRecipeComponent,RouterLink],
-  providers:[RecipeService,],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.css'
 })

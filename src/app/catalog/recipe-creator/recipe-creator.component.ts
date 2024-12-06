@@ -14,7 +14,6 @@ import { filter, Subscription, switchMap, tap } from 'rxjs';
   selector: 'app-recipe-creator',
   standalone: true,
   imports: [FormsModule],
-  providers: [RecipeService],
   templateUrl: './recipe-creator.component.html',
   styleUrl: './recipe-creator.component.css'
 })
@@ -22,7 +21,7 @@ export class RecipeCreatorComponent implements OnInit{
   @ViewChild('creationForm') form: NgForm | undefined;
   
   currentUser!: SignedUser | null;
-  
+  userInfo!: UserInfo | null;
 
   constructor(private publisher:RecipeService, private router:Router, private userService:UserService){
     
@@ -30,8 +29,9 @@ export class RecipeCreatorComponent implements OnInit{
   
   ngOnInit(): void {
     this.currentUser = this.userService.user;
-    
+    this.userInfo = this.userService.userInfo
     console.log(this.currentUser);
+    console.log(this.userInfo);
     
   }
 
@@ -40,7 +40,7 @@ export class RecipeCreatorComponent implements OnInit{
   createRecipe():void{
     const form = this.form!;
     const id = String(uuidv4());
-    const authorUsername = "ivan";
+    const authorUsername = this.userInfo!.username;
     const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
-import { delay } from 'rxjs';
+
 
 
 @Component({
@@ -19,24 +19,21 @@ export class LoginComponent {
 
   }
 
-  login():void{
+  login(){
     const form = this.form!;
     const email = form.value.email;
     const password = form.value.password;
-    this.logged.signInUser(email,password).pipe(
-      delay(500)
-    ).subscribe({
+
+    this.logged.signInUser(email,password).subscribe({
       next: ()=>{
         this.router.navigate(['/home']);
-      },error: (err)=>{
-        console.error('login failed', err);
       }
     })
-
-    // this.logged.signInUser(email,password);
     
-    // this.router.navigate(['/home']);
-    // form?.reset()
+
+    
+
+    
     
     }
 }
