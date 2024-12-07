@@ -2,6 +2,7 @@ import {  ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angul
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
 import { combineLatest, Subscription } from 'rxjs';
+import { SignedUser } from '../../user-profile/models/userModel';
 
 
 
@@ -15,6 +16,7 @@ import { combineLatest, Subscription } from 'rxjs';
 export class AccessComponent implements OnInit{
   isLoggedIn:boolean = false;
   userName: string | null = null;
+  currentUser: SignedUser | null = null;
   private subscriptions: Subscription = new Subscription();
   
   
@@ -37,6 +39,8 @@ export class AccessComponent implements OnInit{
     })
 
     this.subscriptions.add(sub);
+    this.currentUser = this.logCheck.user;
+  
 
     
   }

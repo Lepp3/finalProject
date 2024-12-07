@@ -31,13 +31,31 @@ export const GuestGuard: CanActivateFn = (route,state) => {
 }
 
 
+export const ProfileOwnerGuard: CanActivateFn = (route,state)=>{
+    const userService = inject(UserService);
+    const router = inject(Router);
+    const profileId = route.params['id'];
+
+    if(!profileId){
+        router.navigate(['/home']);
+        return false
+    }
+
+    const user: SignedUser | null = userService.user;
+    if(!user){
+        router.navigate(['/home']);
+        return false
+    }
+
+    return profileId === user.localId
+}
+
 export const AuthorGuard: CanActivateFn = (route,state) =>{
     const userService = inject(UserService);
     const recipeService = inject(RecipeService);
     const router = inject(Router);
 
     const recipeId = route.params['id'];
-    console.log(recipeId);
     //no recipe id
     if(!recipeId){
         router.navigate(['/recipes']);

@@ -3,14 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Details, SingleRecipe } from '../../models/recipe.model';
 import { RecipeService } from '../../../recipe.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { SignedUser } from '../../../user-profile/models/userModel';
+import { SignedUser, UserInfo } from '../../../user-profile/models/userModel';
 import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-recipe-edit',
   standalone: true,
   imports: [FormsModule],
-  providers: [RecipeService],
   templateUrl: './recipe-edit.component.html',
   styleUrl: './recipe-edit.component.css'
 })
@@ -19,6 +18,7 @@ export class RecipeEditComponent implements OnInit {
   recipeId!: string;
   currentRecipe!: SingleRecipe;
   currentUser!: SignedUser | null;
+  currentUserInfo!: UserInfo | null;
   ingredients!: string | null;
   @ViewChild('editForm') form!:NgForm
 
@@ -34,6 +34,7 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.userService.user;
+    this.currentUserInfo = this.userService.userInfo;
     this.activeRout.paramMap.subscribe((params)=>{
       this.recipeId = params.get('id') ?? '';
       
@@ -55,7 +56,7 @@ export class RecipeEditComponent implements OnInit {
   onEditSubmit():void{
     const form = this.form;
     const id = this.recipeId;
-    const authorUsername = "ivan";
+    const authorUsername = this.currentUserInfo?.username;
     const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
@@ -73,7 +74,7 @@ export class RecipeEditComponent implements OnInit {
       timestamp: timestamp,
       details: details,
       authorId: authorId,
-      authorUsername: authorUsername,
+      authorUsername: authorUsername || "",
       imageSrc: image,
       recipeId: id
     }

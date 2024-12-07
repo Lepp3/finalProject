@@ -30,8 +30,6 @@ export class RecipeCreatorComponent implements OnInit{
   ngOnInit(): void {
     this.currentUser = this.userService.user;
     this.userInfo = this.userService.userInfo
-    console.log(this.currentUser);
-    console.log(this.userInfo);
     
   }
 

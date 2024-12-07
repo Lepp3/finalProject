@@ -7,8 +7,9 @@ import { RegisterComponent } from './register/register.component';
 import { RecipeDetailsComponent } from './catalog/recipe-details/recipe-details.component';
 import { RecipeCreatorComponent } from './catalog/recipe-creator/recipe-creator.component';
 import { RecipeEditComponent } from './catalog/recipe-details/recipe-edit/recipe-edit.component';
-// import { UserProfileComponent } from './user-profile/user-profile.component';
-import { AuthGuard, GuestGuard, AuthorGuard } from './users.guard';
+import { AuthGuard, GuestGuard, AuthorGuard, ProfileOwnerGuard } from './users.guard';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { EditProfileComponent } from './user-profile/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch:'full'},
@@ -35,6 +36,18 @@ export const routes: Routes = [
         component: RecipeCreatorComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: 'profile/:id',
+        children: [
+            {path: '', component:UserProfileComponent},
+            {
+                path: 'editProfile', 
+                component: EditProfileComponent,
+                canActivate: [ProfileOwnerGuard]
+            }
+        ]
+    },
+    
 
 
 

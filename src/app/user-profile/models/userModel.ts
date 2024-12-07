@@ -13,7 +13,7 @@ export interface SignedUser{
 export interface UserInfo{
     _id:string,
     bio:string,
-    profileImgSrc:string,
+    profileImgSrc?:string,
     username:string,
-    email:string
+    email?:string
 }

@@ -1,1 +1,30 @@
-<h2>USER PROFILE VIEW</h2>
+<div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-picture">
+          <img src="src/assets/images/avatar-1577909_640.png" alt="Profile Picture">
+      </div>
+      <div class="profile-details">
+        <h1 class="username">{{ userInfo.username }}</h1>
+        <p class="bio">{{ userInfo.bio }}</p>
+      </div>
+    </div>
+    @if (isOwner) {
+        <div class="edit-profile-button">
+            <button [routerLink]="['/profile',userId,'editProfile']">Edit Profile</button>
+          </div>
+    }
+     @if(userRecipes.length !== 0){
+        <div class="posted-recipes">
+            <h2>Posted Recipes</h2>
+            <ul>
+                @for(recipe of userRecipes; track $index){
+                    <li [routerLink]="['/recipes','details',recipe.recipeId]">{{recipe.title}}</li>
+                }
+            </ul>
+          </div>
+     }@else {
+        <p class="no-recipes-message">This user has not posted any recipes yet.</p>
+     }
+  </div>
+  

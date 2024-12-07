@@ -51,6 +51,10 @@ export class UserService implements OnDestroy {
     return !!this.user;
   }
 
+  headers = {
+    'Content-Type': 'application.json'
+  }
+
   //store tokens from authentication service
   private storeToken(idToken: string, refreshToken: string, expiresIn: string, localId?: string): void {
     const expirationTime = Date.now() + Number(expiresIn) * 1000;
@@ -69,17 +73,16 @@ export class UserService implements OnDestroy {
 
 
   //store user info from data base
-  private storeUserInfo(userName: string, userBio: string, profileImg: string, userEmail: string) {
+  private storeUserInfo(userName: string, userBio:string) {
     localStorage.setItem('username', userName);
     localStorage.setItem('bio', userBio);
-    localStorage.setItem('profileImg', profileImg);
-    localStorage.setItem('email', userEmail);
+    
   }
 
-  //set user info state
+  //set user info statef
   private setUserInfoState(userInfo: UserInfo): void {
     this.userInfoSubject.next(userInfo);
-    this.storeUserInfo(userInfo.username, userInfo.bio, userInfo.profileImgSrc, userInfo.email);
+    this.storeUserInfo(userInfo.username, userInfo.bio);
   }
 
   // get token from local storage if its not expired
@@ -98,7 +101,6 @@ export class UserService implements OnDestroy {
     const refreshToken = localStorage.getItem('refreshToken');
     const expirationTime = localStorage.getItem('tokenExpiration');
     const username = localStorage.getItem('username');
-    const userImage = localStorage.getItem('profileImg');
     const userBio = localStorage.getItem('bio');
 
 
@@ -118,11 +120,10 @@ export class UserService implements OnDestroy {
       this.userSubject.next(null);
     }
     // set state of user info
-    if (username && userImage && userBio) {
+    if (username &&  userBio) {
       this.setUserInfoState({
         _id: '',
         username: username,
-        profileImgSrc: userImage,
         bio: userBio,
         email: ''
 
@@ -150,7 +151,7 @@ export class UserService implements OnDestroy {
     }).pipe(
       tap((data: SignedUser) => {
         this.setUserState(data)
-      }), switchMap(data => this.createUserInfoInDatabase(data.localId, username, bio, email).pipe(
+      }), switchMap(data => this.createUserInfoInDatabase(data.localId, username, bio).pipe(
         tap((userInfo) => {
           this.setUserInfoState(userInfo)
           debugger
@@ -163,10 +164,9 @@ export class UserService implements OnDestroy {
     )
   }
   //create account info in data base
-  createUserInfoInDatabase(localId: string, username: string, bio: string, email: string) {
+  createUserInfoInDatabase(localId: string, username: string, bio: string) {
     const userName = username;
     const userBio = bio;
-    const profilePicture = "coolsrc";
     const headers = {
       'Content-Type': 'application/json'
     };
@@ -174,8 +174,6 @@ export class UserService implements OnDestroy {
       username: userName,
       _id: localId,
       bio: userBio,
-      profileImgSrc: profilePicture,
-      email: email
     }, {
       headers: headers
     })
@@ -264,8 +262,18 @@ export class UserService implements OnDestroy {
   }
 
   //fetch user info from data base
-  getUserInfo(localId: string): Observable<UserInfo> {
+  getUserInfo(localId: string){
     return this.http.get<UserInfo>(`/api/users/${localId}.json`)
+  }
+
+  updateUserInfo(userId:string,userInfo:UserInfo){
+    const requestBody = {
+      [userId]: userInfo
+    }
+
+    return this.http.patch('/api/users.json',requestBody,{
+      headers: this.headers
+    })
   }
 
   // get user id
