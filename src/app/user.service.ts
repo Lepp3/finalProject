@@ -30,19 +30,20 @@ export class UserService implements OnDestroy {
 
   //user info subject
   private userInfoSubject = new BehaviorSubject<UserInfo | null>(null);
-  private userInfo$ = this.userInfoSubject.asObservable();
+  public userInfo$ = this.userInfoSubject.asObservable();
   userInfo: UserInfo | null = null;
   userInfoSubscription: Subscription | null = null;
   //api key
   
 
   constructor(private http: HttpClient, private router: Router) {
-    this.userSubscription = this.user$.subscribe((user) => {
-      this.user = user;
+    
+      this.userSubscription = this.user$.subscribe((user) => {
+        this.user = user;
+      })
       this.userInfoSubscription = this.userInfo$.subscribe((userinfo) => {
         this.userInfo = userinfo;
       })
-    })
   }
 
   //get logged state
@@ -62,11 +63,7 @@ export class UserService implements OnDestroy {
   }
   //set the user state
   private setUserState(user: SignedUser): void {
-    this.userSubject.next({
-      ...user,
-      displayName: user.displayName || '',
-      registered: user.registered || true
-    });
+    this.userSubject.next(user);
     this.storeToken(user.idToken, user.refreshToken, user.expiresIn, user.localId);
   }
 
@@ -130,6 +127,8 @@ export class UserService implements OnDestroy {
         email: ''
 
       })
+    }else{
+      this.userInfoSubject.next(null);
     }
   }
 
@@ -213,21 +212,20 @@ export class UserService implements OnDestroy {
         return throwError(() => new Error('sign in failed'));
       })
     )
+   
+    
 
   }
 
 
   //sign out
-  signOutUser(): void {
-    this.userSubject.next(null);
-    localStorage.removeItem('idToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('tokenExpiration');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('bio');
-    localStorage.removeItem('username');
-    localStorage.removeItem('profileImg');
-    localStorage.removeItem('email');
+  signOutUser(): Promise<void> {
+    return new Promise((resolve)=>{
+      this.userSubject.next(null);
+      this.userInfoSubject.next(null);
+      localStorage.clear();
+      resolve();
+    });
   }
   //refresh authentication token
   refreshAuthToken(): Observable<boolean> {

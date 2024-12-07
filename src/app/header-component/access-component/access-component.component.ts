@@ -1,20 +1,21 @@
-import {  ChangeDetectorRef, Component, OnInit, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {  ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
+import { combineLatest, Subscription } from 'rxjs';
 
-import { AsyncPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-access-component',
   standalone: true,
-  imports: [RouterLink,AsyncPipe],
-  
+  imports: [RouterLink],
   templateUrl: './access-component.component.html',
   styleUrl: './access-component.component.css'
 })
 export class AccessComponent implements OnInit{
-  isLoggedIn!:boolean
+  isLoggedIn:boolean = false;
+  userName: string | null = null;
+  private subscriptions: Subscription = new Subscription();
   
   
   
@@ -23,10 +24,20 @@ export class AccessComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.logCheck.isLogged;
-    console.log(this.isLoggedIn);
-    this.cdr.detectChanges();
-  
+   
+    const userState$ = combineLatest([
+      this.logCheck.user$,
+      this.logCheck.userInfo$
+    ]);
+
+    const sub = userState$.subscribe(([user,userInfo])=>{
+      this.isLoggedIn = !!user;
+      this.userName = userInfo?.username || null;
+      
+    })
+
+    this.subscriptions.add(sub);
+
     
   }
 
@@ -34,8 +45,6 @@ export class AccessComponent implements OnInit{
   logout():void{
     this.logCheck.signOutUser()
     this.router.navigate(['/home']);
-    console.log(this.logCheck.isLogged);
-    // this.logCheck.isLogged$.subscribe(val => console.log('Logged in state:', val));
   }
 
   

@@ -73,6 +73,7 @@ export class RecipeService {
   }
 
   deleteComment(recipeId:string,commentId:string){
+    console.log(commentId);
     return this.http.delete(`/api/recipes/${recipeId}/comments/${commentId}.json`).subscribe()
   }
 

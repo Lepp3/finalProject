@@ -18,27 +18,29 @@
         <app-comments [comments]="allComments"
         (deleteComment)="onDeleteComment($event)"/>
     </section>
-    <div class="formwrapper">
-        <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
-            <div class="form-group">
-                <label for="commentContent">Add new comment</label>
-                <input
-                type="text"
-                id="commentContent"
-                name="commentContent"
-                ngModel
-                #commentInput="ngModel"
-                minlength="5"
-                />
-            </div>
-            @if(commentInput.touched){
-                <div>
-                    @if(commentInput.errors?.['minlength']){
-                        <p>Minimum comment length is 3 characters</p>
-                    }
+    @if(isLogged){
+        <div class="formwrapper">
+            <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
+                <div class="form-group">
+                    <label for="commentContent">Add new comment</label>
+                    <input
+                    type="text"
+                    id="commentContent"
+                    name="commentContent"
+                    ngModel
+                    #commentInput="ngModel"
+                    minlength="5"
+                    />
                 </div>
-            }
-            <button [disabled]="form?.invalid">Post comment</button>
-        </form>
-    </div>
+                @if(commentInput.touched){
+                    <div>
+                        @if(commentInput.errors?.['minlength']){
+                            <p>Minimum comment length is 3 characters</p>
+                        }
+                    </div>
+                }
+                <button [disabled]="form?.invalid">Post comment</button>
+            </form>
+        </div>
+    }
 </div>

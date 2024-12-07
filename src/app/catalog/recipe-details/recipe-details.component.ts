@@ -5,7 +5,7 @@ import { SingleComment, SingleRecipe } from '../models/recipe.model';
 import { CommentsComponent } from './comments/comments.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
-import { SignedUser } from '../../user-profile/models/userModel';
+import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
 import { UserService } from '../../user.service';
 import { tap } from 'rxjs';
 
@@ -26,9 +26,13 @@ export class RecipeDetailsComponent implements OnInit{
 
   allComments:SingleComment[] = [];
 
-  currentUserInfo:  SignedUser | null = null;
+  currentUser:  SignedUser | null = null;
+
+  currentUserInfo: UserInfo | null = null;
 
   isOwner: boolean | null = null;
+
+  isLogged: boolean = false;
 
   @ViewChild('commentForm') form: NgForm | undefined;
 
@@ -54,7 +58,11 @@ export class RecipeDetailsComponent implements OnInit{
     private router: Router,
     private userService:UserService
   ){
-    this.currentUserInfo = this.userService.user;
+    this.currentUser = this.userService.user;
+    this.currentUserInfo = this.userService.userInfo;
+    if(this.currentUser){
+      this.isLogged = true;
+    }
     
   }
 
@@ -75,7 +83,7 @@ export class RecipeDetailsComponent implements OnInit{
       tap(recipe=>{
         this.currentRecipe = recipe;
         this.allComments = this.getComments();
-        this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUserInfo?.localId);
+        this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUser?.localId);
       })
     ).subscribe()
   }
@@ -88,12 +96,12 @@ export class RecipeDetailsComponent implements OnInit{
     const form = this.form!;
     const commentContent = form.value.commentContent;
     const timestamp = String(Date.now());
-    const authorId = "ivancho";
-    const authorUsername = "Big Ivan"
+    const authorId = this.currentUser?.localId;
+    const authorUsername = this.currentUserInfo?.username;
     const id = String(uuidv4());
     const comment:SingleComment = {
-      authorId: authorId,
-      authorUsername: authorUsername,
+      authorId: authorId!,
+      authorUsername: authorUsername!,
       content: commentContent,
       timestamp: timestamp,
       commentId: id

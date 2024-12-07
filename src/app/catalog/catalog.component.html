@@ -3,16 +3,17 @@
     <div class="searchField">
       <input type="text" placeholder="search for.." #filter />
       <button (click)="filterByInput(filter,filter.value)">Search</button>
+      <button (click)="reset()">Reset</button>
     </div>
     <div class="buttonsField">
       <div routerLink="/create" >Create a recipe</div>
     </div>
     <div class="filterBy">
       <p>Filter by</p>
-      <div>Newest</div>
-      <div>Oldest</div>
-      <div>Most liked</div>
-      <div>Most commented</div>
+      <div (click)="newest()">Newest</div>
+      <div (click)="oldest()">Oldest</div>
+      <div (click)="mostLiked()">Most liked</div>
+      <div (click)="mostCommented()">Most commented</div>
     </div>
     @if(recipes.length == 0){
       <h2>No recipes yet</h2>

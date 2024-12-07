@@ -9,7 +9,6 @@ import { UserService } from '../user.service';
   selector: 'app-login',
   standalone: true,
   imports: [RouterLink,FormsModule,],
-  providers:[UserService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,21 +18,16 @@ export class LoginComponent {
 
   }
 
+ 
   login(){
     const form = this.form!;
     const email = form.value.email;
     const password = form.value.password;
 
     this.logged.signInUser(email,password).subscribe({
-      next: ()=>{
+      complete: ()=>{
         this.router.navigate(['/home']);
       }
     })
-    
-
-    
-
-    
-    
     }
 }

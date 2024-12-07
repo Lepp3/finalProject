@@ -4,6 +4,8 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
 import { LogoComponent } from './logo-component/logo-component.component';
 import { UserService } from '../user.service';
 import { Router} from '@angular/router';
+import { catchError, combineLatest, Subscription, tap } from 'rxjs';
+import { SignedUser } from '../user-profile/models/userModel';
 
 @Component({
   selector: 'app-header-component',
@@ -15,21 +17,6 @@ import { Router} from '@angular/router';
   templateUrl: './header-component.component.html',
   styleUrl: './header-component.component.css'
 })
-export class HeaderComponent implements OnInit {
-  isLoggedIn!: boolean;
+export class HeaderComponent {
 
-  constructor(private logState:UserService,private router:Router){
-
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.logState.isLogged;
-
-  }
-
-  logout():void{
-    this.logState.signOutUser();
-    this.router.navigate(['/home']);
-    console.log(this.logState.isLogged);
-  }
 }

@@ -1,7 +1,7 @@
 <div class="accessWrapper">
     @if(this.isLoggedIn){
         <div class="Auth">
-            <a class="accessButton" href="#">USER PROFILE</a>
+            <a class="accessButton" href="#">Welcome {{userName}}</a>
             <a class="accessButton" (click)="logout()">Logout</a>
         </div>
         

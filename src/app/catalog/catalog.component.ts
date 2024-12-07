@@ -43,12 +43,25 @@ this.filteredRecipes = this.recipes.filter(recipe=>recipe.title.toLowerCase().in
 filter.value = '';
 }
 
-mostLiked(){
+reset(){
+  this.filteredRecipes = this.recipes;
+}
 
+mostLiked(){
+  this.filteredRecipes = [...this.recipes].sort((a,b)=>{
+    const likesA = a.likes? Object.keys(a.likes).length : 0;
+    const likesB = b.likes? Object.keys(b.likes).length : 0;
+    return likesB - likesA
+  })
 }
 
 mostCommented(){
-
+  this.filteredRecipes = [...this.recipes].sort((a,b)=> {
+    const commentsA = a.comments? Object.keys(a.comments).length : 0;
+    const commentsB = b.comments? Object.keys(b.comments).length : 0;
+    return commentsB - commentsA
+  
+  })
 }
 
 newest(){
@@ -59,7 +72,7 @@ newest(){
   })
 }
 
-oldest():void{
+oldest(){
   this.filteredRecipes.sort((a,b)=>{
     const timeA = Number(a.timestamp || 0);
     const timeB = Number(b.timestamp || 0);
