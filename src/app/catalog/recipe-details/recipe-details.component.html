@@ -30,6 +30,7 @@
                     ngModel
                     #commentInput="ngModel"
                     minlength="5"
+                    required
                     />
                 </div>
                 @if(commentInput.touched){
@@ -39,7 +40,7 @@
                         }
                     </div>
                 }
-                <button [disabled]="form?.invalid">Post comment</button>
+                <button>Post comment</button>
             </form>
         </div>
     }

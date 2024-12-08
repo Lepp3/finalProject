@@ -13,16 +13,21 @@ import { UserService } from '../user.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  @ViewChild('loginForm') form:NgForm | undefined;
+  @ViewChild('loginForm') form: NgForm | undefined;
   constructor(private logged:UserService, private router:Router){
 
   }
 
  
   login(){
-    const form = this.form!;
-    const email = form.value.email;
-    const password = form.value.password;
+    const form = this.form;
+
+    if(form?.invalid){
+      console.log('invalid form');
+      return
+    }
+    const email = form?.value.email;
+    const password = form?.value.password;
 
     this.logged.signInUser(email,password).subscribe({
       complete: ()=>{

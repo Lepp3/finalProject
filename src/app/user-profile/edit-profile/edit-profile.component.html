@@ -1,6 +1,6 @@
 @if(currentUserInfo){
     <div class="wrapper">
-        <form #profileEditForm class="profileEditForm" (ngSubmit)="onEditSubmit()">
+        <form #profileEditForm="ngForm" class="profileEditForm" (ngSubmit)="onEditSubmit()">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input

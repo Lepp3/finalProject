@@ -1,8 +1,123 @@
+.catalog{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 30px;
+    background-color: rgb(95, 157, 156);
+    min-height: 100vh;
+    font-family: 'Roboto', serif;
+}
+
+
+.catalog h1{
+    text-align: center;
+    font-size: 3rem;
+    text-decoration: underline;
+}
+
+.searchField{
+    align-self: center;
+    display: flex;
+    gap: 10px;
+}
+
+.searchField input[type="text"]{
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.725);
+    font-weight: 500;
+}
+
+.searchField input[type="text"]:focus{
+    outline: none;
+}
+
+.searchField button{
+    padding: 10px;
+    border-radius: 7px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    font-size: 1rem;
+}
+
+.searchField button:hover{
+    background-color: black;
+    color:white;
+}
+
+.buttonsField{
+    align-self: flex-end;
+}
+
+.buttonsField div{
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    background-color: rgb(214, 167, 120);
+}
+
+.buttonsField div:hover{
+    background-color: rgb(243, 169, 32);
+    color: rgb(36, 57, 33);
+}
+
+.filterBy{
+    width: 20%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.filterBy p{
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+.filterBy div{
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: rgb(214, 167, 120);
+
+}
+
+.filterBy div:hover{
+    background-color: rgb(243, 169, 32);
+    color: rgb(36, 57, 33);
+}
+
+
+
+.recipeSection{
+    margin-top: 40px;
+}
+
 .recipeList{
     display: flex;
     gap: 25px;
     padding: 20px;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.recipeList li{
+    flex: 0 0 30%;
+    border: 2px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .singleRecipe{

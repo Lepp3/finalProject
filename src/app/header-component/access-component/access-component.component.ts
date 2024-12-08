@@ -1,8 +1,7 @@
 import {  ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
-import { combineLatest, Subscription } from 'rxjs';
-import { SignedUser } from '../../user-profile/models/userModel';
+
 
 
 
@@ -13,42 +12,31 @@ import { SignedUser } from '../../user-profile/models/userModel';
   templateUrl: './access-component.component.html',
   styleUrl: './access-component.component.css'
 })
-export class AccessComponent implements OnInit{
-  isLoggedIn:boolean = false;
-  userName: string | null = null;
-  currentUser: SignedUser | null = null;
-  private subscriptions: Subscription = new Subscription();
-  
-  
-  
+export class AccessComponent{
+ 
+
   constructor(private logCheck:UserService,private router:Router,private cdr:ChangeDetectorRef){
     
   }
 
-  ngOnInit(): void {
-   
-    const userState$ = combineLatest([
-      this.logCheck.user$,
-      this.logCheck.userInfo$
-    ]);
-
-    const sub = userState$.subscribe(([user,userInfo])=>{
-      this.isLoggedIn = !!user;
-      this.userName = userInfo?.username || null;
-      
-    })
-
-    this.subscriptions.add(sub);
-    this.currentUser = this.logCheck.user;
   
 
-    
+  
+  get isLogged():boolean{
+    return this.logCheck.isLogged;
   }
 
+  get username(): string{
+    return this.logCheck.userInfo?.username || "";
+  }
+
+  get userId():string{
+    return this.logCheck.userInfo?._id || "";
+  }
 
   logout():void{
     this.logCheck.signOutUser()
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 
   

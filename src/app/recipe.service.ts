@@ -62,10 +62,9 @@ export class RecipeService {
     const requestBody = {
       [commentId]:comment
     }
-
-    return this.http.patch(`/api/recipes/${recipeId}/comments/.json'`,requestBody,{
+    return this.http.patch(`/api/recipes/${recipeId}/comments.json`,requestBody,{
       headers:this.headers
-    }).subscribe()
+    })
   }
 
   editComment(){

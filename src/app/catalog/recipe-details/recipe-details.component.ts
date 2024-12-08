@@ -93,8 +93,12 @@ export class RecipeDetailsComponent implements OnInit{
  
   postComment():void{
     //TODO GET AUTHOR USERNAME AND ID AND FINISH SINGLE COMMENT INTERFACE TO SEND PARAMETERS INTO USER SERVICE
-    const form = this.form!;
-    const commentContent = form.value.commentContent;
+    const form = this.form;
+    if(form?.invalid){
+      console.log('invalid form')
+      return 
+    }
+    const commentContent = form?.value.commentContent;
     const timestamp = String(Date.now());
     const authorId = this.currentUser?.localId;
     const authorUsername = this.currentUserInfo?.username;
@@ -106,8 +110,9 @@ export class RecipeDetailsComponent implements OnInit{
       timestamp: timestamp,
       commentId: id
     }
-    this.recService.createComment(comment,id,this.recipeId);
+    this.recService.createComment(comment,id,this.recipeId).subscribe()
     this.allComments.push(comment);
+    form?.reset();
   }
 
   onDeleteComment(commentId:string):void{

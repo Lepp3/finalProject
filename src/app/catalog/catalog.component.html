@@ -6,10 +6,10 @@
       <button (click)="reset()">Reset</button>
     </div>
     <div class="buttonsField">
-      <div routerLink="/create" >Create a recipe</div>
+      <div routerLink="/create">Create a recipe</div>
     </div>
     <div class="filterBy">
-      <p>Filter by</p>
+      <p>Filter by :</p>
       <div (click)="newest()">Newest</div>
       <div (click)="oldest()">Oldest</div>
       <div (click)="mostLiked()">Most liked</div>
@@ -18,11 +18,13 @@
     @if(recipes.length == 0){
       <h2>No recipes yet</h2>
     }@else {
+      <div class="recipeSection">
       <ul class="recipeList">
       @for(recipe of filteredRecipes; track $index){
         <li class="singleRecipe"><app-single-recipe [singleRecipe]="recipe" /></li>
       }
     </ul>
+  </div>
     }
     
   

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './authenticate.component.html',
   styleUrl: './authenticate.component.css'
 })
-export class AuthenticateComponent implements OnDestroy{
+export class AuthenticateComponent implements OnInit,OnDestroy{
 
   isAuthenticating = true;
 

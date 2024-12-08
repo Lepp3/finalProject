@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 import { SignedUser, UserInfo } from './models/userModel';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -27,11 +27,12 @@ export class UserProfileComponent implements OnInit{
     private router: Router,
     private recipeService: RecipeService
   ){
-    
+    this.userService.user$.subscribe((user)=>{
+      this.currentUser = user;
+    })
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.user;
     this.userId = this.activeRoute.snapshot.params['id'];
       if(this.userId){
         this.loadUserData();

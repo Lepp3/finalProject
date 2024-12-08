@@ -217,13 +217,26 @@ export class UserService implements OnDestroy {
 
 
   //sign out
-  signOutUser(): Promise<void> {
-    return new Promise((resolve)=>{
-      this.userSubject.next(null);
-      this.userInfoSubject.next(null);
-      localStorage.clear();
-      resolve();
-    });
+  // signOutUser(): Promise<void> {
+  //   return new Promise((resolve)=>{
+  //     this.userSubject.next(null);
+  //     this.userInfoSubject.next(null);
+  //     localStorage.clear();
+  //     resolve();
+  //   });
+  // }
+
+  signOutUser(){
+    this.userSubject.next(null);
+    this.userInfoSubject.next(null);
+    localStorage.removeItem('userId');
+    localStorage.removeItem('username');
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('bio');
+
+
   }
   //refresh authentication token
   refreshAuthToken(): Observable<boolean> {
