@@ -1,16 +1,39 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SingleRecipe,SingleComment } from '../models/recipe.model';
 import { RouterLink } from '@angular/router';
+import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
+import { UserService } from '../../user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-single-recipe',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,DatePipe],
   templateUrl: './single-recipe.component.html',
   styleUrl: './single-recipe.component.css'
 })
-export class SingleRecipeComponent {
+export class SingleRecipeComponent implements OnInit{
 @Input('singleRecipe') recipe:SingleRecipe | null=null;
+authorUser: UserInfo | null = null;
+currentUserInfo: UserInfo | null = null;
+currentUser: SignedUser | null = null;
+
+
+constructor(private userService:UserService){
+
+}
+
+ngOnInit(): void {
+  if(this.recipe){
+    this.userService.getUserInfo(this.recipe.authorId).subscribe((userInfo)=>{
+      this.authorUser = userInfo
+    })
+  }
+}
+
+getAuthorInfo(){
+
+}
 
 getComments(): SingleComment[] {
   if (!this.recipe?.comments) {

@@ -1,4 +1,22 @@
+.single-recipe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.headings h2{
+    font-size: 1.8rem;
+}
+
+
+.imgHolder{
+    overflow: hidden;
+}
+
 .imgHolder img{
-    max-height: 250px;
-    max-width: 250px;
+    max-height: 350px;
+    max-width: 350px;
+    border-radius: 10px;
 }

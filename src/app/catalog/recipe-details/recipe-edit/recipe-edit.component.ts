@@ -78,8 +78,6 @@ export class RecipeEditComponent implements OnInit {
       imageSrc: image,
       recipeId: id
     }
-
-    console.log(recipe);
     
     this.recService.updateRecipe(recipe,id).subscribe({
       next:()=>{
@@ -87,6 +85,5 @@ export class RecipeEditComponent implements OnInit {
       }
     });
     
-
   }
 }

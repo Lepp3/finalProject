@@ -3,7 +3,9 @@
         @if(comments){
             @for(comment of comments; track $index){
                 <app-single-comment [singleComment]="comment"
-                (deleteComment)="onDeleteComment($event)"/>
+                                    [isAuthor]="isAuthorOfRecipe"
+                (deleteComment)="onDeleteComment($event)"
+                (likeComment)="onLike($event)"/>
             }
         }
     </section>

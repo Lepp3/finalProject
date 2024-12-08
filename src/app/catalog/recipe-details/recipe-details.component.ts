@@ -30,9 +30,13 @@ export class RecipeDetailsComponent implements OnInit{
 
   currentUserInfo: UserInfo | null = null;
 
-  isOwner: boolean | null = null;
+  isOwner!: boolean;
 
   isLogged: boolean = false;
+
+  hasLiked!: boolean;
+
+  buttonAvailable!: boolean;
 
   @ViewChild('commentForm') form: NgForm | undefined;
 
@@ -41,14 +45,12 @@ export class RecipeDetailsComponent implements OnInit{
 
   
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params)=>{
-      this.recipeId = params.get('id') ?? '';
-    })
+    this.recipeId = this.activatedRoute.snapshot.params['id'];
     if(this.recipeId){
       this.loadRecipeData();
     }
     
-    
+
   }
   
 
@@ -74,16 +76,26 @@ export class RecipeDetailsComponent implements OnInit{
   }
 
   
-
- 
-
-
   loadRecipeData(){
     this.recService.getSingleRecipe(this.recipeId).pipe(
       tap(recipe=>{
         this.currentRecipe = recipe;
         this.allComments = this.getComments();
         this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUser?.localId);
+        if(this.currentUser){
+          if(this.currentRecipe.likes){
+            if(Object.keys(this.currentRecipe.likes).includes(this.currentUser.localId)){
+              this.hasLiked = true;
+              this.buttonAvailable = false;
+            }else{
+              this.hasLiked = false;
+              this.buttonAvailable = true;
+            }
+          }else{
+            this.buttonAvailable = true;
+            this.hasLiked = false;
+          }
+        }
       })
     ).subscribe()
   }
@@ -92,7 +104,6 @@ export class RecipeDetailsComponent implements OnInit{
 
  
   postComment():void{
-    //TODO GET AUTHOR USERNAME AND ID AND FINISH SINGLE COMMENT INTERFACE TO SEND PARAMETERS INTO USER SERVICE
     const form = this.form;
     if(form?.invalid){
       console.log('invalid form')
@@ -118,6 +129,16 @@ export class RecipeDetailsComponent implements OnInit{
   onDeleteComment(commentId:string):void{
     this.allComments = this.allComments.filter((comment)=>comment.commentId !== commentId);
     this.recService.deleteComment(this.recipeId,commentId);
+  }
+
+  onLikeComment(event: { commentId: string; userId: string }){
+    this.recService.likeComment(this.currentRecipe!.recipeId,event.commentId,event.userId)
+    
+  }
+
+  onLikeRecipe(){
+    this.recService.likeRecipe(this.currentRecipe!.recipeId,this.currentUser!.localId);
+    this.buttonAvailable = !this.buttonAvailable;
   }
 
   onDeleteRecipe(recipeId:string){

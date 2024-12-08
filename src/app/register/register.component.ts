@@ -32,7 +32,7 @@ export class RegisterComponent{
     const password = form.value.password;
     const bio = form.value.bio;
     this.regService.createUser(email,password,username,bio).subscribe({
-      next: ()=>{
+      complete: ()=>{
         this.router.navigate(['/home']);
       }
     }

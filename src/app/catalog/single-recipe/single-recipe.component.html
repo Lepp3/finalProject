@@ -1,22 +1,13 @@
 <div class="single-recipe" [routerLink]="['/recipes','details', recipe?.recipeId]">
-    <h2>{{ recipe?.title }}</h2>
-    <p>Author: {{ recipe?.authorUsername }}</p>
+    <div class="headings">
+      <h2>{{ recipe?.title }}</h2>
+      <p>Author: {{ authorUser?.username }}</p>
+    </div>
     <div class="imgHolder">
-    <img [src]="recipe?.imageSrc" alt="{{ recipe?.title }}" />
+    <img [src]="recipe?.imageSrc" alt="No resource" />
     </div>
     <p>{{ recipe?.shortInfo }}</p>
-    
-    <h3>Details</h3>
-    <p>{{ recipe?.details?.fullRecipe }}</p>
-  
-    <h3>Ingredients</h3>
-    <ul>
-      @for(ingredient of recipe?.details?.ingredients; track $index){
-        <li>{{ingredient}}</li>
-      }
-    </ul>
-  
     <h3>Comments ({{getComments().length}})</h3>
     <h3>Likes ({{getLikes().length}})</h3>
-    <h3>Posted on: {{formatTimestamp(recipe?.timestamp)}}</h3>
+    <h3>Posted on: {{recipe?.timestamp | date}}</h3>
   </div>

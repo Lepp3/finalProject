@@ -1,6 +1,7 @@
 import {  ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../user.service';
+import { AsyncPipe } from '@angular/common';
 
 
 
@@ -31,7 +32,7 @@ export class AccessComponent{
   }
 
   get userId():string{
-    return this.logCheck.userInfo?._id || "";
+    return this.logCheck.user?.localId || "";
   }
 
   logout():void{

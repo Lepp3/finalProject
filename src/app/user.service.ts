@@ -120,9 +120,9 @@ export class UserService implements OnDestroy {
       this.userSubject.next(null);
     }
     // set state of user info
-    if (username &&  userBio) {
+    if (username &&  userBio && localId) {
       this.setUserInfoState({
-        _id: '',
+        _id: localId,
         username: username,
         bio: userBio,
         email: ''

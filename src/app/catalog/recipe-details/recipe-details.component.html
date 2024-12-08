@@ -14,9 +14,14 @@
             <li>{{ingredient}}</li>
         }
     </ul>
+    @if(isLogged && !hasLiked && buttonAvailable){
+        <div (click)="onLikeRecipe()" >Like recipe</div>
+    }
     <section class="commentSection">
         <app-comments [comments]="allComments"
-        (deleteComment)="onDeleteComment($event)"/>
+                        [isAuthor]="isOwner"
+        (deleteComment)="onDeleteComment($event)"
+        (likeComment)="onLikeComment($event)"/>
     </section>
     @if(isLogged){
         <div class="formwrapper">

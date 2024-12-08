@@ -4,7 +4,7 @@
     padding: 30px;
     gap: 30px;
     background-color: rgb(95, 157, 156);
-    min-height: 100vh;
+    min-height: 80vh;
     font-family: 'Roboto', serif;
 }
 
@@ -114,9 +114,10 @@
     border: 2px solid black;
     border-radius: 10px;
     overflow: hidden;
-    padding: 20px;
+    padding: 10px;
     align-items: center;
     justify-content: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     
 }
 

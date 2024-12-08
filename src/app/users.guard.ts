@@ -47,7 +47,12 @@ export const ProfileOwnerGuard: CanActivateFn = (route,state)=>{
         return false
     }
 
-    return profileId === user.localId
+    if(profileId === user.localId){
+        return true
+    }else{
+        router.navigate(['/recipes'])
+        return false;
+    }
 }
 
 export const AuthorGuard: CanActivateFn = (route,state) =>{

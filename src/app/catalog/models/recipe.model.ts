@@ -15,7 +15,7 @@ export interface SingleComment{
     content: string,
     timestamp: string,
     commentId:string,
-    commentLikes?:commentLikes[]
+    likes?:commentLikes[]
 }
 
 export interface commentLikes{

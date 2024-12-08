@@ -25,14 +25,12 @@ export class RecipeService {
   }
 
   likeRecipe(recipeId:string,userId:string){
-    //todo check if likes exist, if it DOESNT PATCH TO RECIPES/RECIPEID {likes:{userid:true}} IF IT DOES PATCH TO RECIPES/RECIPEID/LIKES {userid:true}
-    console.log(userId)
     const requestBody = {
-      userId:true
+      [userId]:true
     }
     return this.http.patch(`/api/recipes/${recipeId}/likes.json`,requestBody,{
       headers: this.headers
-    })
+    }).subscribe()
   }
 
   createRecipe(recipe:SingleRecipe,recipeId:string){
@@ -67,8 +65,15 @@ export class RecipeService {
     })
   }
 
-  editComment(){
+  likeComment(recipeId:string,commentId:string,likerId:string){
+    const requestBody = {
+        [likerId]: true
+      
+    }
 
+    return this.http.patch(`/api/recipes/${recipeId}/comments/${commentId}/likes.json`,requestBody,{
+      headers: this.headers
+    }).subscribe();
   }
 
   deleteComment(recipeId:string,commentId:string){

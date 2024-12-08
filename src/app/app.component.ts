@@ -1,8 +1,8 @@
 import { Component, } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header-component/header-component.component';
-import { UserService } from './user.service';
 import { AuthenticateComponent } from "./authenticate/authenticate.component";
+import { FooterComponent } from './footer/footer.component';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { AuthenticateComponent } from "./authenticate/authenticate.component";
   imports: [
     RouterOutlet,
     HeaderComponent,
-    AuthenticateComponent
+    AuthenticateComponent,
+    FooterComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
