@@ -157,9 +157,8 @@ export class UserService implements OnDestroy {
           debugger
         })
       )
-      ), catchError((error) => {
-        console.error(error);
-        return throwError(() => new Error('registration failed'))
+      ),catchError((error) => {
+        return throwError(() => error);
       })
     )
   }
@@ -205,9 +204,8 @@ export class UserService implements OnDestroy {
           this.setUserInfoState(userInfo)
         })
       ))
-      , catchError((error) => {
-        console.error(error);
-        return throwError(() => new Error('sign in failed'));
+      ,catchError((error) => {
+        return throwError(() => error);
       })
     )
    

@@ -35,8 +35,11 @@
             <p>Password is required</p>
           }
         }
-          <button>Login</button>
+          <button [disabled]="buttonDisabled" >Login</button>
       </form>
+      @if(errorMessage){
+        <div>{{errorMessage}}</div>
+      }
       <div class="registered">
         <p>Not a member?</p>
         <a routerLink="/register">Sign up</a>

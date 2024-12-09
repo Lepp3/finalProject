@@ -1,4 +1,5 @@
 body{
-    background-image: url("/src/assets/images/delightin-dee-_WI3DGseB3g-unsplash.jpg");
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }

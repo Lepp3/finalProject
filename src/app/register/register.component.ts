@@ -26,11 +26,15 @@ export class RegisterComponent{
   }
 
   register():void{
-    const form = this.form!;
-    const email = form.value.email;
-    const username = form.value.username;
-    const password = form.value.password;
-    const bio = form.value.bio;
+    const form = this.form;
+    if(form?.invalid){
+      console.log('invalid form');
+      return
+    }
+    const email = form?.value.email;
+    const username = form?.value.username;
+    const password = form?.value.password;
+    const bio = form?.value.bio;
     this.regService.createUser(email,password,username,bio).subscribe({
       complete: ()=>{
         this.router.navigate(['/home']);

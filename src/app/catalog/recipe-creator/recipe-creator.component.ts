@@ -23,6 +23,10 @@ export class RecipeCreatorComponent implements OnInit{
   currentUser!: SignedUser | null;
   userInfo!: UserInfo | null;
 
+  errorMessage: string | null = null;
+  waitTimer: number = 5;
+  buttonDisabled: boolean = false;
+
   constructor(private publisher:RecipeService, private router:Router, private userService:UserService){
     
   }
@@ -60,8 +64,25 @@ export class RecipeCreatorComponent implements OnInit{
       imageSrc: image,
       recipeId: id
     }
-    this.publisher.createRecipe(recipe,id).subscribe(()=>{
-      this.router.navigate(['/recipes']);
+    this.publisher.createRecipe(recipe,id).subscribe({
+      complete: ()=>{
+        this.router.navigate(['/recipes']);
+      },
+      error: (err)=>{
+        if(err.status === 403){
+          this.userService.signOutUser();
+          return
+        }
+        if(err.status === 429){
+          this.errorMessage = `Too many attempts made, try again in ${this.waitTimer} seconds`;
+          this.buttonDisabled = true;
+          setTimeout(() => {
+            this.buttonDisabled = false;
+          }, this.waitTimer * 1000);
+          this.waitTimer *= 2;
+          return
+        }
+      }
     })
     
   }
