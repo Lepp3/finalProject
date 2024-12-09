@@ -1,7 +1,7 @@
 
 .navWrapper{
     flex: 0 0 60%;
-    margin-left: 200px;
+    margin-left: 300px;
 }
 
 .navMenu{
@@ -12,10 +12,10 @@
 
 .navButton{
     padding: 5px 10px;
-    background-color: rgb(152, 165, 35);
+    
     border-radius: 5px;
 }
 
 .navButton:hover{
-    background-color: rgb(121, 131, 29);
+    background-color: rgb(238, 104, 74);
 }

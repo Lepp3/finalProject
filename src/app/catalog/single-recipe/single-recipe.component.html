@@ -1,13 +1,17 @@
 <div class="single-recipe" [routerLink]="['/recipes','details', recipe?.recipeId]">
     <div class="headings">
       <h2>{{ recipe?.title }}</h2>
-      <p>Author: {{ authorUser?.username }}</p>
+      <div>Author: <p [routerLink]="['/profile',authorUser?._id]">{{ authorUser?.username }}</p></div>
     </div>
     <div class="imgHolder">
     <img [src]="recipe?.imageSrc" alt="No resource" />
     </div>
-    <p>{{ recipe?.shortInfo }}</p>
-    <h3>Comments ({{getComments().length}})</h3>
-    <h3>Likes ({{getLikes().length}})</h3>
-    <h3>Posted on: {{recipe?.timestamp | date}}</h3>
+    <div class="shortInfo">
+      <p>{{ recipe?.shortInfo }}</p>
+    </div>
+    <div class="metrics">
+      <p>Posted on: {{recipe?.timestamp | date}}</p>
+      <p>Comments ({{getComments().length}})</p>
+      <p>Likes ({{getLikes().length}})</p>
+    </div>
   </div>

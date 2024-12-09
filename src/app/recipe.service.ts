@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SingleComment, SingleRecipe } from './catalog/models/recipe.model';
+import { catchError, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -30,7 +31,11 @@ export class RecipeService {
     }
     return this.http.patch(`/api/recipes/${recipeId}/likes.json`,requestBody,{
       headers: this.headers
-    }).subscribe()
+    }).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
   }
 
   createRecipe(recipe:SingleRecipe,recipeId:string){
@@ -39,7 +44,11 @@ export class RecipeService {
     }
     return this.http.patch('/api/recipes.json' ,requestBody,{
       headers: this.headers
-    })
+    }).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
   }
 
   updateRecipe(recipe:SingleRecipe,recipeId:string){
@@ -52,8 +61,7 @@ export class RecipeService {
   }
 
   deleteRecipe(recipeId:string){
-    console.log('delete recipe service works')
-    return this.http.delete(`/api/recipes/'${recipeId}.json`)
+    return this.http.delete(`/api/recipes/${recipeId}.json`)
   }
 
   createComment(comment:SingleComment,commentId:string,recipeId:string){

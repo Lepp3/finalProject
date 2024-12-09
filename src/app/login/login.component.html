@@ -3,6 +3,9 @@
         <div class="heading">
             <h2>Log in</h2>
         </div>
+        @if(errorMessage){
+          <div>{{errorMessage}}</div>
+        }
       <form #loginForm="ngForm" class="regForm" (ngSubmit)="login()">
         <div class="form-group">
           <label for="email">Email</label>
@@ -37,9 +40,6 @@
         }
           <button [disabled]="buttonDisabled" >Login</button>
       </form>
-      @if(errorMessage){
-        <div>{{errorMessage}}</div>
-      }
       <div class="registered">
         <p>Not a member?</p>
         <a routerLink="/register">Sign up</a>

@@ -3,11 +3,12 @@ import { SingleComment } from '../../../models/recipe.model';
 import { SignedUser } from '../../../../user-profile/models/userModel';
 import { UserService } from '../../../../user.service';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-single-comment',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe,RouterLink],
   templateUrl: './single-comment.component.html',
   styleUrl: './single-comment.component.css'
 })

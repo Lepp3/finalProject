@@ -76,7 +76,6 @@ export const AuthorGuard: CanActivateFn = (route,state) =>{
 
     return recipeService.getSingleRecipe(recipeId).pipe(
         map((recipe:SingleRecipe)=>{
-            console.log(recipe);
             // not author
             if(recipe.authorId !== user.localId){
                 console.log(recipe.authorId);

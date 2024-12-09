@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     min-height: 70px;
-    background-color: rgb(77, 69, 69);
+    background-color: rgb(201, 201, 197);
     opacity: 0.9;
     align-items: center;
     padding: 0 20px;
+    text-align: center;
 }

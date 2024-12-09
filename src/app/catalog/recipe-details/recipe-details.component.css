@@ -1,4 +1,171 @@
-.wrapper img{
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px;
+    background-color: rgb(95, 157, 156);
+}
+
+.heading{
+    text-align: center;
+    font-size: 30px;
+}
+
+.controlButtons{
+    align-self: center;
+    display: flex;
+    gap: 10px;
+}
+
+
+
+.controlButton{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.positive:hover{
+    background-color: rgb(20, 156, 20);
+}
+
+.negative:hover{
+    background-color: rgb(219, 22, 22);
+}
+
+.imgHolder{
+    align-self: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.imgHolder img{
     max-width: 450px;
     max-height: 450px;
 }
+
+.likeButton{
+    width: max-content;
+    align-self: center;
+    font-size: 18px;
+}
+
+.likeButton:hover{
+    background-color: blue;
+    color:white
+}
+
+.fullRecipe{
+    display: flex;
+    flex-direction: column;
+    border: 2px dotted black;
+    border-radius: 15px;
+    padding: 20px;
+    gap: 20px;
+    width: 40%;
+    height: auto;
+    align-self: center;
+}
+
+.fullRecipe h3{
+    text-align: center;
+}
+
+.fullrecipe article{
+    flex: 0 0 70%;
+    background-color: red;
+}
+
+.ingredientHolder{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    width: 40%;
+}
+
+.ingredientList{
+    list-style: circle;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.commentSection{
+    margin-top: 40px;
+    align-self: center;
+    padding: 10px;
+}
+
+
+.formwrapper{
+    padding: 20px;
+    width: 30%;
+    align-self: center;
+
+}
+
+.commentForm{
+    display: flex;
+    width: 90%;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.commentForm button{
+    width: 140px;
+    border-radius: 20px;
+    height: auto;
+    align-self: center;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    outline: none;
+    border: 2px solid black;
+}
+
+.commentForm button:hover{
+    background-color: rgb(161, 158, 153);
+}
+
+.form-group{
+    display: flex;
+    gap: 10px;
+    align-self: center;
+    align-items: center;
+
+}
+
+.errorParagraph{
+    margin-left: 30px;
+    align-self: center;
+    text-align: center;
+    color: rgb(172, 26, 26);
+}
+
+.form-group input{
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.form-group input.ng-invalid.ng-touched{
+    border: 2px solid rgb(187, 14, 14);
+}
+
+.form-group input:focus{
+    outline: none;
+    border: none;
+}
+
+
+
+

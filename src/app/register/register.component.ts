@@ -19,6 +19,10 @@ import { PasswordMatchValidatorDirective } from '../directives/passwordMatch.val
 export class RegisterComponent{
 
   domains = DOMAINS;
+  errorMessage: string | null = null;
+  buttonDisabled: boolean = false;
+  waitTimer:number = 5;
+
   @ViewChild('registerForm') form: NgForm | undefined;
   @ViewChild('profilePicInput') profilePicInput?: ElementRef<HTMLInputElement>
   constructor(private regService:UserService,private router:Router){
@@ -38,6 +42,30 @@ export class RegisterComponent{
     this.regService.createUser(email,password,username,bio).subscribe({
       complete: ()=>{
         this.router.navigate(['/home']);
+      },
+      error: (err)=>{
+        if(err.status === 500 || err.status === 503){
+          this.errorMessage = 'Please try again';
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+        }
+        if(err.status === 400){
+          this.errorMessage = 'Email already in use!';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 2000);
+          form?.reset();
+          
+        }if(err.status === 429){
+          this.errorMessage = `Too many attempts made, try again in ${this.waitTimer} seconds`;
+          this.buttonDisabled = true;
+          setTimeout(() => {
+            this.buttonDisabled = false;
+          }, this.waitTimer * 1000);
+          this.waitTimer *= 2;
+          form?.reset();
+        }
       }
     }
     )

@@ -1,0 +1,16 @@
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.wrapper h3{
+    text-align: center;
+}
+
+.commentList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

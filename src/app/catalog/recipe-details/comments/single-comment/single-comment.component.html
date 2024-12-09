@@ -1,14 +1,22 @@
 <div class="singleComment">
-    <p>{{comment?.authorUsername}} commented on: {{comment?.timestamp | date}}</p>
-    <p>{{comment?.content}}</p>
-    @if((viewingUser !== null) && !hasLiked && buttonAvailable){
-        <button (click)="onLike()">Like</button>
+    @if(isAuthorOfComment || isAuthorOfRecipe){
+        <div class="controlButton deleteComment"(click)="onDelete()"><svg fill="#000000" height="15px" width="15px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 450 450" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <polygon points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490 489.292,457.678 277.331,245.004 489.292,32.337 "></polygon> </g></svg></div>
     }
+    <div class="metaData">
+        <p class="userProfile" [routerLink]="['/profile',comment?.authorId]">
+            {{comment?.authorUsername}}
+        </p> 
+        <p class="postDate">commented on {{comment?.timestamp | date:'MMM d, y, h:mm a'}}</p>
+        <p class="commentContent">" {{comment?.content}} "</p>
+
+    </div>
     @if(totalLikes !== 0){
     <p>{{totalLikes}} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="22"><path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2l144 0c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48l-97.5 0c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3l0-38.3 0-48 0-24.9c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32L0 224c0-17.7 14.3-32 32-32z"/></svg></p>
     }
-    @if(isAuthorOfComment || isAuthorOfRecipe){
-        <button (click)="onDelete()">Delete</button>
+
+    @if((viewingUser !== null) && !hasLiked && buttonAvailable){
+        <div class="controlButton likeComment" (click)="onLike()">Like</div>
     }
+    
     
 </div>

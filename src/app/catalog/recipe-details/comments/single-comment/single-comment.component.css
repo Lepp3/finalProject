@@ -1,0 +1,49 @@
+.singleComment{
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 500px;
+}
+
+.metaData{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userProfile:hover{
+    text-decoration: underline;
+}
+
+.commentContent{
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.deleteComment{
+    align-self: flex-end;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.postDate{
+    font-style:italic;
+}
+
+.deleteComment:hover{
+    background-color: rgb(185, 34, 34);;
+}
+
+.likeComment{
+    border: 1px solid black;
+    padding: 5px;
+    width: max-content;
+    border-radius: 5px;
+    font-size: 14px;
+}

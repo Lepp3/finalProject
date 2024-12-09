@@ -21,7 +21,7 @@
       <div class="recipeSection">
       <ul class="recipeList">
       @for(recipe of filteredRecipes; track $index){
-        <li class="singleRecipe"><app-single-recipe [singleRecipe]="recipe" /></li>
+        <li ><app-single-recipe [singleRecipe]="recipe" /></li>
       }
     </ul>
   </div>

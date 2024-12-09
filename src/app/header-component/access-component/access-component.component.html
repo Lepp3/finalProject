@@ -1,6 +1,7 @@
 <div class="accessWrapper">
     @if(isLogged){
         <div class="Auth">
+            <a class="accessButton" routerLink="/create">Create</a>
             <a class="accessButton" [routerLink]="['profile',(userId)]">Welcome {{username}}</a>
             <a class="accessButton" (click)="logout()">Logout</a>
         </div>

@@ -40,18 +40,19 @@ export class LoginComponent {
         this.router.navigate(['/home']);
       },
       error: (err)=>{
-        if(err.status === 500){
+        if(err.status === 500 || err.status === 503){
           this.errorMessage = 'Please try again';
         setTimeout(() => {
           this.errorMessage = null;
         }, 2000);
-        
+        form?.reset();
         }
         if(err.status === 400){
           this.errorMessage = 'Invalid login credentials';
           setTimeout(() => {
             this.errorMessage = null;
           }, 2000);
+          form?.reset();
           
         }
         if(err.status === 429){
@@ -61,7 +62,7 @@ export class LoginComponent {
             this.buttonDisabled = false;
           }, this.waitTimer * 1000);
           this.waitTimer *= 2;
-          
+          form?.reset();
         }
       }
       

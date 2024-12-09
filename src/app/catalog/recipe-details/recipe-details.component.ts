@@ -38,6 +38,8 @@ export class RecipeDetailsComponent implements OnInit{
 
   buttonAvailable!: boolean;
 
+  errorMsg: string | null = null
+
   @ViewChild('commentForm') form: NgForm | undefined;
 
   
@@ -137,15 +139,36 @@ export class RecipeDetailsComponent implements OnInit{
   }
 
   onLikeRecipe(){
-    this.recService.likeRecipe(this.currentRecipe!.recipeId,this.currentUser!.localId);
+    this.recService.likeRecipe(this.currentRecipe!.recipeId,this.currentUser!.localId).subscribe({
+      error:(error)=>{
+        if(error.status === 403){
+          this.router.navigate(['/login']);
+          return
+        }
+        this.errorMsg = 'Something went wrong, try again.'
+        setTimeout(() => {
+          this.errorMsg = null;
+        }, 2000);
+      }
+    })
     this.buttonAvailable = !this.buttonAvailable;
   }
 
   onDeleteRecipe(recipeId:string){
-    this.recService.deleteRecipe(recipeId).subscribe(()=>{
-      this.router.navigate(['/recipes']);
-    })
-    
+    const userConfirm = window.confirm('Are you sure you want to delete this recipe?');
+
+    if(userConfirm){
+      this.recService.deleteRecipe(recipeId).subscribe(
+      
+        {
+          complete: ()=>{
+            this.router.navigate(['/recipes']);
+          }
+        }
+      )
+    }else{
+      return;
+    }
   }
 
 

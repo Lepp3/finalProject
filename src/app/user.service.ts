@@ -227,12 +227,7 @@ export class UserService implements OnDestroy {
   signOutUser(){
     this.userSubject.next(null);
     this.userInfoSubject.next(null);
-    localStorage.removeItem('userId');
-    localStorage.removeItem('username');
-    localStorage.removeItem('idToken');
-    localStorage.removeItem('tokenExpiration');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('bio');
+    localStorage.clear();
 
 
   }

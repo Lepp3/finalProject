@@ -9,7 +9,6 @@
 }
 
 .accessButton{
-    background-color: bisque;
     padding: 5px 10px;
     border-radius: 5px;
     transition: 0.5s ease;
@@ -17,6 +16,6 @@
 }
 
 .accessButton:hover{
-    background-color: rgb(241, 192, 131);
+    background-color: rgb(238, 104, 74);;
     transform: scale(1.1);
 }

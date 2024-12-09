@@ -1,12 +1,17 @@
 <div class="wrapper">
+    <h3>All comments</h3>
     <section clas="commentSection">
         @if(comments){
+            <ul class="commentList">
             @for(comment of comments; track $index){
+                <li>
                 <app-single-comment [singleComment]="comment"
                                     [isAuthor]="isAuthorOfRecipe"
                 (deleteComment)="onDeleteComment($event)"
                 (likeComment)="onLike($event)"/>
+            </li>
             }
+        </ul>
         }
     </section>
 </div>

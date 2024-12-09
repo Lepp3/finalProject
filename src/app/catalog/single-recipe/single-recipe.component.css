@@ -1,22 +1,75 @@
 .single-recipe{
+   /* flex: 0 0 50%; */
+   border: 2px solid black;
+   border-radius: 10px;
+   overflow: hidden;
+   padding: 10px;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+   height: 450px;
+   width: 450px;
+   cursor:pointer;
+}
+
+.single-recipe:hover{
+    background-color: rgb(54, 109, 108);
+}
+
+.headings{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 5px;
+}
+
+.headings div{
+    display: flex;
+    gap: 3px;
+    text-align: center;
+    align-self: center;
 }
 
 .headings h2{
     font-size: 1.8rem;
 }
 
+.headings p:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .imgHolder{
     overflow: hidden;
 }
 
 .imgHolder img{
-    max-height: 350px;
-    max-width: 350px;
+    height: 250px;
+    width: 250px;
     border-radius: 10px;
+}
+
+.shortInfo{
+    font-style: italic;
+    font-size: 1.3em;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.metrics{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-self: flex-end;
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.metrics p{
+    flex: 0 0 100%;
+    font-size: 18px;
+    font-weight: 600;
 }

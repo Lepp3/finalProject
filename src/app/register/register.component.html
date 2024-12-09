@@ -2,6 +2,9 @@
     <div class="wrapper">
         <div class="heading">
             <h2>Register</h2>
+            @if(errorMessage){
+              <div>{{errorMessage}}</div>
+            }
         </div>
       <form  #registerForm="ngForm" class="regForm"  appPasswordMatchValidation (ngSubmit)="register()">
         <div class="form-group">
@@ -116,7 +119,7 @@
             }
           </div>
         }
-        <button>Register</button>
+        <button [disabled]="buttonDisabled" >Register</button>
       </form>
       
       <div class="registered">

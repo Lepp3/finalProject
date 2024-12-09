@@ -1,52 +1,70 @@
 <div class="wrapper">
-    <h2>{{currentRecipe?.title}}</h2>
-    @if(isOwner){
-        <button (click)="onDeleteRecipe(recipeId)">Delete Recipe</button>
-        <div [routerLink]="['/recipes','details', recipeId,'edit']" >Edit Recipe</div>
+  <div class="heading">
+    <h2>{{ currentRecipe?.title }}</h2>
+    <h4>A recipe posted by {{ currentRecipe?.authorUsername }}</h4>
+  </div>
+  @if(isOwner){
+  <div class="controlButtons">
+    <div
+      [routerLink]="['/recipes', 'details', recipeId, 'edit']"
+      class="controlButton positive">Edit Recipe</div>
+    <div (click)="onDeleteRecipe(recipeId)" class="controlButton negative">Delete Recipe</div>
+  </div>
+  }
+  <div class="imgHolder">
+    <img src="{{ currentRecipe?.imageSrc }}" alt="Picture of a dish" />
+  </div>
+  @if(isLogged && !hasLiked && buttonAvailable){
+    <div class="controlButton likeButton" (click)="onLikeRecipe()">Like recipe</div>
     }
-    <p>A recipe posted by {{currentRecipe?.authorUsername}}<p>
-    <img src={{currentRecipe?.imageSrc}} alt="Picture of a dish">
-    <h3>Full recipe:</h3>
-    <article>{{currentRecipe?.details?.fullRecipe}}</article>
-    <h3>Ingredients:</h3>
+  <section class="fullRecipe">
+    <h3>Full recipe</h3>
+    <article>{{ currentRecipe?.details?.fullRecipe }}</article>
+  </section>
+  <div class="ingredientHolder">
+    <h3>Ingredients</h3>
     <ul class="ingredientList">
-        @for(ingredient of currentRecipe?.details?.ingredients; track $index){
-            <li>{{ingredient}}</li>
-        }
+      @for(ingredient of currentRecipe?.details?.ingredients; track $index){
+      <li>{{ ingredient }}</li>
+      }
     </ul>
-    @if(isLogged && !hasLiked && buttonAvailable){
-        <div (click)="onLikeRecipe()" >Like recipe</div>
-    }
-    <section class="commentSection">
-        <app-comments [comments]="allComments"
-                        [isAuthor]="isOwner"
-        (deleteComment)="onDeleteComment($event)"
-        (likeComment)="onLikeComment($event)"/>
-    </section>
-    @if(isLogged){
-        <div class="formwrapper">
-            <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
-                <div class="form-group">
-                    <label for="commentContent">Add new comment</label>
-                    <input
-                    type="text"
-                    id="commentContent"
-                    name="commentContent"
-                    ngModel
-                    #commentInput="ngModel"
-                    minlength="5"
-                    required
-                    />
-                </div>
-                @if(commentInput.touched){
-                    <div>
-                        @if(commentInput.errors?.['minlength']){
-                            <p>Minimum comment length is 3 characters</p>
-                        }
-                    </div>
-                }
-                <button>Post comment</button>
-            </form>
+  </div>
+  @if(isLogged){
+    <div class="formwrapper">
+      <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
+        <div class="form-group">
+          <label for="commentContent">Add new comment</label>
+          <input
+            type="text"
+            id="commentContent"
+            name="commentContent"
+            ngModel
+            #commentInput="ngModel"
+            minlength="3"
+            required
+           
+          />
         </div>
+        @if(commentInput.touched){
+          @if(commentInput.errors?.['minlength']){
+          <p class="errorParagraph">Minimum comment length is 3 characters</p>
+          }
+        }
+        <button>Post comment</button>
+      </form>
+    </div>
     }
+  <section class="commentSection">
+    @if(allComments.length === 0){
+        <h3>No comments yet</h3>
+    }@else {
+        <app-comments
+      [comments]="allComments"
+      [isAuthor]="isOwner"
+      (deleteComment)="onDeleteComment($event)"
+      (likeComment)="onLikeComment($event)"
+    />
+}
+</section>
+    
 </div>
