@@ -1,10 +1,13 @@
 <div class="wrapper">
-    <div class="headings">
-        <h2>Create a recipe</h2>
-    </div>
+    <div class="frame">
     <form #creationForm="ngForm" class="creationForm" (ngSubmit)="createRecipe()">
-        <div clas="form-group">
-            <label for="title">Recipe's name <p>(max: 30 characters)</p></label>
+        <div class="headers">
+            <h2>Create a recipe</h2>
+        </div>
+
+        <div class="groups">
+        <div class="form-group">
+            <label for="title">Name</label>
             <input
             type="text"
             id="title"
@@ -15,19 +18,20 @@
             ngModel
             #titleInput="ngModel"
             />
+            @if(titleInput.touched){
+                <div>
+                    @if(titleInput.errors?.['required']){
+                        <p class="errorMessage">Name is required</p>
+                    }
+                    @if(titleInput.errors?.['minlength']){
+                        <p class="errorMessage">Minimum length is 4 characters</p>
+                    }
+                </div>
+            }
         </div>
-        @if(titleInput.touched){
-            <div>
-                @if(titleInput.errors?.['required']){
-                    <p>Name is required</p>
-                }
-                @if(titleInput.errors?.['minlength']){
-                    <p>Minimum length is 4 characters</p>
-                }
-            </div>
-        }
-        <div clas="form-group">
-            <label for="shortInfo">Short info about the recipe <p>(max: 45 characters)</p></label>
+        
+        <div class="form-group">
+            <label for="shortInfo">Description</label>
             <input
             type="text"
             id="shortInfo"
@@ -38,20 +42,21 @@
             maxlength="45"
             #shortInput="ngModel"
             />
+            @if(shortInput.touched){
+                <div>
+                    @if(shortInput.errors?.['required']){
+                        <p class="errorMessage">Short info is required</p>
+                    }
+                    @if(shortInput.errors?.['minlength']){
+                        <p class="errorMessage">Minimum length is 10 characters</p>
+                    }
+                </div>
+            }
         </div>
-        @if(shortInput.touched){
-            <div>
-                @if(shortInput.errors?.['required']){
-                    <p>Short info is required</p>
-                }
-                @if(shortInput.errors?.['minlength']){
-                    <p>Minimum length is 10 characters</p>
-                }
-            </div>
-        }
-        <div clas="form-group">
-            <label for="ingredients">Ingredients (space in between each)</label>
-            <input
+        
+        <div class="form-group">
+            <label for="ingredients">Ingredients (separated by ,)</label>
+            <textarea
             type="text"
             id="ingredients"
             name="ingredients"
@@ -59,21 +64,23 @@
             minlength="10"
             ngModel
             #ingredientsInput="ngModel"
-            />
+            class="small"
+            ></textarea>
+            @if(ingredientsInput.touched){
+                <div>
+                    @if(ingredientsInput.errors?.['required']){
+                        <p class="errorMessage">Ingredients are required</p>
+                    }
+                    @if(ingredientsInput.errors?.['minlength']){
+                        <p class="errorMessage">Minimum length is 10 characters</p>
+                    }
+                </div>
+            }
         </div>
-        @if(ingredientsInput.touched){
-            <div>
-                @if(ingredientsInput.errors?.['required']){
-                    <p>Ingredients are required</p>
-                }
-                @if(ingredientsInput.errors?.['minlength']){
-                    <p>Minimum length is 10 characters</p>
-                }
-            </div>
-        }
-        <div clas="form-group">
-            <label for="fullRecipe">Full recipe</label>
-            <input
+        
+        <div class="form-group">
+            <label for="fullRecipe">Instructions</label>
+            <textarea
             type="text"
             id="fullRecipe"
             name="fullRecipe"
@@ -81,20 +88,22 @@
             minlength="10"
             ngModel
             #fullRecipeInput="ngModel"
-            />
+            class="big"
+            ></textarea>
+            @if(fullRecipeInput.touched){
+                <div>
+                    @if(fullRecipeInput.errors?.['required']){
+                        <p class="errorMessage">Full recipe is required</p>
+                    }
+                    @if(fullRecipeInput.errors?.['minlength']){
+                        <p class="errorMessage">Minimum length is 10 characters</p>
+                    }
+                </div>
+            }
         </div>
-        @if(fullRecipeInput.touched){
-            <div>
-                @if(fullRecipeInput.errors?.['required']){
-                    <p>Full recipe is required</p>
-                }
-                @if(fullRecipeInput.errors?.['minlength']){
-                    <p>Minimum length is 10 characters</p>
-                }
-            </div>
-        }
-        <div clas="form-group">
-            <label for="image">Picture of the dish</label>
+        
+        <div class="form-group">
+            <label for="image">Picture url</label>
             <input
             type="text"
             id="image"
@@ -105,12 +114,17 @@
             />
             @if(imageInput.touched){
                 <div>
-                    @if(titleInput.errors?.['required']){
-                        <p>Image is required</p>
+                    @if(imageInput.errors?.['required']){
+                        <p class="errorMessage">Image is required</p>
                     }
                 </div>
             }
         </div>
-        <button [disabled]="form?.invalid">Create Recipe</button>
+    </div>
+        <div class="submitButton">
+            <button class="controlButton">Create Recipe</button>
+        </div>
+        
     </form>
+</div>
 </div>

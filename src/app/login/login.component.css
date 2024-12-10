@@ -1,94 +1,127 @@
-.container{
-    font-size: 16px;
-    line-height: 1.5;
-    padding: 2px;
-    max-width: 40%;
-    min-height: 350px;
-    margin: 40px auto;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    
-}
-
 .wrapper{
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
-    min-height: 350px;
+    min-height: calc(100vh - 150px);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    background: rgb(236,236,231);
-    background: linear-gradient(90deg, rgba(236, 236, 231, 0.575) 5%, rgba(158,130,77,1) 54%, rgba(80,59,27,0.8096676737160121) 89%);
-}
-
-.heading{
+    padding: 30px;
+    gap: 30px;
+    background-color:#eaded2;
+    font-family: 'Roboto', serif;
     align-items: center;
-    flex: 0 0 100%;
-    justify-content: center;
-    text-align: center;
-    font-size: 1.4rem;
+    justify-content: flex-start;
 }
 
-.regForm{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
 }
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:  #efece8;
+    align-self: center;
+    width: 350px;
+    padding: 1.3rem;
+    gap: 100px;
+    margin: auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 5px;
+    border: 1px solid #eaded2;
+}
+
+
+
+.groups{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+}
+
+.headers{
+    color:#A45848;
+}
+
+.headers h2{
+    font-family: "Roboto Serif", serif;
+    font-size: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+
 
 .form-group{
     display: flex;
-    flex: 0 0 100%;
-    justify-content: center;
-    gap: 10px;
-}
-
-.form-group label{
-    font-size: 1.2rem;
-    min-width: 20%;
-    text-align: center;
-}
-
-.form-group label:before{
-    content: "*";
-    color: red;
-    padding-right: 7px;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .form-group input{
-    padding: 5px;
-    border-radius: 10px;
-    outline: none;
-    }
-
-button{
-    padding: 5px 10px;
-    border-radius: 3px;
-    background-color: rgb(236, 161, 21);
-    color: white;
-    font-size: 1.5em;
-    border: 2px solid rgb(102, 102, 102)
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color:  #efece8;
+    border: 1px solid #a7a5a4;
 }
 
-button:hover{
-    background-color: rgb(187, 127, 15);
+.form-group input:focus{
+    outline: none;
+    box-shadow: inset 0 0 3px black;
+}
+
+
+
+
+.submitButton{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.controlButton{
+    background-color: #A45848;
+    padding: 10px;
+    min-width: 80px;
+    border-radius: 5px;
+    border: 2px solid #A45848;
+    transition: all 0.3s;
+    color: #efece8;
+    font-weight: bold;
+}
+
+.controlButton:hover{
+    background-color: #A45848;
+    color: #efece8;
+}
+
+
+
+.form-group input.ng-invalid.ng-touched{
+    border: 2px solid rgb(187, 14, 14);
 }
 
 .registered{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 5px;
 }
 
 .registered a{
-    color: rgba(183, 183, 25, 0.797);
-    font-size: 1.2em;
+    color: blue;
 }
 
 .registered a:hover{
-    color: rgba(226, 226, 30, 0.797)
+    text-decoration: underline;
 }

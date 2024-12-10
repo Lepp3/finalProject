@@ -1,25 +1,31 @@
 .singleComment{
-    padding: 10px;
-    border: 2px solid black;
+    padding: 1rem;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 500px;
-    background-color: #3d494b;
-    color: white;
+    width: 600px;
+    background-color: #efece8;
+    color: black;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.metaData{
+.content{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+.metaData{
+    display: flex;
+    gap: 5px;
+    align-items: flex-end;
+}
 
 .userProfile{
     width: max-content;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .userProfile:hover{
@@ -29,33 +35,36 @@
 .commentContent{
     margin-top: 10px;
     padding-bottom: 10px;
+    color: black;
+    
 }
 
 .deleteComment{
-    align-self: flex-end;
-    border: 1px solid black;
-    border-radius: 5px;
+    /* align-self: flex-end; */
     padding: 5px;
     align-items: center;
     justify-content: center;
-    background-color: rgb(185, 34, 34);
+    
 }
 
 .postDate{
     font-style:italic;
+    color: #55565b;
+    
 }
 
 .deleteComment:hover{
-    background-color: rgb(146, 26, 26);
-    color: white;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.likeComment{
-    border: 1px solid black;
-    padding: 5px;
-    width: max-content;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: rgb(150, 122, 94);;
+.likes{
+    display: flex;
+    gap: 5px;
+}
+
+.likesData{
+    display: flex;
+    gap: 0.3rem;
+    justify-content: space-between;
 }

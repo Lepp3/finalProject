@@ -1,19 +1,22 @@
 <div class="catalog">
-    <h1>Recipe Catalog</h1>
+  <div class="frame">
+    <div class="allContent">
+    <div class="catalogHeader">
+      <h1>Catalog</h1>
     <div class="searchField">
       <input type="text" placeholder="search for.." #filter />
       <button (click)="filterByInput(filter,filter.value)">Search</button>
       <button (click)="reset()">Reset</button>
     </div>
-    <div class="buttonsField">
-      <div routerLink="/create">Create a recipe</div>
-    </div>
     <div class="filterBy">
-      <p>Filter by :</p>
-      <div (click)="newest()">Newest</div>
-      <div (click)="oldest()">Oldest</div>
-      <div (click)="mostLiked()">Most liked</div>
-      <div (click)="mostCommented()">Most commented</div>
+      <label>Filter by</label>
+      <select  class="select" name="filter" id="filter" (change)="selectChange($event)">
+        <option value="Newest">Newest</option>
+        <option value="Oldest">Oldest</option>
+        <option value="Most liked">Most liked</option>
+        <option value="Most commented">Most commented</option>
+      </select>
+    </div>
     </div>
     @if(recipes.length == 0){
       <h2>No recipes yet</h2>
@@ -26,5 +29,9 @@
     </ul>
   </div>
     }
+  </div>
+  </div>
+</div>
+ 
     
   

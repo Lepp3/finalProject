@@ -1,21 +1,18 @@
 .single-recipe{
-   /* flex: 0 0 50%; */
-   border: 2px solid black;
    border-radius: 10px;
    overflow: hidden;
    padding: 10px;
    align-items: center;
    justify-content: center;
    text-align: center;
-   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
    height: 450px;
    width: 450px;
    cursor:pointer;
+   background-color: #efece8;
 }
 
-.single-recipe:hover{
-    background-color:#6c776c;
-}
+
 
 .headings{
     display: flex;
@@ -55,12 +52,13 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+    margin-top: 5px;
 }
 
 .metrics{
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
     align-self: flex-end;
     margin-top: 20px;
     text-align: center;
@@ -68,8 +66,16 @@
     justify-content: center;
 }
 
-.metrics p{
+.metrics .postDate{
     flex: 0 0 100%;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.commentsAndLikes{
+    display: flex;
     font-size: 18px;
     font-weight: 600;
+    gap: 10px;
+    
 }

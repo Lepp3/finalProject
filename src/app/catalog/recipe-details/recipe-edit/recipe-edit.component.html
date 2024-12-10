@@ -1,8 +1,14 @@
 @if(currentRecipe){
     <div class="wrapper">
+        <div class="frame">
         <form #editForm="ngForm" class="editForm" (ngSubmit)="onEditSubmit()">
+            <div class="headers">
+                <h2>Edit</h2>
+            </div>
+
+            <div class="groups">
             <div class="form-group">
-                <label for="title">Recipe Name<p>(max: 30 characters)</p></label>
+                <label for="title">Name</label>
                 <input
                 type="text"
                 name="title"
@@ -12,11 +18,12 @@
                 minlength="4"
                 maxlength="30"
                 required
+                placeholder="Name of recipe"
                 />
             </div>
             
             <div class="form-group">
-                <label for="shortInfo">Short info about the recipe <p>(max: 45 characters)</p></label>
+                <label for="shortInfo">Short description</label>
                 <input
                 type="text"
                 name="shortInfo"
@@ -26,12 +33,13 @@
                 minlength="10"
                 maxlength="45"
                 required
+                placeholder="Short information about the recipe"
                 />
             </div>
            
             <div class="form-group">
-                <label for="ingredients">Ingredients (space in between each)</label>
-                <input
+                <label for="ingredients">Ingredients (separated by ,)</label>
+                <textarea
                 type="text"
                 name="ingredients"
                 id="ingredients"
@@ -39,12 +47,14 @@
                 #ingredientsInput="ngModel"
                 minlength="10"
                 required
-                />
+                class="small"
+                placeholder="Tomatoes, Potatoes, Flour"
+                ></textarea>
             </div>
             
             <div class="form-group">
-                <label for="fullRecipe">Full Recipe</label>
-                <input
+                <label for="fullRecipe">Instructions</label>
+                <textarea
                 type="text"
                 name="fullRecipe"
                 id="fullRecipe"
@@ -52,11 +62,13 @@
                 #fullRecipeInput="ngModel"
                 minlength="10"
                 required
-                />
+                class="big"
+                placeholder="Full recipe"
+                ></textarea>
             </div>
             
-            <div clas="form-group">
-                <label for="image">Picture of the dish</label>
+            <div class="form-group">
+                <label for="image">Picture url</label>
                 <input
                 type="text"
                 id="image"
@@ -64,11 +76,17 @@
                 required
                 [(ngModel)]="currentRecipe.imageSrc"
                 #imageInput="ngModel"
+                placeholder="https://imageUrl.com"
                 />
             </div>
+        </div>
+            <div class="submitButton">
+                <button class="controlButton">Save Changes</button>
+            </div>
             
-            <button>Save Changes</button>
         </form>
+    
+    </div>
     </div>
 }@else {
     <p>Loading...</p>

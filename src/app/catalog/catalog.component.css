@@ -3,22 +3,42 @@
     flex-direction: column;
     padding: 30px;
     gap: 30px;
-    background-color:#a1b6a2;
+    background-color:#eaded2;
     height: auto;
     font-family: 'Roboto', serif;
+    color: #A45848;
+    align-items: center;
 }
 
+
+.catalogHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 3rem;
+}
 
 .catalog h1{
     text-align: center;
     font-size: 3rem;
-    text-decoration: underline;
+    min-height: 50px;
+    /* margin-top: -10px; */
+    /* align-self: flex-start; */
 }
 
+
+.allContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .searchField{
-    align-self: center;
+    align-items: center;
     display: flex;
     gap: 10px;
+    min-height: 50px;
 }
 
 .searchField input[type="text"]{
@@ -29,6 +49,8 @@
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.725);
     font-weight: 500;
+    max-height: 35px;
+    min-width: 300px;
 }
 
 .searchField input[type="text"]:focus{
@@ -37,13 +59,22 @@
 
 .searchField button{
     padding: 10px;
-    border-radius: 7px;
+    border-radius: 4px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    font-size: 1rem;
+    border: none;
+    font-size: 1em;
+    max-height: 35px;
+    min-width: 80px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #A45848;
+    color: white;
 }
 
 .searchField button:hover{
-    background-color: rgb(214, 167, 120);
+    background-color: #bb6351;
 }
 
 .buttonsField{
@@ -51,28 +82,44 @@
 }
 
 .buttonsField div{
-    border: 2px solid black;
     padding: 15px;
     border-radius: 10px;
     font-size: 1.4rem;
     cursor: pointer;
-    background-color: rgb(214, 167, 120);
+    background-color: #A45848;
+    color: #efece8;
 }
 
 .buttonsField div:hover{
     background-color: white;
-    color: rgb(219, 98, 18);
+    color: black;
 }
 
 .filterBy{
-    width: 20%;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    align-self: center;
     align-items: center;
     justify-content: center;
+    min-height: 50px;
 }
+
+.select{
+  border: 2px solid #A45848; 
+  border-radius: 5px;
+  color: #A45848;
+  padding: 3px 6px;
+  background-color: #efece8;;
+  min-width: 80px;
+  min-height: 35px;
+}
+
+.select:focus{
+    border: none;
+    outline: none;
+}
+
+
 
 .filterBy p{
     flex: 0 0 100%;
@@ -80,12 +127,12 @@
 }
 
 .filterBy div{
-    border: 2px solid black;
     padding: 15px;
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    background-color: rgb(214, 167, 120);
+    background-color: #A45848;
+    color: #efece8;
 
 }
 
@@ -98,9 +145,10 @@
 
 .recipeList{
     display: flex;
-    gap: 20px;
-    padding: 20px;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 2rem 0px;
 }
+
+
 

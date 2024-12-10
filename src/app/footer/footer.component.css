@@ -1,7 +1,10 @@
 .wrapper{
-    padding: 30px;
+    height: 80px;
     background-color: black;
     color: white;
     text-align: center;
     align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

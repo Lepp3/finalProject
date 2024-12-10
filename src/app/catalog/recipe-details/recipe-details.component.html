@@ -1,62 +1,49 @@
+
 <div class="wrapper">
-  <div class="heading">
-    <h2>{{ currentRecipe?.title }}</h2>
-    <h4>A recipe posted by <p class="authorName" [routerLink]="['/profile',currentRecipe?.authorId]">{{ authorInfo?.username }}</p></h4>
-  </div>
-  @if(isOwner){
-  <div class="controlButtons">
-    <div
-      [routerLink]="['/recipes', 'details', recipeId, 'edit']"
-      class="controlButton positive">Edit Recipe</div>
-    <div (click)="onDeleteRecipe(recipeId)" class="controlButton negative">Delete Recipe</div>
-  </div>
-  }
+  <div class="frame">
+    <div class="columnFormat">
+    <div class="mainPart">
   <div class="imgHolder">
     <img src="{{ currentRecipe?.imageSrc }}" alt="Picture of a dish" />
   </div>
-  @if(isLogged && !hasLiked && buttonAvailable){
-    <div class="controlButton likeButton" (click)="onLikeRecipe()">Like recipe</div>
-    }
-    <div class="recipeIngredients">
-      <div class="fullRecipe">
-        <h3>Full recipe</h3>
-        <article>{{ currentRecipe?.details?.fullRecipe }}</article>
-      </div>
-      <div class="ingredientHolder">
-        <h3>Ingredients</h3>
-        <ul class="ingredientList">
-          @for(ingredient of currentRecipe?.details?.ingredients; track $index){
-          <li>{{ ingredient }}</li>
-          }
-        </ul>
-      </div>
+  <div class="allContent">
+    <div class="heading">
+      <h2>{{ currentRecipe?.title }}</h2>
+      <div class="postDate">Posted by <div class="authorName" [routerLink]="['/profile',currentRecipe?.authorId]">{{ authorInfo?.username }}</div> <div>on {{currentRecipe?.timestamp | date}}</div></div>
     </div>
-  
-  @if(isLogged){
-    <div class="formwrapper">
-      <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
-        <div class="form-group">
-          <label for="commentContent">Add new comment</label>
-          <input
-            type="text"
-            id="commentContent"
-            name="commentContent"
-            ngModel
-            #commentInput="ngModel"
-            minlength="3"
-            required
-           
-          />
+      <div class="recipeIngredients">
+        <div class="fullRecipe">
+          <h3>Full recipe</h3>
+          <article>{{ currentRecipe?.details?.fullRecipe }}</article>
+          
         </div>
-        @if(commentInput.touched){
-          @if(commentInput.errors?.['minlength']){
-          <p class="errorParagraph">Minimum comment length is 3 characters</p>
+        <div class="ingredientHolder">
+          <h3>Ingredients</h3>
+          <ul class="ingredientList">
+            @for(ingredient of currentRecipe?.details?.ingredients; track $index){
+            <li class="left">{{ ingredient }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="actionButtons">
+        <div class="controlButtons">
+        @if(isOwner){
+            <div
+              [routerLink]="['/recipes', 'details', recipeId, 'edit']"
+              class="controlButton">Edit</div>
+            <div (click)="onDeleteRecipe(recipeId)" class="controlButton">Delete</div>
+          
           }
-        }
-        <button>Post comment</button>
-      </form>
-    </div>
-    }
+          @if(isLogged && !hasLiked && buttonAvailable){
+            <div class="controlButton likeButton" (click)="onLikeRecipe()">Like</div>
+            }
+          </div>
+      </div>
+  </div>
+</div>
+  
+  
   <section class="commentSection">
     @if(allComments.length === 0){
         <h3>No comments yet</h3>
@@ -69,5 +56,31 @@
     />
 }
 </section>
-    
+@if(isLogged){
+  <div class="formwrapper">
+    <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">
+      <div class="form-group commentForm">
+        <label for="commentContent">Leave a comment</label>
+        <textarea
+          type="text"
+          id="commentContent"
+          name="commentContent"
+          ngModel
+          #commentInput="ngModel"
+          minlength="3"
+          required
+          placeholder="Comment"
+        ></textarea>
+      </div>
+      @if(commentInput.touched){
+        @if(commentInput.errors?.['minlength']){
+        <p class="errorParagraph">Minimum comment length is 3 characters</p>
+        }
+      }
+      <button class="controlButton">COMMENT</button>
+    </form>
+  </div>
+  }
+</div>
+</div>
 </div>

@@ -55,6 +55,8 @@ export class EditProfileComponent implements OnInit{
 
       this.userService.updateUserInfo(id,submitInfo).subscribe({
         next:()=>{
+          this.currentUserInfo!.username = username;
+          this.userService.setUserInfoState(this.currentUserInfo!)
           this.router.navigate([`/profile/${id}`])
         }
       })

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Details, SingleRecipe } from '../../models/recipe.model';
+import { Details, Likes, SingleRecipe } from '../../models/recipe.model';
 import { RecipeService } from '../../../recipe.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SignedUser, UserInfo } from '../../../user-profile/models/userModel';
@@ -48,7 +48,7 @@ export class RecipeEditComponent implements OnInit {
   loadRecipeData(){
     this.recService.getSingleRecipe(this.recipeId).subscribe((recipe)=>{
       this.currentRecipe = recipe;
-      this.ingredients = recipe.details.ingredients.join(' ');
+      this.ingredients = recipe.details.ingredients.join(',');
       
     })
   }
@@ -60,14 +60,20 @@ export class RecipeEditComponent implements OnInit {
     const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
-    const ingredients = form.value.ingredients.trim().split(' ');
+    const ingredients = form.value.ingredients.split(',');
     const fullRecipe = form.value.fullRecipe;
     const shortInfo = form.value.shortInfo;
     const image = form.value.image;
+    let likes: Likes | undefined = undefined;
     const details: Details = {
       fullRecipe: fullRecipe,
       ingredients: ingredients
     }
+    const comments = this.currentRecipe.comments;
+    if(this.currentRecipe.likes){
+      likes = this.currentRecipe.likes;
+    }
+    console.log(likes);
     const recipe:SingleRecipe = {
       title:recipeTitle,
       shortInfo: shortInfo,
@@ -76,7 +82,9 @@ export class RecipeEditComponent implements OnInit {
       authorId: authorId,
       authorUsername: authorUsername || "",
       imageSrc: image,
-      recipeId: id
+      recipeId: id,
+      comments: comments,
+      likes: likes
     }
     
     this.recService.updateRecipe(recipe,id).subscribe({

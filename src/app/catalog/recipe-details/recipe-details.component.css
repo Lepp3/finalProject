@@ -1,95 +1,117 @@
+
 .wrapper{
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    padding: 25px;
-    background-color: #a1b6a2;
+    flex-wrap: wrap;
+    background-color: #eaded2;
     align-items: center;
-    
+    justify-content: center;
+}
+
+.allContent{
+    display: flex
+    ;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 60%;
+        padding: 2rem;
+        gap: 20px;
+}
+
+.mainPart{
+    display: flex
+;
+    justify-content: space-around;
+    width: 80%;
+    justify-content: center;
 }
 
 .heading{
-    text-align: center;
+    align-self: flex-start;
     font-size: 30px;
+    color: #A45848;
+}
+
+.heading h2{
+    align-self: flex-start;
 }
 
 .authorName:hover{
    text-decoration: underline; 
 }
 
+
+
+
+
 .controlButtons{
-    /* align-self: center; */
+    cursor: pointer;
+    text-align: center;
     display: flex;
     gap: 10px;
+    font-weight: 500;
 }
-
-
 
 .controlButton{
-    border: 1px solid black;
+    background-color: #efece8;
     padding: 10px;
+    min-width: 80px;
     border-radius: 5px;
-    cursor: pointer;
-    background-color: rgb(214, 167, 120);
+    border: 2px solid #A45848;
+    transition: all 0.3s;
+    color: #A45848;
 }
 
-.positive:hover{
-    background-color: rgb(20, 156, 20);
-    color: white;
+.controlButton:hover{
+    background-color: #A45848;
+    color: #efece8;
 }
 
-.negative:hover{
-    background-color: rgb(219, 22, 22);
-    color:white;
-}
+
 
 .imgHolder{
-    /* align-self: center; */
+    align-self: flex-start;
     overflow: hidden;
-    border-radius: 10px;
+    width: 40%;
 }
 
 .imgHolder img{
-    max-width: 550px;
-    max-height: 550px;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: fill;
 }
 
-.likeButton{
-    width: max-content;
-    /* align-self: center; */
-    font-size: 18px;
-}
 
-.likeButton:hover{
-    background-color: white;
-}
+
 
 .recipeIngredients{
-    padding: 0px 10px;
     display: flex;
-    gap: 20px;
-    border: 2px solid black;
-    width: 60%;
-    justify-content: space-around;
     height: auto;
+    min-width: 50%;
 }
 
 .fullRecipe{
     display: flex;
     flex-direction: column;
-    padding: 20px;
     gap: 20px;
-    width: 40%;
-    height: auto;
+    min-width: 60%;
+}
+
+.postDate{
+    color: black;
+    font-size: 16px;
+    font-style: italic;
+    display: flex;
+    gap: 5px;
 }
 
 .fullRecipe h3{
-    text-align: center;
+    text-align: left;
 }
 
 .fullrecipe article{
     flex: 0 0 70%;
-    background-color: red;
 }
 
 .ingredientHolder{
@@ -97,17 +119,22 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    padding: 10px;
     justify-content: center;
     text-align: center;
-    width: 30%;
+    max-width: 25%;
 }
 
 .ingredientList{
-    list-style: circle;
+    list-style: disc;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding-left: 1.3rem;
+    width: 100%;
+}
+
+.left{
+    text-align: left;
 }
 
 .commentSection{
@@ -118,10 +145,25 @@
 
 
 .formwrapper{
-    padding: 20px;
-    width: 30%;
-    /* align-self: center; */
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    background-color: #efece8;
+    color: black;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
 
+}
+
+.columnFormat{
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+    width: 100%;
+    align-items: center;
 }
 
 .commentForm{
@@ -131,19 +173,7 @@
     flex-direction: column;
 }
 
-.commentForm button{
-    width: 140px;
-    border-radius: 20px;
-    height: auto;
-    align-self: center;
-    padding: 10px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin-left: 30px;
-    outline: none;
-    border: 2px solid black;
-}
+
 
 .commentForm button:hover{
     background-color:rgb(214, 167, 120);
@@ -164,20 +194,56 @@
     color: rgb(172, 26, 26);
 }
 
-.form-group input{
+.form-group textarea{
     padding: 10px;
+    width: 100%;
+    min-height: 150px;
     border-radius: 10px;
     outline: none;
     border: none;
+    resize: none;
+    border: 1px solid #a7a5a4;
+    background-color: #efece8;
 }
 
-.form-group input.ng-invalid.ng-touched{
+.form-group textarea.ng-invalid.ng-touched{
     border: 2px solid rgb(187, 14, 14);
 }
 
-.form-group input:focus{
+.form-group textarea:focus{
     outline: none;
-    border: none;
+    box-shadow: inset 0 0 3px black;
+}
+
+/* .actionButtons{
+    display: flex;
+} */
+
+
+
+.formwrapper button{
+    align-self: flex-end;
+}
+
+.commentForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.commentForm label{
+    align-self: flex-start;
+}
+
+.commentForm .controlButton{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.commentForm .controlButton:hover{
+    background-color: #A45848;
+    color: #efece8;
 }
 
 

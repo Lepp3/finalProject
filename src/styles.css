@@ -29,4 +29,13 @@ app-root{
     flex: 1;
 }
 
+.frame{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 

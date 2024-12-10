@@ -1,10 +1,37 @@
 .header{
     display: flex;
-    justify-content: space-between;
-    min-height: 70px;
-    background-color: rgb(201, 201, 197);
+    justify-content: center;
+    height: 70px;
+    background-color: #efece8;
     opacity: 0.9;
     align-items: center;
     padding: 0 20px;
     text-align: center;
+    border-bottom: 2px solid #A45848;
+    -webkit-box-shadow: 0px 4px 24px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 24px -11px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 24px -11px rgba(0,0,0,0.75);
 }
+
+app-logo-component{
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+app-navigation-menu{
+    width: 33%;
+}
+
+app-access-component{
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* .frame{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */

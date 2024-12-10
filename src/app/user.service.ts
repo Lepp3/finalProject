@@ -80,7 +80,7 @@ export class UserService implements OnDestroy {
   }
 
   //set user info statef
-  private setUserInfoState(userInfo: UserInfo): void {
+  public setUserInfoState(userInfo: UserInfo): void {
     this.userInfoSubject.next(userInfo);
     this.storeUserInfo(userInfo.username, userInfo.bio);
   }

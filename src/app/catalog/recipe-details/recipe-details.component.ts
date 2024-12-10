@@ -8,13 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
 import { UserService } from '../../user.service';
 import { switchMap, tap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-recipe-details',
   standalone: true,
-  imports: [CommentsComponent,FormsModule,RouterLink],
+  imports: [CommentsComponent,FormsModule,RouterLink,DatePipe],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css'
 })

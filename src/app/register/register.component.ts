@@ -24,7 +24,6 @@ export class RegisterComponent{
   waitTimer:number = 5;
 
   @ViewChild('registerForm') form: NgForm | undefined;
-  @ViewChild('profilePicInput') profilePicInput?: ElementRef<HTMLInputElement>
   constructor(private regService:UserService,private router:Router){
 
   }
