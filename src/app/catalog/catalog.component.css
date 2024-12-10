@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: 30px;
     gap: 30px;
-    background-color: rgb(95, 157, 156);
+    background-color:#a1b6a2;
     height: auto;
     font-family: 'Roboto', serif;
 }
@@ -43,8 +43,7 @@
 }
 
 .searchField button:hover{
-    background-color: black;
-    color:white;
+    background-color: rgb(214, 167, 120);
 }
 
 .buttonsField{
@@ -61,8 +60,8 @@
 }
 
 .buttonsField div:hover{
-    background-color: rgb(243, 169, 32);
-    color: rgb(36, 57, 33);
+    background-color: white;
+    color: rgb(219, 98, 18);
 }
 
 .filterBy{
@@ -91,8 +90,8 @@
 }
 
 .filterBy div:hover{
-    background-color: rgb(243, 169, 32);
-    color: rgb(36, 57, 33);
+    background-color: white;
+    color: black;
 }
 
 

@@ -7,7 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
 import { UserService } from '../../user.service';
-import { tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 
 
 
@@ -40,6 +40,8 @@ export class RecipeDetailsComponent implements OnInit{
 
   errorMsg: string | null = null
 
+  authorInfo: UserInfo | null = null;
+
   @ViewChild('commentForm') form: NgForm | undefined;
 
   
@@ -50,6 +52,7 @@ export class RecipeDetailsComponent implements OnInit{
     this.recipeId = this.activatedRoute.snapshot.params['id'];
     if(this.recipeId){
       this.loadRecipeData();
+      
     }
     
 
@@ -98,7 +101,9 @@ export class RecipeDetailsComponent implements OnInit{
             this.hasLiked = false;
           }
         }
-      })
+      }),switchMap((data:SingleRecipe)=>this.userService.getUserInfo(data.authorId).pipe(tap(userInfo=>{
+        this.authorInfo = userInfo
+      })))
     ).subscribe()
   }
 

@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="heading">
     <h2>{{ currentRecipe?.title }}</h2>
-    <h4>A recipe posted by {{ currentRecipe?.authorUsername }}</h4>
+    <h4>A recipe posted by <p class="authorName" [routerLink]="['/profile',currentRecipe?.authorId]">{{ authorInfo?.username }}</p></h4>
   </div>
   @if(isOwner){
   <div class="controlButtons">
@@ -17,18 +17,21 @@
   @if(isLogged && !hasLiked && buttonAvailable){
     <div class="controlButton likeButton" (click)="onLikeRecipe()">Like recipe</div>
     }
-  <section class="fullRecipe">
-    <h3>Full recipe</h3>
-    <article>{{ currentRecipe?.details?.fullRecipe }}</article>
-  </section>
-  <div class="ingredientHolder">
-    <h3>Ingredients</h3>
-    <ul class="ingredientList">
-      @for(ingredient of currentRecipe?.details?.ingredients; track $index){
-      <li>{{ ingredient }}</li>
-      }
-    </ul>
-  </div>
+    <div class="recipeIngredients">
+      <div class="fullRecipe">
+        <h3>Full recipe</h3>
+        <article>{{ currentRecipe?.details?.fullRecipe }}</article>
+      </div>
+      <div class="ingredientHolder">
+        <h3>Ingredients</h3>
+        <ul class="ingredientList">
+          @for(ingredient of currentRecipe?.details?.ingredients; track $index){
+          <li>{{ ingredient }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  
   @if(isLogged){
     <div class="formwrapper">
       <form #commentForm="ngForm" class="commentForm" (ngSubmit)="postComment()">

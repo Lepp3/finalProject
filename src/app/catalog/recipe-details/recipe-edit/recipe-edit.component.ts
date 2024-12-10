@@ -62,7 +62,7 @@ export class RecipeEditComponent implements OnInit {
     const recipeTitle = form.value.title;
     const ingredients = form.value.ingredients.trim().split(' ');
     const fullRecipe = form.value.fullRecipe;
-    const shortInfo = form.value.fullRecipe;
+    const shortInfo = form.value.shortInfo;
     const image = form.value.image;
     const details: Details = {
       fullRecipe: fullRecipe,

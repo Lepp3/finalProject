@@ -6,12 +6,20 @@
     flex-direction: column;
     gap: 10px;
     width: 500px;
+    background-color: #3d494b;
+    color: white;
 }
 
 .metaData{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+
+.userProfile{
+    width: max-content;
+    cursor: pointer;
 }
 
 .userProfile:hover{
@@ -30,6 +38,7 @@
     padding: 5px;
     align-items: center;
     justify-content: center;
+    background-color: rgb(185, 34, 34);
 }
 
 .postDate{
@@ -37,7 +46,8 @@
 }
 
 .deleteComment:hover{
-    background-color: rgb(185, 34, 34);;
+    background-color: rgb(146, 26, 26);
+    color: white;
 }
 
 .likeComment{
@@ -46,4 +56,6 @@
     width: max-content;
     border-radius: 5px;
     font-size: 14px;
+    cursor: pointer;
+    background-color: rgb(150, 122, 94);;
 }

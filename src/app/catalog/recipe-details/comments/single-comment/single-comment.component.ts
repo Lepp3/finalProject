@@ -4,6 +4,8 @@ import { SignedUser } from '../../../../user-profile/models/userModel';
 import { UserService } from '../../../../user.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { UserInfo } from '../../../../user-profile/models/userModel';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-single-comment',
@@ -22,12 +24,15 @@ export class SingleCommentComponent implements OnInit{
  isAuthorOfComment!: boolean;
  hasLiked!: boolean;
  buttonAvailable: boolean = true;
+ authorInfo: UserInfo | null = null;
 
 constructor(private userService:UserService){
   this.viewingUser = this.userService.user
 }
 
  ngOnInit(): void {
+  this.loadCommentAuthor()
+
   if(this.comment?.likes){
     this.totalLikes = Object.keys(this.comment?.likes).length;
     if(this.viewingUser){
@@ -42,6 +47,12 @@ constructor(private userService:UserService){
   if(this.comment){
     this.comment.authorId === this.viewingUser?.localId ? this.isAuthorOfComment = true : this.isAuthorOfComment = false;
   }
+ }
+
+ loadCommentAuthor(){
+  this.userService.getUserInfo(this.comment!.authorId).pipe(tap(userInfo=>{
+    this.authorInfo = userInfo;
+  })).subscribe();
  }
  onLike():void{
   if(this.comment && this.viewingUser){

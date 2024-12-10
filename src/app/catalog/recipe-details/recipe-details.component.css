@@ -3,7 +3,9 @@
     flex-direction: column;
     gap: 25px;
     padding: 25px;
-    background-color: rgb(95, 157, 156);
+    background-color: #a1b6a2;
+    align-items: center;
+    
 }
 
 .heading{
@@ -11,8 +13,12 @@
     font-size: 30px;
 }
 
+.authorName:hover{
+   text-decoration: underline; 
+}
+
 .controlButtons{
-    align-self: center;
+    /* align-self: center; */
     display: flex;
     gap: 10px;
 }
@@ -24,48 +30,57 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    background-color: rgb(214, 167, 120);
 }
 
 .positive:hover{
     background-color: rgb(20, 156, 20);
+    color: white;
 }
 
 .negative:hover{
     background-color: rgb(219, 22, 22);
+    color:white;
 }
 
 .imgHolder{
-    align-self: center;
+    /* align-self: center; */
     overflow: hidden;
     border-radius: 10px;
 }
 
 .imgHolder img{
-    max-width: 450px;
-    max-height: 450px;
+    max-width: 550px;
+    max-height: 550px;
 }
 
 .likeButton{
     width: max-content;
-    align-self: center;
+    /* align-self: center; */
     font-size: 18px;
 }
 
 .likeButton:hover{
-    background-color: blue;
-    color:white
+    background-color: white;
+}
+
+.recipeIngredients{
+    padding: 0px 10px;
+    display: flex;
+    gap: 20px;
+    border: 2px solid black;
+    width: 60%;
+    justify-content: space-around;
+    height: auto;
 }
 
 .fullRecipe{
     display: flex;
     flex-direction: column;
-    border: 2px dotted black;
-    border-radius: 15px;
     padding: 20px;
     gap: 20px;
     width: 40%;
     height: auto;
-    align-self: center;
 }
 
 .fullRecipe h3{
@@ -85,8 +100,7 @@
     padding: 10px;
     justify-content: center;
     text-align: center;
-    align-self: center;
-    width: 40%;
+    width: 30%;
 }
 
 .ingredientList{
@@ -98,7 +112,7 @@
 
 .commentSection{
     margin-top: 40px;
-    align-self: center;
+    /* align-self: center; */
     padding: 10px;
 }
 
@@ -106,7 +120,7 @@
 .formwrapper{
     padding: 20px;
     width: 30%;
-    align-self: center;
+    /* align-self: center; */
 
 }
 
@@ -132,7 +146,7 @@
 }
 
 .commentForm button:hover{
-    background-color: rgb(161, 158, 153);
+    background-color:rgb(214, 167, 120);
 }
 
 .form-group{
