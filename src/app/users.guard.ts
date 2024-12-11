@@ -1,8 +1,8 @@
 import { CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
-import { UserService } from "./user.service";
+import { UserService } from "./services/user.service";
 import { map,  catchError} from 'rxjs/operators'
-import { RecipeService } from "./recipe.service";
+import { RecipeService } from "./services/recipe.service";
 import { of } from "rxjs";
 import { SingleRecipe } from "./catalog/models/recipe.model";
 import { SignedUser } from "./user-profile/models/userModel";
@@ -78,7 +78,6 @@ export const AuthorGuard: CanActivateFn = (route,state) =>{
         map((recipe:SingleRecipe)=>{
             // not author
             if(recipe.authorId !== user.localId){
-                console.log(recipe.authorId);
                 router.navigate(['/recipes']);
                 return false;
             }else{

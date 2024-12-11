@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../user.service';
-import { catchError, throwError } from 'rxjs';
-import { SignedUser } from '../user-profile/models/userModel';
+import { UserService } from '../services/user.service';
+
 
 
 

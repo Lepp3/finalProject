@@ -1,9 +1,9 @@
 import { Component, OnInit,} from '@angular/core';
 import { SignedUser, UserInfo } from './models/userModel';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleRecipe } from '../catalog/models/recipe.model';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../services/recipe.service';
 import { PostedRecipeComponent } from './posted-recipe/posted-recipe.component';
 
 @Component({

@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EmailValidationDirective } from '../directives/email-validation.directive';
 import { DOMAINS } from '../utils/constants';

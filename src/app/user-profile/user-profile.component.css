@@ -116,5 +116,5 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 2rem 0px;
+    gap: 2rem 30px;
 }

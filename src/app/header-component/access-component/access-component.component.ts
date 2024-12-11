@@ -1,7 +1,7 @@
-import {  ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import {  ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../user.service';
-import { AsyncPipe } from '@angular/common';
+import { UserService } from '../../services/user.service';
+
 
 
 

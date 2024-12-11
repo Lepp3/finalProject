@@ -1,5 +1,5 @@
 # Chef's rest WebApp 
-                                        Documentation 
+                                            Documentation 
 
 ## Overview 
 This project is a web application that allows users to post, comment on, and like recipes posted by other users. Guests can browse the recipes catalog, view individual recipe details, and see user profiles along with their posted recipes. 

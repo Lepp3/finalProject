@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Details, Likes, SingleRecipe } from '../../models/recipe.model';
-import { RecipeService } from '../../../recipe.service';
+import { RecipeService } from '../../../services/recipe.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SignedUser, UserInfo } from '../../../user-profile/models/userModel';
-import { UserService } from '../../../user.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-recipe-edit',

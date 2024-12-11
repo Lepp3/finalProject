@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { environment } from './utils/endpoints';
+import { environment } from '../utils/endpoints';
 import { BehaviorSubject, Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { map, catchError, throwError } from 'rxjs';
-import { SignedUser, UserInfo } from './user-profile/models/userModel';
+import { SignedUser, UserInfo } from '../user-profile/models/userModel';
 import { Router } from '@angular/router';
 
 

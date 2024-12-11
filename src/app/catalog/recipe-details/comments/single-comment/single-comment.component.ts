@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SingleComment } from '../../../models/recipe.model';
 import { SignedUser } from '../../../../user-profile/models/userModel';
-import { UserService } from '../../../../user.service';
+import { UserService } from '../../../../services/user.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UserInfo } from '../../../../user-profile/models/userModel';

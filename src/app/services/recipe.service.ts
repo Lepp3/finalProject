@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SingleComment, SingleRecipe } from './catalog/models/recipe.model';
+import { SingleComment, SingleRecipe } from '../catalog/models/recipe.model';
 import { catchError, throwError } from 'rxjs';
 
 

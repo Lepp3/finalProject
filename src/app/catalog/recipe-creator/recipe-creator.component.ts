@@ -3,9 +3,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Details, SingleRecipe } from '../models/recipe.model';
 import { v4 as uuidv4 } from 'uuid';
-import { RecipeService } from '../../recipe.service';
-
-import { UserService } from '../../user.service';
+import { UserService } from '../../services/user.service';
+import { RecipeService } from '../../services/recipe.service';
 import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
 
 
@@ -53,7 +52,7 @@ export class RecipeCreatorComponent implements OnInit{
     let ingredients = form.value.ingredients.split(',');
     ingredients = ingredients.filter((input:string) => input !== " " && input !== "");
     const fullRecipe = form.value.fullRecipe;
-    const shortInfo = form.value.fullRecipe;
+    const shortInfo = form.value.shortInfo;
     const image = form?.value.image;
     const details:Details = {
       fullRecipe: fullRecipe,

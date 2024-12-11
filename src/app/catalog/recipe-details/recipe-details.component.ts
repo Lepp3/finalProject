@@ -1,14 +1,15 @@
 import { Component,  OnInit,  ViewChild } from '@angular/core';
-import { RecipeService } from '../../recipe.service';
+import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleComment, SingleRecipe } from '../models/recipe.model';
 import { CommentsComponent } from './comments/comments.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { SignedUser, UserInfo } from '../../user-profile/models/userModel';
-import { UserService } from '../../user.service';
+import { UserService } from '../../services/user.service';
 import { switchMap, tap } from 'rxjs';
 import { DatePipe } from '@angular/common';
+
 
 
 
@@ -97,10 +98,10 @@ export class RecipeDetailsComponent implements OnInit{
         }
         this.currentRecipe = recipe;
         this.allComments = this.getComments();
-        this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUser?.localId);
+        this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe!.authorId,this.currentUser?.localId);
         if(this.currentUser){
-          if(this.currentRecipe.likes){
-            if(Object.keys(this.currentRecipe.likes).includes(this.currentUser.localId)){
+          if(this.currentRecipe!.likes){
+            if(Object.keys(this.currentRecipe!.likes).includes(this.currentUser.localId)){
               this.hasLiked = true;
               this.buttonAvailable = false;
             }else{
@@ -124,7 +125,6 @@ export class RecipeDetailsComponent implements OnInit{
   postComment():void{
     const form = this.form;
     if(form?.invalid){
-      console.log('invalid form')
       return 
     }
     const commentContent = form?.value.commentContent;
