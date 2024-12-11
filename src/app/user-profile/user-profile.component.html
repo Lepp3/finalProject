@@ -4,7 +4,9 @@
       <div class="allContent">
     <div class="profileHeader">
       <div class="profilePicture">
-          <img [src]=" userInfo.profileImgSrc || 'assets/images/avatar-1577909_640.png'" alt="Profile Picture">
+          <img [src]=" userInfo.profileImgSrc || 'assets/images/avatar-1577909_640.png'" 
+          alt="Profile Picture"
+          (error)="setDefaultImage($event)">
           <div class="profileDetails">
             <h1 class="username">{{ userInfo.username }}</h1>
             <p class="bio">{{ userInfo.bio }}</p>
@@ -16,7 +18,6 @@
           </div>
     }
     </div>
-    
      @if(userRecipes.length !== 0){
         <div class="postedRecipes">
             <h2>Posted Recipes</h2>

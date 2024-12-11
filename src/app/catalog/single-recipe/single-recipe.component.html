@@ -1,6 +1,9 @@
 <div class="singleRecipe" [routerLink]="['/recipes','details', recipe?.recipeId]">
     <div class="imgHolder">
-    <img [src]="recipe?.imageSrc" alt="No resource" />
+    <img [src]="recipe?.imageSrc" 
+    alt="No resource" 
+    (error)="setDefaultImage($event)"
+    />
     </div>
     <div class="headings">
       <h2>{{ recipe?.title }}</h2>

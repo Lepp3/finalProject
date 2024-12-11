@@ -20,6 +20,9 @@ export class RecipeEditComponent implements OnInit {
   currentUser!: SignedUser | null;
   currentUserInfo!: UserInfo | null;
   ingredients!: string | null;
+  errorMessage: string | null = null;
+  waitTimer: number = 5;
+  buttonDisabled: boolean = false;
   @ViewChild('editForm') form!:NgForm
 
   constructor(
@@ -47,6 +50,10 @@ export class RecipeEditComponent implements OnInit {
 
   loadRecipeData(){
     this.recService.getSingleRecipe(this.recipeId).subscribe((recipe)=>{
+      if(!recipe){
+        this.router.navigate(['/recipes']);
+        return
+      }
       this.currentRecipe = recipe;
       this.ingredients = recipe.details.ingredients.join(',');
       
@@ -60,7 +67,8 @@ export class RecipeEditComponent implements OnInit {
     const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
-    const ingredients = form.value.ingredients.split(',');
+    let ingredients = form.value.ingredients.split(',');
+    ingredients = ingredients.filter((input:string) => input !== " " && input !== "");
     const fullRecipe = form.value.fullRecipe;
     const shortInfo = form.value.shortInfo;
     const image = form.value.image;
@@ -88,8 +96,24 @@ export class RecipeEditComponent implements OnInit {
     }
     
     this.recService.updateRecipe(recipe,id).subscribe({
-      next:()=>{
+      complete:()=>{
         this.router.navigate([`/recipes/details/${this.recipeId}`]);
+      },
+      error: (err)=>{
+        if(err.status === 403){
+          this.userService.signOutUser();
+          return
+        }
+        if(err.status === 400){
+          this.errorMessage = `${err.message}`;
+          this.buttonDisabled = true;
+          setTimeout(() => {
+            this.errorMessage = null;
+            this.buttonDisabled = false;
+          }, this.waitTimer * 1000);
+          this.waitTimer *= 2;
+          return
+        }
       }
     });
     

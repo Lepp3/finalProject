@@ -1,0 +1,35 @@
+.wrapper{
+    min-height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+    color:#A45848;
+    gap: 20px;
+}
+
+.wrapper h1{
+    font-size: 4rem;
+}
+
+.backButton{
+    display: flex;
+    flex-direction: column;
+}
+
+.controlButton{
+    background-color: #A45848;
+    padding: 10px;
+    min-width: 80px;
+    border-radius: 5px;
+    border: 2px solid #A45848;
+    transition: all 0.3s;
+    color: #efece8;
+    font-weight: bold;
+}
+
+.controlButton:hover{
+    cursor: pointer;
+    background-color: #d36f5a;
+    color: #efece8;
+}

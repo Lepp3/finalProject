@@ -4,7 +4,9 @@
     <div class="columnFormat">
     <div class="mainPart">
   <div class="imgHolder">
-    <img src="{{ currentRecipe?.imageSrc }}" alt="Picture of a dish" />
+    <img src="{{ currentRecipe?.imageSrc }}" 
+    alt="Picture of a dish"
+    (error)="setDefaultImage($event)" />
   </div>
   <div class="allContent">
     <div class="heading">
@@ -14,7 +16,7 @@
       <div class="recipeIngredients">
         <div class="fullRecipe">
           <h3>Full recipe</h3>
-          <article>{{ currentRecipe?.details?.fullRecipe }}</article>
+          <p>{{ currentRecipe?.details?.fullRecipe }}</p>
           
         </div>
         <div class="ingredientHolder">

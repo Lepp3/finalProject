@@ -1,6 +1,7 @@
 <div class="wrapper">
     <div class="imgHolder">
-        <img [src]="recipe.imageSrc"/>
+        <img [src]="recipe.imageSrc"
+        (error)="setDefaultImage($event)"/>
     </div>
     <div class="headings">
         <h3 >{{recipe.title}}</h3>     

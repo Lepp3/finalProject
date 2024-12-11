@@ -50,7 +50,8 @@ export class RecipeCreatorComponent implements OnInit{
     const authorId = this.currentUser!.localId;
     const timestamp = String(Date.now());
     const recipeTitle = form.value.title;
-    const ingredients = form.value.ingredients.split(',');
+    let ingredients = form.value.ingredients.split(',');
+    ingredients = ingredients.filter((input:string) => input !== " " && input !== "");
     const fullRecipe = form.value.fullRecipe;
     const shortInfo = form.value.fullRecipe;
     const image = form?.value.image;
@@ -77,10 +78,11 @@ export class RecipeCreatorComponent implements OnInit{
           this.userService.signOutUser();
           return
         }
-        if(err.status === 429){
-          this.errorMessage = `Too many attempts made, try again in ${this.waitTimer} seconds`;
+        if(err.status === 400){
+          this.errorMessage = `${err.message}`;
           this.buttonDisabled = true;
           setTimeout(() => {
+            this.errorMessage = null;
             this.buttonDisabled = false;
           }, this.waitTimer * 1000);
           this.waitTimer *= 2;

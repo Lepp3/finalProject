@@ -43,6 +43,11 @@ export class UserProfileComponent implements OnInit{
       }
   }
 
+  setDefaultImage(event: Event){
+    const target = event.target as HTMLImageElement;
+    target.src = 'assets/images/avatar-1577909_640.png';
+  }
+
   loadUserData(){
     this.userService.getUserInfo(this.userId).subscribe({
       next:(user)=>{

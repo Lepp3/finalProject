@@ -122,9 +122,11 @@
         </div>
     </div>
         <div class="submitButton">
-            <button class="controlButton">Create Recipe</button>
+            <button class="controlButton" [disabled]="buttonDisabled">Create Recipe</button>
         </div>
-        
+        @if(errorMessage){
+            <p class="errorMessage">{{errorMessage}}</p>
+          }
     </form>
 </div>
 </div>

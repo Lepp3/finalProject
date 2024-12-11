@@ -31,8 +31,9 @@ ngOnInit(): void {
   }
 }
 
-getAuthorInfo(){
-
+setDefaultImage(event: Event){
+  const target = event.target as HTMLImageElement;
+  target.src = 'assets/images/default-image.png';
 }
 
 getComments(): SingleComment[] {

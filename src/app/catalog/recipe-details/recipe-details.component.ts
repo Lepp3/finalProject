@@ -82,9 +82,19 @@ export class RecipeDetailsComponent implements OnInit{
   }
 
   
+
+  setDefaultImage(event: Event){
+    const target = event.target as HTMLImageElement;
+    target.src = 'assets/images/default-image.png';
+  }
+
   loadRecipeData(){
     this.recService.getSingleRecipe(this.recipeId).pipe(
       tap(recipe=>{
+        if(!recipe){
+          this.router.navigate(['/recipes']);
+          return;
+        }
         this.currentRecipe = recipe;
         this.allComments = this.getComments();
         this.isOwner = this.recService.isRecipeAuthor(this.currentRecipe.authorId,this.currentUser?.localId);

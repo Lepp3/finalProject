@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SingleRecipe } from './models/recipe.model';
 import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
 import { RecipeService } from '../recipe.service';
@@ -14,16 +14,19 @@ import { RecipeService } from '../recipe.service';
 export class CatalogComponent implements OnInit {
   recipes: SingleRecipe[] = [];
   filteredRecipes: SingleRecipe[] = [];
+  isLoading: boolean= true;
 
   constructor(private recService: RecipeService) {}
 
   ngOnInit(): void {
     this.recService.getAllRecipes().subscribe((data) => {
       if(!data){
+        this.isLoading = false;
         return;
       }
       this.recipes = Object.values(data);
       this.filteredRecipes = Object.values(data);
+      this.isLoading = false;
     });
   }
 

@@ -18,17 +18,22 @@
       </select>
     </div>
     </div>
-    @if(recipes.length == 0){
-      <h2>No recipes yet</h2>
-    }@else {
-      <div class="recipeSection">
-      <ul class="recipeList">
-      @for(recipe of filteredRecipes; track $index){
-        <li ><app-single-recipe [singleRecipe]="recipe" /></li>
+    @if(!isLoading){
+      @if(recipes.length == 0){
+        <h2>No recipes yet</h2>
+      }@else {
+        <div class="recipeSection">
+        <ul class="recipeList">
+        @for(recipe of filteredRecipes; track $index){
+          <li ><app-single-recipe [singleRecipe]="recipe" /></li>
+        }
+      </ul>
+    </div>
       }
-    </ul>
-  </div>
+    }@else {
+      <p>Loading</p>
     }
+    
   </div>
   </div>
 </div>
