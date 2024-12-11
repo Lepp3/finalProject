@@ -2,7 +2,7 @@
     background-image: url("../../../public/images/delightin-dee-_WI3DGseB3g-unsplash.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    min-height: calc(100vh - 150px);
     padding: 40px;
     display: flex;
     flex-direction: column;
