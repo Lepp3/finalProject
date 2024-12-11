@@ -138,7 +138,9 @@
           <button class="controlButton" [disabled]="buttonDisabled">Register</button>
         </div>
       </div>
-      
+      @if(errorMessage){
+        <p class="errorMessage">{{errorMessage}}</p>
+      }
       <div class="registered">
         <p>Already a member?</p>
         <a routerLink="/login">Sign in</a>

@@ -1,34 +1,40 @@
-<div class="wrapper">
+@if(userInfo){
+  <div class="wrapper">
     <div class="frame">
       <div class="allContent">
-    <div class="profile-header">
-      <div class="profile-picture">
-          <img src="assets/images/avatar-1577909_640.png" alt="Profile Picture">
+    <div class="profileHeader">
+      <div class="profilePicture">
+          <img [src]=" userInfo.profileImgSrc || 'assets/images/avatar-1577909_640.png'" alt="Profile Picture">
+          <div class="profileDetails">
+            <h1 class="username">{{ userInfo.username }}</h1>
+            <p class="bio">{{ userInfo.bio }}</p>
+          </div>
       </div>
-      <div class="profile-details">
-        <h1 class="username">{{ userInfo.username }}</h1>
-        <p class="bio">{{ userInfo.bio }}</p>
-      </div>
-    </div>
-    @if (isOwner) {
-        <div class="edit-profile-button">
-            <button [routerLink]="['/profile',userId,'editProfile']">Edit Profile</button>
+      @if (isOwner) {
+        <div class="editProfileButton">
+            <button class="controlButton" [routerLink]="['/profile',userId,'editProfile']">Edit Profile</button>
           </div>
     }
+    </div>
+    
      @if(userRecipes.length !== 0){
-        <div class="posted-recipes">
+        <div class="postedRecipes">
             <h2>Posted Recipes</h2>
-            <ul>
+            <ul class="recipeList">
                 @for(recipe of userRecipes; track $index){
-                    <li [routerLink]="['/recipes','details',recipe.recipeId]">{{recipe.title}}</li>
+                    <li [routerLink]="['/recipes','details',recipe.recipeId]"><app-posted-recipe [postedRecipe]="recipe" ></app-posted-recipe></li>
                 }
             </ul>
           </div>
        
      }@else {
-        <p class="no-recipes-message">This user has not posted any recipes yet.</p>
+        <p class="noRecipesMessage">This user has not posted any recipes yet.</p>
      }
     </div>
     </div>
   </div>
+}@else {
+  <p>Loading...</p>
+}
+
   

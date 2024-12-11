@@ -77,24 +77,6 @@
     background-color: #bb6351;
 }
 
-.buttonsField{
-    align-self: flex-end;
-}
-
-.buttonsField div{
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 1.4rem;
-    cursor: pointer;
-    background-color: #A45848;
-    color: #efece8;
-}
-
-.buttonsField div:hover{
-    background-color: white;
-    color: black;
-}
-
 .filterBy{
     display: flex;
     gap: 10px;

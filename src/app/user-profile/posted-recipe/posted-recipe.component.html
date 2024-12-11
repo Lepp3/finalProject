@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <div class="imgHolder">
+        <img [src]="recipe.imageSrc"/>
+    </div>
+    <div class="headings">
+        <h3 >{{recipe.title}}</h3>     
+    </div>
+    <div class="shortInfo">
+        <p>{{recipe.shortInfo}}</p>
+    </div>
+    <div class="metrics">
+        <div class="commentsAndLikes">
+          <p>Comments ({{getComments().length}})</p>
+          <p>Likes ({{getLikes().length}})</p>
+        </div>
+        <p class="postDate">Posted on: {{recipe.timestamp | date}}</p>
+      </div>
+</div>>

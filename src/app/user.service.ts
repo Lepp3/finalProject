@@ -105,7 +105,9 @@ export class UserService implements OnDestroy {
 
 
     if (idToken && refreshToken && localId && expirationTime) {
-      // Optionally refresh token if close to expiration
+      if(this.isRefreshTokenExpired()){
+        this.refreshAuthToken();
+      }
       this.setUserState({
         kind: '',
         localId: localId,
@@ -214,16 +216,8 @@ export class UserService implements OnDestroy {
   }
 
 
-  //sign out
-  // signOutUser(): Promise<void> {
-  //   return new Promise((resolve)=>{
-  //     this.userSubject.next(null);
-  //     this.userInfoSubject.next(null);
-  //     localStorage.clear();
-  //     resolve();
-  //   });
-  // }
 
+  //sign out
   signOutUser(){
     this.userSubject.next(null);
     this.userInfoSubject.next(null);
@@ -239,7 +233,7 @@ export class UserService implements OnDestroy {
     }
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     });
 
     const requestBody = {

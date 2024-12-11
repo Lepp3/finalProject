@@ -4,11 +4,12 @@ import { UserService } from '../user.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleRecipe } from '../catalog/models/recipe.model';
 import { RecipeService } from '../recipe.service';
+import { PostedRecipeComponent } from './posted-recipe/posted-recipe.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,PostedRecipeComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })

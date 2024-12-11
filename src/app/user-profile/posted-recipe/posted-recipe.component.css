@@ -1,5 +1,5 @@
-.singleRecipe{
-   border-radius: 10px;
+.wrapper{
+    border-radius: 10px;
    overflow: hidden;
    padding: 10px;
    align-items: center;
@@ -12,28 +12,14 @@
    background-color: #efece8;
 }
 
-
-
 .headings{
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.headings div{
-    display: flex;
-    gap: 3px;
-    text-align: center;
-    align-self: center;
-}
-
-.headings h2{
+.headings h3{
     font-size: 1.8rem;
-}
-
-.headings p:hover{
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 .imgHolder{

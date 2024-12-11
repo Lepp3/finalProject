@@ -1,6 +1,8 @@
 @if(currentUserInfo){
     <div class="wrapper">
+        <div class="frame">
         <form #profileEditForm="ngForm" class="profileEditForm" (ngSubmit)="onEditSubmit()">
+            <div class="groups">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input
@@ -33,12 +35,17 @@
                 type="text"
                 name="imageSrc"
                 id="imageSrc"
-                ngModel
+                [(ngModel)]="currentUserInfo.profileImgSrc"
                 #imageInput="ngModel"
+                placeholder="if no link is presented a default avatar is applied"
                 />
             </div>
-            <button>Save Changes</button>
+            <div class="submitButton">
+                <button class="controlButton">Save Changes</button>
+            </div>
+        </div>
         </form>
+    </div>
     </div>
 }@else {
     <p>loading</p>
