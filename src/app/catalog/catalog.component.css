@@ -8,6 +8,7 @@
     font-family: 'Roboto', serif;
     color: #A45848;
     align-items: center;
+    min-height: calc(100vh - 150px);
 }
 
 
@@ -33,6 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .searchField{
     align-items: center;
@@ -123,13 +125,18 @@
     color: black;
 }
 
-
+.recipeSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
 .recipeList{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 2rem 0px;
+    gap: 2rem 1rem;
 }
 
 

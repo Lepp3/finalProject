@@ -19,6 +19,9 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.recService.getAllRecipes().subscribe((data) => {
+      if(!data){
+        return;
+      }
       this.recipes = Object.values(data);
       this.filteredRecipes = Object.values(data);
     });

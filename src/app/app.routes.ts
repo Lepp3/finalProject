@@ -10,6 +10,7 @@ import { RecipeEditComponent } from './catalog/recipe-details/recipe-edit/recipe
 import { AuthGuard, GuestGuard, AuthorGuard, ProfileOwnerGuard } from './users.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { EditProfileComponent } from './user-profile/edit-profile/edit-profile.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch:'full'},
@@ -47,17 +48,11 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+        path: 'about',
+        component: AboutComponent
+    },
     
-
-
-
-
-
-
-
-
-
-
     {path: '**', component: ErrorPageComponent, pathMatch:'full'},
 
 ];

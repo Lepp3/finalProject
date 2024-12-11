@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
 import { catchError, throwError } from 'rxjs';
+import { SignedUser } from '../user-profile/models/userModel';
 
 
 
@@ -36,7 +37,7 @@ export class LoginComponent {
     const password = form?.value.password;
 
     this.logged.signInUser(email,password).subscribe({
-      complete: ()=>{
+     complete: ()=>{
         this.router.navigate(['/home']);
       },
       error: (err)=>{

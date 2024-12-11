@@ -13,13 +13,13 @@
 .headings{
     font-size: 2rem;
     text-align: center;
-    color: rgb(48, 49, 51);
+    color: black;
 }
 
 .left{
     font-size: 1.6rem;
     text-align: center;
-    color: rgb(48, 49, 51);
+    color: black;
     align-self: flex-start;
 }
 
@@ -27,7 +27,7 @@
     font-size: 2rem;
     text-align: center;
     margin-top: 150px;
-    color: rgb(42, 90, 53);
+    color: #A45848;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -36,13 +36,13 @@
 }
 
 .join-us a{
-    background-color: rgb(219, 149, 19);
+    background-color: #A45848;
     padding: 5px 10px;
     border-radius: 5px;
-    border: 2px solid black;
+    color: white;
     }
 
 .join-us a:hover{
-    background-color: rgb(219, 149, 19);
+    background-color: #be6655;
     color: white;
 }

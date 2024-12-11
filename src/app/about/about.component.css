@@ -1,0 +1,44 @@
+.wrapper{
+    min-height: calc(100vh - 150px);
+    background-color:#eaded2;
+    color:#A45848;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.about{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.about p{
+    width: 60%;
+    text-align: center;
+}
+
+.contact{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.contactList{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+}
+
+.contactList a{
+    color: blue;
+}
+
+.contactList a:hover{
+    text-decoration: underline;
+}

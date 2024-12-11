@@ -156,7 +156,6 @@ export class UserService implements OnDestroy {
       }), switchMap(data => this.createUserInfoInDatabase(data.localId, username, bio).pipe(
         tap((userInfo) => {
           this.setUserInfoState(userInfo)
-          debugger
         })
       )
       ),catchError((error) => {
